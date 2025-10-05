@@ -1,0 +1,46 @@
+/* src/app.css */
+
+/* 1. VARIABLES GLOBALES DE LA MARCA ZENITH STUDIO */
+:root {
+    /* Colores primarios */
+    --color-primary: #49e4b0; /* Azul para énfasis */
+    --color-secondary: #003366; /* Gris secundario */
+    
+    /* Colores de fondo/texto (Basado en un tema oscuro premium) */
+    --color-background: #0d0d0d; /* Fondo principal oscuro */
+    --color-surface: #1a1a1a; /* Superficies o tarjetas */
+    --color-text-light: #f0f0f0; /* Texto principal claro */
+    --color-text-muted: #aaaaaa; /* Texto secundario/descripciones */
+    
+    /* Tipografía */
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+
+/* 2. RESET Y ESTILOS BASE */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    background-color: var(--color-background);
+    color: var(--color-text-light);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    scroll-behavior: smooth; /* Animación suave al hacer clic en enlaces */
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* 3. HEADERS (PARA TODA LA WEB) */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
