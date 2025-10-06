@@ -1,1 +1,0 @@
-<h1>Esta es la página de [ZenithStudio]</h1>

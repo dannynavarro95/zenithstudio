@@ -1,46 +1,124 @@
-/* src/app.css */
+/* -------------------------------------------------------------------------
+   Estilos Globales: src/app.css
+   Define variables de tema (dark mode), tipografía y estilos base.
+------------------------------------------------------------------------- */
 
-/* 1. VARIABLES GLOBALES DE LA MARCA ZENITH STUDIO */
+/* Importar Font Awesome para los íconos (Aunque ya está en app.html, lo dejamos aquí como respaldo) */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+/* Importar la fuente Inter de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 :root {
-    /* Colores primarios */
-    --color-primary: #49e4b0; /* Azul para énfasis */
-    --color-secondary: #003366; /* Gris secundario */
+    /* Paleta de Colores (Tema Oscuro) */
+    --color-background: #0B0E14; /* Fondo Oscuro Profundo */
+    --color-surface: #1B1E29; /* Superficies de Contenido */
+    --color-primary: #49E4B0; /* Verde/Cian Primario (Vibrante) */
+    --color-text-light: #F0F4F8; /* Texto Principal */
+    --color-text-muted: #A0AEC0; /* Texto Secundario/Descripción */
+    --color-error: #F56565;
     
-    /* Colores de fondo/texto (Basado en un tema oscuro premium) */
-    --color-background: #0d0d0d; /* Fondo principal oscuro */
-    --color-surface: #1a1a1a; /* Superficies o tarjetas */
-    --color-text-light: #f0f0f0; /* Texto principal claro */
-    --color-text-muted: #aaaaaa; /* Texto secundario/descripciones */
-    
-    /* Tipografía */
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Roboto', sans-serif;
+    /* Variables de Diseño */
+    --max-width: 1400px;
+    --transition-duration: 0.4s;
 }
 
-
-/* 2. RESET Y ESTILOS BASE */
-* {
-    box-sizing: border-box;
+/* Base de la Página */
+html, body {
     margin: 0;
     padding: 0;
-}
-
-html, body {
+    min-height: 100vh;
     background-color: var(--color-background);
     color: var(--color-text-light);
-    font-family: var(--font-body);
+    font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    scroll-behavior: smooth; /* Animación suave al hacer clic en enlaces */
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
 }
 
+* {
+    box-sizing: border-box;
+}
+
+/* Reseteo de Enlaces */
 a {
-    color: var(--color-primary);
+    color: inherit;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color var(--transition-duration) ease;
 }
 
-/* 3. HEADERS (PARA TODA LA WEB) */
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    font-weight: 700;
+/* Contenedor Principal de la página */
+.content-wrapper {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Estilos de Sección Reutilizables */
+.section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-light);
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 4rem;
+    color: var(--color-text-muted);
+}
+
+/* Título con Degradado */
+.gradient-title {
+    background: linear-gradient(90deg, var(--color-primary), #00BFFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* -------------------------------------------------------------------------
+   Animaciones de Entrada por Scroll (Intersection Observer)
+------------------------------------------------------------------------- */
+
+/* Estilo Base para todos los elementos de bloque que deben animarse */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform; 
+}
+
+/* El elemento visible */
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animación específica para las tarjetas o pasos dentro de un bloque (entrada más rápida) */
+.step-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s;
+    will-change: opacity, transform;
+}
+
+.step-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* -------------------------------------------------------------------------
+   🔥 FIX CRÍTICO: Activación del Punto (Global)
+------------------------------------------------------------------------- */
+.step-card.visible .step-dot {
+    border-color: var(--color-primary); 
+    color: var(--color-primary); 
+    box-shadow: 0 0 15px var(--color-primary), 0 0 5px rgba(73, 228, 176, 0.8);
 }
