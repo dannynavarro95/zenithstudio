@@ -13,7 +13,7 @@
         { label: "Inicio", href: "/inicio" },
         { label: "Servicios", href: "/servicios" },
         { label: "Portfolio", href: "/portfolio" },
-        { label: "Contacto", href: "#contact" }, 
+        { label: "Contáctenos", href: "#contact" }, 
     ];
     
     function handleScroll() {
@@ -91,25 +91,39 @@
     
     <header class="navbar" class:scrolled={isScrolled}>
         <div class="content-wrapper nav-container">
-            <a href="/inicio" class="logo-link">
-                <img 
-                    src="/zenithstudio-logo-blanco.png" 
-                    alt="Zenith Studio Logo" 
-                    class="logo-img"
-                >
-            </a>
+            <div class="left-items">
+                <a href="/inicio" class="logo-link">
+                    <img 
+                        src="/zenithstudio-logo-blanco.png" 
+                        alt="Zenith Studio Logo" 
+                        class="logo-img"
+                    >
+                </a>
+                <div class="separator"></div> <!-- Barra separadora -->
+                
+                <nav class="desktop-nav">
+                    {#each navLinks as link}
+                        <a href={link.href} on:click={(e) => handleNavigation(e, link.href)} class="nav-link">
+                            {link.label}
+                        </a>
+                    {/each}
+                </nav>
+            </div>
             
-            <nav class="desktop-nav">
-                {#each navLinks as link}
-                    <a href={link.href} on:click={(e) => handleNavigation(e, link.href)}>
-                        {link.label}
+            <div class="right-items">
+                <div class="social-buttons">
+                    <a href="https://www.instagram.com/zenithstudio.es" target="_blank" class="instagram-icon">
+                        <i class="fab fa-instagram"></i>
                     </a>
-                {/each}
-            </nav>
-            
-            <a href="#contact" class="cta-nav-button desktop-only" on:click={(e) => handleNavigation(e, '#contact')}>
-                Iniciar Proyecto
-            </a>
+                    <a href="https://wa.me/613003673" target="_blank" class="whatsapp-button">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <a href="#contact" class="cta-nav-button desktop-only" on:click={(e) => handleNavigation(e, '#contact')}>
+                    Contáctenos
+                </a>
+            </div>
             
             <button 
                 class="menu-toggle" 
@@ -126,7 +140,7 @@
                     {link.label}
                 </a>
             {/each}
-            <a href="#contact" class="mobile-cta" on:click={(e) => handleNavigation(e, '#contact')}>Iniciar Proyecto</a>
+            <a href="#contact" class="mobile-cta" on:click={(e) => handleNavigation(e, '#contact')}>Contáctenos</a>
         </div>
     </header>
     
@@ -204,9 +218,20 @@
 
     .nav-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between; /* Alinear a la izquierda y derecha */
         align-items: center;
         height: 100%;
+    }
+
+    .nav-container .left-items {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-container .right-items {
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
     
     .logo-img {
@@ -218,32 +243,168 @@
         height: 35px; 
     }
     
+    .separator {
+        width: 1px;
+        height: 40px; /* Altura de la barra separadora */
+        background-color: var(--color-text-muted);
+        margin: 0 20px; /* Espaciado alrededor de la barra */
+    }
+
     .desktop-nav {
-        display: none; 
+        display: flex; 
         gap: 2rem;
+        align-items: center; /* Alinear verticalmente */
     }
     
     .desktop-nav a {
         font-weight: 500;
         color: var(--color-text-muted);
+        position: relative; /* Para el efecto de subrayado */
+        text-decoration: none; /* Sin subrayado por defecto */
     }
     
     .desktop-nav a:hover {
         color: var(--color-primary);
     }
     
-    .cta-nav-button {
-        background-color: var(--color-primary);
-        color: var(--color-background);
-        padding: 8px 20px;
-        border-radius: 4px;
-        font-weight: 600;
-        transition: opacity 0.3s ease, background-color 0.3s ease;
+    .nav-link {
+        color: var(--color-text-muted);
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #38c89b; /* Color aguamarina al pasar el ratón */
+        text-decoration: none; /* Sin subrayado al pasar el ratón */
+    }
+
+    .nav-link::after {
+        content: '';
+        display: block;
+        height: 2px;
+        background: #38c89b; /* Color del subrayado */
+        transition: width 0.3s ease;
+        width: 0; /* Sin subrayado por defecto */
+        position: absolute;
+        left: 0;
+        bottom: -5px; /* Espaciado del subrayado */
+    }
+
+    .nav-link:hover::after {
+        width: 100%; /* Subrayado completo al pasar el ratón */
     }
     
-    .cta-nav-button:hover {
-        opacity: 0.9;
-        background-color: #38c89b;
+    .social-buttons {
+        display: flex;
+        gap: 15px; /* Espaciado entre los botones */
+        align-items: center; /* Alinear verticalmente */
+    }
+
+    .instagram-icon, .whatsapp-button {
+        color: var(--color-text-muted);
+        transition: transform 0.3s ease, color 0.3s ease;
+        font-size: 1.5rem; /* Tamaño de los íconos */
+    }
+
+    .instagram-icon:hover {
+        color: #E1306C; /* Color corporativo de Instagram */
+        transform: scale(1.1); /* Efecto de aumento */
+    }
+
+    .whatsapp-button:hover {
+        color: #25D366; /* Color corporativo de WhatsApp */
+        transform: scale(1.1); /* Efecto de aumento */
+    }
+
+    /* Reglas mejoradas para el botón "Contáctenos" (efecto premium más visible) */
+    .cta-nav-button {
+        background: linear-gradient(90deg, rgba(73,228,176,1) 0%, rgba(20,184,166,1) 100%);
+        color: var(--color-background);
+        padding: 10px 22px;
+        border-radius: 10px;
+        font-weight: 700;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease, filter 0.25s ease;
+        box-shadow: 0 6px 18px rgba(14,20,25,0.25);
+        backdrop-filter: blur(4px);
+    }
+
+    /* Contenido encima de los efectos */
+    .cta-nav-button > * { position: relative; z-index: 2; }
+
+    /* Halo más visible */
+    .cta-nav-button::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        background: radial-gradient(800px 120px at 10% 0%, rgba(73,228,176,0.20), transparent 35%);
+        z-index: 0;
+        filter: blur(12px);
+        opacity: 0;
+        transition: opacity 0.28s ease, transform 0.28s ease;
+        transform: scale(0.97);
+    }
+
+    /* Shine más grande y definido (animado por keyframes) */
+    .cta-nav-button::after {
+        content: "";
+        position: absolute;
+        top: -80%;
+        left: -50%;
+        width: 40%;
+        height: 260%;
+        background: linear-gradient(120deg,
+            rgba(255,255,255,0.45) 0%,
+            rgba(255,255,255,0.18) 40%,
+            rgba(255,255,255,0.02) 70%,
+            transparent 100%);
+        transform: rotate(25deg) translateX(0);
+        transition: opacity 0.35s ease, transform 0.6s ease;
+        opacity: 0;
+        z-index: 3;
+        will-change: transform, opacity;
+    }
+
+    /* Hover / focus: elevación, mayor brillo y animación */
+    .cta-nav-button:hover,
+    .cta-nav-button:focus {
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 18px 44px rgba(73,228,176,0.18), 0 8px 24px rgba(0,0,0,0.35);
+        filter: saturate(1.12) brightness(1.03);
+    }
+
+    /* activar halo y lanzar la animación shine */
+    .cta-nav-button:hover::before,
+    .cta-nav-button:focus::before {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .cta-nav-button:hover::after {
+        opacity: 1;
+        animation: cta-shine 0.9s cubic-bezier(.2,.9,.2,1);
+    }
+
+    /* Keyframes del brillo que atraviesa el botón */
+    @keyframes cta-shine {
+        0% {
+            transform: translateX(-140%) rotate(25deg);
+            opacity: 0;
+        }
+        30% {
+            opacity: 0.95;
+        }
+        100% {
+            transform: translateX(280%) rotate(25deg);
+            opacity: 0;
+        }
+    }
+
+    /* Foco accesible */
+    .cta-nav-button:focus-visible {
+        outline: 2px solid rgba(73,228,176,0.30);
+        outline-offset: 4px;
     }
 
     .menu-toggle {
@@ -252,22 +413,22 @@
         border: none;
         color: var(--color-primary);
         font-size: 1.5rem;
-        cursor: pointer;
+        cursor: pointer; 
         z-index: 1010;
         padding: 5px;
     }
     
     .mobile-nav-menu {
-        position: absolute;
-        top: 80px;
+        position: absolute; 
+        top: 80px; 
         right: 0;
         width: 100%;
         height: 0;
         overflow: hidden;
         background-color: var(--color-surface);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
         transition: height 0.4s ease-in-out, padding 0.4s ease-in-out;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
@@ -380,6 +541,23 @@
         .footer-content {
             flex-direction: column;
             gap: 2rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .cta-nav-button {
+            padding: 9px 16px;
+            border-radius: 8px;
+        }
+        .cta-nav-button::before { filter: blur(8px); opacity: 0.8; }
+        .cta-nav-button::after {
+            width: 28%;
+            height: 200%;
+            top: -60%;
+            left: -40%;
+        }
+        .cta-nav-button:hover::after {
+            animation-duration: 0.7s;
         }
     }
 </style>

@@ -6,7 +6,7 @@
     
     let isFinished = false; 
     
-    const words = ['Digital', 'Estrategia', 'Rendimiento'];
+    const words = ['Estrategia', 'Rendimiento'];
 
     onMount(() => {
         const typingDuration = 5000; 
@@ -31,16 +31,17 @@
     <div class="content-wrapper hero-content">
         <div class="content-text" use:scrollObserverAction>
             <h1 class="main-title">
-                Construimos el futuro 
+                Transformamos el presente<br>
+                con 
                 <span class="gradient-title typing-text" class:finished={isFinished}>
                     <TypewriterText 
-                        words={words} 
+                        words={['Innovación', 'Excelencia', 'Visión']} 
                         delay={120} 
                         pause={3500}
                         on:done={handleTypewriterDone}
                     />
                 </span>
-                con maestría y precisión.
+                .
             </h1>
             <p class="subtitle">
                 Diseño web de alto impacto y desarrollo escalable para tu marca.
@@ -78,6 +79,12 @@
     .hero-content {
         position: relative;
         z-index: 10; 
+        
+        /* Aseguramos que el contenido esté centrado */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center; /* Centrar texto */
     }
 
     /* ----------------------------------------------------
@@ -168,31 +175,186 @@
         gap: 1.5rem;
     }
 
+    /* =========================
+       Botón principal: "Empezar un proyecto"
+       Efecto premium: halo + shine + elevación
+       ========================= */
     .cta-button {
-        background-color: var(--color-primary);
+        background: linear-gradient(90deg, rgba(73,228,176,1) 0%, rgba(20,184,166,1) 100%);
         color: var(--color-background);
-        padding: 12px 30px;
-        border-radius: 6px;
-        font-weight: 700;
-        transition: background-color 0.3s ease;
+        padding: 10px 24px;
+        border-radius: 10px;
+        font-weight: 800;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, filter 0.28s ease;
+        box-shadow: 0 8px 22px rgba(14,20,25,0.18);
+        backdrop-filter: blur(4px);
+        text-decoration: none;
+        display: inline-block;
     }
-    
-    .cta-button:hover {
-        background-color: #38c89b;
+
+    .cta-button > * { position: relative; z-index: 2; }
+
+    /* Halo sutil */
+    .cta-button::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        background: radial-gradient(700px 90px at 10% 0%, rgba(73,228,176,0.18), transparent 36%);
+        z-index: 0;
+        filter: blur(12px);
+        opacity: 0;
+        transition: opacity 0.28s ease, transform 0.28s ease;
+        transform: scale(0.98);
     }
-    
+
+    /* Brillo que atraviesa el botón */
+    .cta-button::after {
+        content: "";
+        position: absolute;
+        top: -80%;
+        left: -50%;
+        width: 38%;
+        height: 260%;
+        background: linear-gradient(120deg,
+            rgba(255,255,255,0.45) 0%,
+            rgba(255,255,255,0.18) 40%,
+            rgba(255,255,255,0.02) 70%,
+            transparent 100%);
+        transform: rotate(25deg) translateX(0);
+        opacity: 0;
+        z-index: 3;
+        will-change: transform, opacity;
+    }
+
+    .cta-button:hover,
+    .cta-button:focus {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 20px 46px rgba(73,228,176,0.18), 0 8px 28px rgba(0,0,0,0.32);
+        filter: saturate(1.12) brightness(1.03);
+    }
+
+    .cta-button:hover::before,
+    .cta-button:focus::before {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .cta-button:hover::after {
+        opacity: 1;
+        animation: hero-cta-shine 0.9s cubic-bezier(.2,.9,.2,1);
+    }
+
+    @keyframes hero-cta-shine {
+        0% {
+            transform: translateX(-140%) rotate(25deg);
+            opacity: 0;
+        }
+        30% { opacity: 0.95; }
+        100% {
+            transform: translateX(280%) rotate(25deg);
+            opacity: 0;
+        }
+    }
+
+    /* =========================
+       Botón secundario: "Ver Proyectos"
+       Estética premium: borde suave, fondo glass + micro-animación
+       ========================= */
     .secondary-button {
-        background: none;
-        border: 2px solid var(--color-text-muted);
-        color: var(--color-text-light);
-        padding: 12px 30px;
-        border-radius: 6px;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        padding: 10px 24px;
+        border-radius: 12px;
         font-weight: 700;
-        transition: border-color 0.3s ease, color 0.3s ease;
+        color: var(--color-text-muted);
+        background: rgba(255,255,255,0.02); /* glass base */
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: color 0.28s ease, transform 0.28s cubic-bezier(.2,.8,.2,1), box-shadow 0.28s ease, background 0.28s ease;
+        backdrop-filter: blur(4px);
+        z-index: 1;
+        text-decoration: none;
     }
-    
-    .secondary-button:hover {
-        border-color: var(--color-primary);
-        color: var(--color-primary);
+
+    /* contenido por encima de los efectos */
+    .secondary-button > * { position: relative; z-index: 4; }
+
+    /* borde degradado / halo animado (efecto premium) */
+    .secondary-button::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 14px;
+        background: linear-gradient(90deg, rgba(73,228,176,0.95), rgba(20,184,166,0.95), rgba(73,228,176,0.95));
+        filter: blur(14px);
+        opacity: 0;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        will-change: opacity, transform;
+        z-index: 0;
+        /* permitir animación de desplazamiento de gradiente */
+        background-size: 200% 100%;
+    }
+
+    /* brillo suave interior */
+    .secondary-button::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+        opacity: 0;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        z-index: 2;
+        border-radius: 12px;
+    }
+
+    /* Hover: invertir a degradado activo, elevar y mostrar halo */
+    .secondary-button:hover,
+    .secondary-button:focus {
+        color: var(--color-background);
+        background: linear-gradient(90deg, rgba(73,228,176,1), rgba(20,184,166,1));
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 18px 40px rgba(20,184,166,0.14);
+    }
+
+    .secondary-button:hover::before,
+    .secondary-button:focus::before {
+        opacity: 1;
+        transform: scale(1);
+        animation: secondary-border-shift 3s linear infinite;
+    }
+
+    .secondary-button:hover::after,
+    .secondary-button:focus::after {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+
+    @keyframes secondary-border-shift {
+        0%   { background-position: 0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Accesibilidad: foco visible */
+    .secondary-button:focus-visible {
+        outline: 2px solid rgba(73,228,176,0.26);
+        outline-offset: 4px;
+    }
+
+    /* Móvil: suavizar efecto */
+    @media (max-width: 600px) {
+        .secondary-button {
+            padding: 9px 16px;
+            border-radius: 10px;
+        }
+        .secondary-button::before { filter: blur(10px); opacity: 0.9; }
+        .secondary-button:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 22px rgba(20,184,166,0.12); }
     }
 </style>
