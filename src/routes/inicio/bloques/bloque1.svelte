@@ -2,7 +2,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { browser } from '$app/environment';
     
-    // Variables para la animación de loopp
+    // Variables para la animación de loop
     let lineWidthPercentage = 0; 
     const totalSteps = 5; 
     
