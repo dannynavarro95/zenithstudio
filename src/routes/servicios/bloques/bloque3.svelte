@@ -1,18 +1,18 @@
 <script lang="ts">
-	// Lógica para el bloque 2
+	// Lógica para el bloque 3
 </script>
 
 <section class="section">
 	<div class="content-wrapper">
 		<h2 class="section-title animated-content">
-			Nuestro Proceso
+			Tecnologías y Herramientas
 		</h2>
 		<p class="section-subtitle animated-content">
-			Aquí describiremos nuestro método de trabajo (descubrimiento, diseño, desarrollo, etc.).
+			Aquí mostraremos los logos de las tecnologías que dominamos.
 		</p>
 	</div>
 </section>
 
 <style>
-	/* Estilos para el bloque 2 */
+	/* Estilos para el bloque 3 */
 </style>
