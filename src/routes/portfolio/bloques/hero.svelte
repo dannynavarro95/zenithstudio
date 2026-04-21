@@ -1,411 +1,233 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { getContext } from 'svelte';
-    import type { Action } from 'svelte/action';
-    import TypewriterText from '$lib/TypewriterText.svelte';
+	import { base } from '$app/paths';
+	import { getContext } from 'svelte';
+	import type { Action } from 'svelte/action';
 
-    const scrollObserverAction = getContext<Action<HTMLElement>>('scrollObserverAction');
+	const scrollObserverAction = getContext<Action<HTMLElement>>('scrollObserverAction');
 
-    let isFinished = false;
+	function staticUrl(path: string): string {
+		return `${base}${path.startsWith('/') ? path : `/${path}`}`;
+	}
 
-    onMount(() => {
-        const timeout = setTimeout(() => {
-            isFinished = true;
-        }, 4500);
-
-        return () => clearTimeout(timeout);
-    });
-
-    function handleTypewriterDone() {
-        isFinished = true;
-    }
+	/** Mockups en `static/images/portfolio/mockups/` */
+	const heroMain = staticUrl('/images/portfolio/mockups/barber-prime.svg');
+	const heroThumb1 = staticUrl('/images/portfolio/mockups/liora-beauty.svg');
+	const heroThumb2 = staticUrl('/images/portfolio/mockups/nexa-fit.svg');
+	const heroThumb3 = staticUrl('/images/portfolio/mockups/roma-atelier.svg');
 </script>
 
-<section class="hero-section portfolio-hero">
-    <div class="hero-content content-wrapper" use:scrollObserverAction>
-        <div class="hero-badge">
-            <span class="badge-text">✨ Portfolio Profesional</span>
-        </div>
+<section class="portfolio-hero">
+	<div class="hero-glow"></div>
+	<div class="content-wrapper hero-grid" use:scrollObserverAction>
+		<div class="hero-copy">
+			<p class="hero-kicker">Portfolio visual</p>
+			<h1>Ejemplos de webs creadas para vender más</h1>
 
-        <h1 class="main-title">
-            <span class="title-line">Creamos</span>
-            <span class="title-line highlight-line">
-                <TypewriterText
-                    words={['Experiencias', 'Resultados', 'Éxitos']}
-                    delay={120}
-                    pause={2500}
-                    on:done={handleTypewriterDone}
-                />
-            </span>
-            <span class="title-line">Digitales</span>
-        </h1>
+			<div class="hero-actions">
+				<a href="#casos" class="cta-primary">
+					<i class="fa-solid fa-eye"></i>
+					Ver ejemplos
+				</a>
+				<a href="/contacto" class="cta-secondary">
+					<i class="fa-solid fa-bolt"></i>
+					Pedir propuesta
+				</a>
+			</div>
+		</div>
 
-        <p class="hero-description">
-            Descubre nuestro portfolio de proyectos exitosos. Desde webs corporativas que generan confianza
-            hasta ecommerce que multiplican ventas. Cada proyecto cuenta una historia de transformación digital.
-        </p>
-
-        <div class="hero-metrics">
-            <div class="metric-item">
-                <div class="metric-number">50+</div>
-                <div class="metric-label">Proyectos Completados</div>
-            </div>
-            <div class="metric-divider"></div>
-            <div class="metric-item">
-                <div class="metric-number">98%</div>
-                <div class="metric-label">Clientes Satisfechos</div>
-            </div>
-            <div class="metric-divider"></div>
-            <div class="metric-item">
-                <div class="metric-number">24h</div>
-                <div class="metric-label">Entrega Promedio</div>
-            </div>
-        </div>
-
-        <div class="hero-actions">
-            <a href="#casos" class="cta-button">
-                <i class="fas fa-eye"></i>
-                Explorar Casos
-            </a>
-            <a href="/contacto" class="secondary-button">
-                <i class="fas fa-paper-plane"></i>
-                Solicitar Propuesta
-            </a>
-        </div>
-
-        <div class="hero-visual-elements">
-            <div class="floating-element element-1">
-                <i class="fas fa-code"></i>
-            </div>
-            <div class="floating-element element-2">
-                <i class="fas fa-rocket"></i>
-            </div>
-            <div class="floating-element element-3">
-                <i class="fas fa-palette"></i>
-            </div>
-            <div class="floating-element element-4">
-                <i class="fas fa-chart-line"></i>
-            </div>
-        </div>
-    </div>
+		<div class="hero-showcase">
+			<div class="browser mockup-main">
+				<div class="browser-top"><span></span><span></span><span></span></div>
+				<div class="screen">
+					<img
+						src={heroMain}
+						alt="Vista previa web barbería"
+						width="800"
+						height="520"
+						decoding="async"
+						fetchpriority="high"
+					/>
+				</div>
+			</div>
+			<div class="hero-submockups">
+				<div class="browser mockup-tile">
+					<div class="browser-top"><span></span><span></span><span></span></div>
+					<div class="screen screen-sm">
+						<img src={heroThumb1} alt="" width="800" height="520" decoding="async" />
+					</div>
+				</div>
+				<div class="browser mockup-tile">
+					<div class="browser-top"><span></span><span></span><span></span></div>
+					<div class="screen screen-sm">
+						<img src={heroThumb2} alt="" width="800" height="520" decoding="async" />
+					</div>
+				</div>
+				<div class="browser mockup-tile">
+					<div class="browser-top"><span></span><span></span><span></span></div>
+					<div class="screen screen-sm">
+						<img src={heroThumb3} alt="" width="800" height="520" decoding="async" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <style>
-    .portfolio-hero {
-        min-height: 92vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-top: 7rem;
-        padding-bottom: 4rem;
-        position: relative;
-        background: radial-gradient(circle at top right, rgba(73, 228, 176, 0.14), transparent 25%),
-                    radial-gradient(circle at 20% 20%, rgba(0, 191, 255, 0.1), transparent 18%),
-                    linear-gradient(180deg, rgba(11, 14, 20, 0.98) 0%, #0B0E14 100%);
-        overflow: hidden;
-    }
+	.portfolio-hero {
+		position: relative;
+		padding: 7.5rem 0 4rem;
+		background: radial-gradient(circle at 10% 20%, rgba(73, 228, 176, 0.18), transparent 30%),
+			radial-gradient(circle at 90% 10%, rgba(0, 191, 255, 0.14), transparent 25%),
+			linear-gradient(180deg, rgba(11, 14, 20, 1) 0%, rgba(11, 14, 20, 0.92) 100%);
+		overflow: visible;
+	}
 
-    .portfolio-hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 55%);
-        opacity: 0.9;
-        pointer-events: none;
-    }
+	.hero-glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+		pointer-events: none;
+	}
 
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 960px;
-        text-align: center;
-    }
+	.hero-grid {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		gap: 2rem;
+		align-items: center;
+	}
 
-    .eyebrow {
-        display: inline-block;
-        margin-bottom: 1rem;
-        color: var(--color-primary);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font-size: 0.85rem;
-    }
+	h1 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 3.4rem);
+		line-height: 1.08;
+		font-weight: 900;
+		color: var(--color-text-light);
+	}
 
-    .main-title {
-        font-size: clamp(2.8rem, 6vw, 4.6rem);
-        font-weight: 900;
-        line-height: 1.02;
-        margin: 0;
-    }
+	.hero-kicker {
+		margin: 0 0 1rem;
+		display: inline-block;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
 
-    .subtitle {
-        margin: 1.8rem auto 2.8rem;
-        max-width: 720px;
-        color: var(--color-text-muted);
-        font-size: 1.08rem;
-        line-height: 1.9;
-    }
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.2rem;
+	}
 
-    .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
+	.cta-primary,
+	.cta-secondary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		padding: 0.9rem 1.4rem;
+		border-radius: 999px;
+		font-weight: 700;
+		transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+	}
 
-    .cta-button,
-    .secondary-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.95rem 2rem;
-        border-radius: 12px;
-        font-weight: 700;
-        min-width: 180px;
-        transition: transform 0.28s ease, box-shadow 0.28s ease;
-    }
+	.cta-primary {
+		background: linear-gradient(120deg, rgba(73, 228, 176, 1), rgba(20, 184, 166, 1));
+		color: var(--color-background);
+		box-shadow: 0 14px 28px rgba(73, 228, 176, 0.25);
+	}
 
-    .cta-button {
-        background: linear-gradient(90deg, rgba(73,228,176,1) 0%, rgba(20,184,166,1) 100%);
-        color: var(--color-background);
-        box-shadow: 0 16px 40px rgba(73, 228, 176, 0.18);
-    }
+	.cta-secondary {
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		background: rgba(255, 255, 255, 0.04);
+	}
 
-    .secondary-button {
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--color-text-light);
-        border: 1px solid rgba(255,255,255,0.08);
-        backdrop-filter: blur(12px);
-    }
+	.cta-primary:hover,
+	.cta-secondary:hover {
+		transform: translateY(-2px);
+	}
 
-    .cta-button:hover,
-    .secondary-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 22px 48px rgba(73, 228, 176, 0.18);
-    }
+	.hero-showcase {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		min-height: 0;
+	}
 
-    .typing-text {
-        display: inline-block;
-        min-height: 1.1em;
-    }
+	.hero-submockups {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.55rem;
+	}
 
-    .typing-text.finished {
-        color: var(--color-primary);
-        text-shadow: 0 0 14px rgba(73, 228, 176, 0.55), 0 0 28px rgba(73, 228, 176, 0.25);
-    }
+	.browser {
+		border-radius: 14px;
+		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		background: rgba(13, 17, 24, 0.9);
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+	}
 
-    .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        background: rgba(73, 228, 176, 0.1);
-        border: 1px solid rgba(73, 228, 176, 0.3);
-        border-radius: 50px;
-        padding: 8px 16px;
-        margin-bottom: 2rem;
-    }
+	.browser-top {
+		height: 26px;
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0 0.55rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
 
-    .badge-text {
-        color: var(--color-primary);
-        font-size: 0.9rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
+	.browser-top span {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.45);
+	}
 
-    .main-title {
-        font-size: clamp(3rem, 8vw, 5rem);
-        font-weight: 900;
-        line-height: 1.1;
-        margin: 0 0 2rem 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+	.screen {
+		position: relative;
+		height: 260px;
+		background: #0d1118;
+	}
 
-    .title-line {
-        display: block;
-        color: var(--color-text-light);
-    }
+	.screen img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top center;
+		display: block;
+	}
 
-    .highlight-line {
-        background: linear-gradient(135deg, var(--color-primary), #00BFFF);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        min-height: 1.2em;
-    }
+	.screen-sm {
+		height: 120px;
+	}
 
-    .hero-description {
-        font-size: 1.25rem;
-        color: var(--color-text-muted);
-        line-height: 1.6;
-        max-width: 700px;
-        margin: 0 auto 3rem;
-    }
+	.mockup-main {
+		width: 100%;
+		max-width: 520px;
+		margin-left: auto;
+	}
 
-    .hero-metrics {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        margin: 3rem 0;
-        flex-wrap: wrap;
-    }
+	@media (max-width: 900px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+		}
 
-    .metric-item {
-        text-align: center;
-        min-width: 120px;
-    }
+		.mockup-main {
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-    .metric-number {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: var(--color-primary);
-        display: block;
-        margin-bottom: 0.5rem;
-    }
+		.screen {
+			height: 220px;
+		}
 
-    .metric-label {
-        font-size: 0.9rem;
-        color: var(--color-text-muted);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .metric-divider {
-        width: 1px;
-        height: 60px;
-        background: rgba(255,255,255,0.1);
-    }
-
-    .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-top: 2rem;
-    }
-
-    .cta-button, .secondary-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 1.25rem 2.5rem;
-        border-radius: 50px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-size: 1.1rem;
-        min-width: 220px;
-        justify-content: center;
-    }
-
-    .cta-button {
-        background: linear-gradient(135deg, rgba(73,228,176,1) 0%, rgba(20,184,166,1) 100%);
-        color: var(--color-background);
-        box-shadow: 0 20px 40px rgba(73, 228, 176, 0.3);
-    }
-
-    .secondary-button {
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--color-text-light);
-        border: 1px solid rgba(255,255,255,0.08);
-        backdrop-filter: blur(12px);
-    }
-
-    .cta-button:hover, .secondary-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 25px 50px rgba(73, 228, 176, 0.3);
-    }
-
-    .hero-visual-elements {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        overflow: hidden;
-    }
-
-    .floating-element {
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        background: rgba(73, 228, 176, 0.1);
-        border: 1px solid rgba(73, 228, 176, 0.2);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        color: var(--color-primary);
-        animation: float 6s ease-in-out infinite;
-    }
-
-    .element-1 {
-        top: 20%;
-        left: 10%;
-        animation-delay: 0s;
-    }
-
-    .element-2 {
-        top: 60%;
-        right: 15%;
-        animation-delay: 2s;
-    }
-
-    .element-3 {
-        bottom: 25%;
-        left: 20%;
-        animation-delay: 4s;
-    }
-
-    .element-4 {
-        top: 30%;
-        right: 10%;
-        animation-delay: 1s;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        33% { transform: translateY(-20px) rotate(120deg); }
-        66% { transform: translateY(10px) rotate(240deg); }
-    }
-
-    .typing-text {
-        display: inline-block;
-        min-height: 1.1em;
-    }
-
-    .typing-text.finished {
-        color: var(--color-primary);
-        text-shadow: 0 0 14px rgba(73, 228, 176, 0.55), 0 0 28px rgba(73, 228, 176, 0.25);
-    }
-
-    @media (max-width: 768px) {
-        .hero-metrics {
-            gap: 1rem;
-        }
-
-        .metric-divider {
-            display: none;
-        }
-
-        .hero-actions {
-            flex-direction: column;
-        }
-
-        .cta-button, .secondary-button {
-            width: 100%;
-        }
-
-        .main-title {
-            font-size: clamp(2.5rem, 12vw, 4rem);
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-        }
-    }
+		.screen-sm {
+			height: 100px;
+		}
+	}
 </style>
