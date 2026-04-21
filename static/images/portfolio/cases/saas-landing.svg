@@ -1,0 +1,104 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="saasGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Chrome -->
+  <rect width="1200" height="800" fill="#2d3748" rx="8"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#1a202c" rx="8"/>
+  <circle cx="20" cy="20" r="6" fill="#e53e3e"/>
+  <circle cx="40" cy="20" r="6" fill="#d69e2e"/>
+  <circle cx="60" cy="20" r="6" fill="#38a169"/>
+  <rect x="100" y="10" width="400" height="20" fill="#4a5568" rx="10"/>
+  <text x="110" y="25" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12">https://nova-launch.com</text>
+
+  <!-- Content Area -->
+  <rect x="0" y="40" width="1200" height="760" fill="url(#saasGradient)"/>
+
+  <!-- Navigation -->
+  <rect x="0" y="40" width="1200" height="70" fill="rgba(255,255,255,0.1)"/>
+  <text x="50" y="80" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Nova Launch</text>
+  <text x="800" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Inicio</text>
+  <text x="880" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Características</text>
+  <text x="1000" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Precios</text>
+  <rect x="1080" y="55" width="80" height="35" fill="#ffffff" rx="17"/>
+  <text x="1120" y="77" fill="#667eea" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Login</text>
+
+  <!-- Hero Section -->
+  <text x="100" y="180" fill="#ffffff" font-family="Arial, sans-serif" font-size="52" font-weight="bold">Lanza tu Producto</text>
+  <text x="100" y="230" fill="#ffffff" font-family="Arial, sans-serif" font-size="52" font-weight="bold">al Éxito</text>
+  <text x="100" y="280" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" opacity="0.9">La plataforma definitiva para gestionar lanzamientos</text>
+  <text x="100" y="310" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" opacity="0.9">y maximizar conversiones</text>
+
+  <!-- CTA Buttons -->
+  <rect x="100" y="340" width="180" height="50" fill="#ffffff" rx="25"/>
+  <text x="190" y="370" fill="#667eea" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Empezar Gratis</text>
+
+  <rect x="300" y="340" width="180" height="50" fill="rgba(255,255,255,0.1)" stroke="#ffffff" stroke-width="2" rx="25"/>
+  <text x="390" y="370" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Ver Demo</text>
+
+  <!-- Dashboard Preview -->
+  <rect x="600" y="150" width="500" height="400" fill="rgba(255,255,255,0.95)" rx="12"/>
+  <text x="850" y="185" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Dashboard Interactivo</text>
+
+  <!-- Dashboard Elements -->
+  <rect x="620" y="200" width="140" height="80" fill="#f7fafc" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="690" y="225" fill="#2d3748" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Visitantes</text>
+  <text x="690" y="250" fill="#667eea" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">12,847</text>
+
+  <rect x="780" y="200" width="140" height="80" fill="#f7fafc" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="850" y="225" fill="#2d3748" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Conversiones</text>
+  <text x="850" y="250" fill="#38a169" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">3.2%</text>
+
+  <rect x="940" y="200" width="140" height="80" fill="#f7fafc" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="1010" y="225" fill="#2d3748" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Ingresos</text>
+  <text x="1010" y="250" fill="#f5576c" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">$45,231</text>
+
+  <!-- Chart Area -->
+  <rect x="620" y="300" width="460" height="200" fill="#f7fafc" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="850" y="330" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Crecimiento Mensual</text>
+
+  <!-- Simple Chart -->
+  <path d="M640 450 L680 420 L720 440 L760 400 L800 380 L840 420 L880 390 L920 370 L960 400 L1000 360 L1040 380 L1080 350" stroke="#667eea" stroke-width="3" fill="none"/>
+  <circle cx="640" cy="450" r="4" fill="#667eea"/>
+  <circle cx="680" cy="420" r="4" fill="#667eea"/>
+  <circle cx="720" cy="440" r="4" fill="#667eea"/>
+  <circle cx="760" cy="400" r="4" fill="#667eea"/>
+  <circle cx="800" cy="380" r="4" fill="#667eea"/>
+  <circle cx="840" cy="420" r="4" fill="#667eea"/>
+  <circle cx="880" cy="390" r="4" fill="#667eea"/>
+  <circle cx="920" cy="370" r="4" fill="#667eea"/>
+  <circle cx="960" cy="400" r="4" fill="#667eea"/>
+  <circle cx="1000" cy="360" r="4" fill="#667eea"/>
+  <circle cx="1040" cy="380" r="4" fill="#667eea"/>
+  <circle cx="1080" cy="350" r="4" fill="#667eea"/>
+
+  <!-- Features Section -->
+  <text x="100" y="620" fill="#ffffff" font-family="Arial, sans-serif" font-size="32" font-weight="bold">Características Principales</text>
+
+  <!-- Feature Cards -->
+  <rect x="100" y="650" width="250" height="100" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <circle cx="140" cy="690" r="20" fill="#ffffff"/>
+  <text x="140" y="697" fill="#667eea" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">🚀</text>
+  <text x="180" y="685" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Lanzamiento Rápido</text>
+  <text x="180" y="705" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" opacity="0.8">Configura en minutos</text>
+
+  <rect x="380" y="650" width="250" height="100" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <circle cx="420" cy="690" r="20" fill="#ffffff"/>
+  <text x="420" y="697" fill="#667eea" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">📊</text>
+  <text x="460" y="685" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Analytics Avanzado</text>
+  <text x="460" y="705" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" opacity="0.8">Métricas en tiempo real</text>
+
+  <rect x="660" y="650" width="250" height="100" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <circle cx="700" cy="690" r="20" fill="#ffffff"/>
+  <text x="700" y="697" fill="#667eea" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">🎯</text>
+  <text x="740" y="685" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Optimización A/B</text>
+  <text x="740" y="705" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" opacity="0.8">Mejora conversiones</text>
+</svg>

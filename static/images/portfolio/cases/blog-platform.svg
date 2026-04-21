@@ -1,0 +1,115 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blogGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="articleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Chrome -->
+  <rect width="1200" height="800" fill="#2d3748" rx="8"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#1a202c" rx="8"/>
+  <circle cx="20" cy="20" r="6" fill="#e53e3e"/>
+  <circle cx="40" cy="20" r="6" fill="#d69e2e"/>
+  <circle cx="60" cy="20" r="6" fill="#38a169"/>
+  <rect x="100" y="10" width="400" height="20" fill="#4a5568" rx="10"/>
+  <text x="110" y="25" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12">https://digital-insights.com</text>
+
+  <!-- Content Area -->
+  <rect x="0" y="40" width="1200" height="760" fill="url(#blogGradient)"/>
+
+  <!-- Navigation -->
+  <rect x="0" y="40" width="1200" height="70" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="50" y="80" fill="#2d3748" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Digital Insights</text>
+  <text x="750" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Inicio</text>
+  <text x="820" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Artículos</text>
+  <text x="900" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Categorías</text>
+  <text x="1000" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Sobre Mí</text>
+  <rect x="1080" y="55" width="80" height="35" fill="#4facfe" rx="17"/>
+  <text x="1120" y="77" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Suscribir</text>
+
+  <!-- Hero Section -->
+  <rect x="0" y="110" width="1200" height="250" fill="url(#articleGradient)"/>
+  <text x="100" y="170" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="bold">Descubre el Futuro</text>
+  <text x="100" y="210" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="bold">del Marketing Digital</text>
+  <text x="100" y="250" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" opacity="0.9">Artículos, guías y tendencias que transforman negocios</text>
+
+  <rect x="100" y="280" width="160" height="45" fill="#ffffff" rx="22"/>
+  <text x="180" y="308" fill="#4facfe" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Leer Artículos</text>
+
+  <!-- Featured Article -->
+  <rect x="50" y="380" width="1100" height="350" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="12"/>
+  <rect x="70" y="400" width="400" height="250" fill="#f8f9fa" rx="8"/>
+  <text x="270" y="430" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Artículo Destacado</text>
+  <rect x="90" y="450" width="340" height="4" fill="#4facfe" rx="2"/>
+  <text x="270" y="480" fill="#2d3748" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">10 Estrategias de Growth Hacking</text>
+  <text x="270" y="510" fill="#718096" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">Descubre las técnicas más efectivas para hacer crecer tu negocio</text>
+  <text x="270" y="530" fill="#718096" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">en el mundo digital actual.</text>
+  <text x="270" y="580" fill="#4facfe" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Leer más →</text>
+
+  <!-- Article Grid -->
+  <rect x="500" y="400" width="300" height="140" fill="#f8f9fa" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="650" y="425" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">SEO Avanzado 2024</text>
+  <text x="650" y="445" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Técnicas que dominan</text>
+  <text x="650" y="460" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">los motores de búsqueda</text>
+  <text x="650" y="510" fill="#4facfe" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Leer artículo</text>
+
+  <rect x="820" y="400" width="300" height="140" fill="#f8f9fa" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="970" y="425" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Email Marketing</text>
+  <text x="970" y="445" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Campañas que convierten</text>
+  <text x="970" y="460" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">y generan resultados</text>
+  <text x="970" y="510" fill="#4facfe" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Leer artículo</text>
+
+  <rect x="500" y="560" width="300" height="140" fill="#f8f9fa" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="650" y="585" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Social Media Strategy</text>
+  <text x="650" y="605" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Domina las redes sociales</text>
+  <text x="650" y="620" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">para tu marca</text>
+  <text x="650" y="670" fill="#4facfe" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Leer artículo</text>
+
+  <rect x="820" y="560" width="300" height="140" fill="#f8f9fa" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="970" y="585" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Analytics & Data</text>
+  <text x="970" y="605" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Toma decisiones basadas</text>
+  <text x="970" y="620" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">en datos reales</text>
+  <text x="970" y="670" fill="#4facfe" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Leer artículo</text>
+
+  <!-- Sidebar -->
+  <rect x="50" y="750" width="300" height="200" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="200" y="780" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Categorías</text>
+
+  <text x="70" y="810" fill="#4facfe" font-family="Arial, sans-serif" font-size="14">• Marketing Digital</text>
+  <text x="70" y="830" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">• SEO & SEM</text>
+  <text x="70" y="850" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">• Social Media</text>
+  <text x="70" y="870" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">• E-commerce</text>
+  <text x="70" y="890" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">• Analytics</text>
+
+  <!-- Newsletter Signup -->
+  <rect x="380" y="750" width="400" height="200" fill="#4facfe" rx="8"/>
+  <text x="580" y="785" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Newsletter</text>
+  <text x="580" y="810" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">Recibe los mejores artículos</text>
+  <text x="580" y="830" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">directamente en tu email</text>
+  <rect x="480" y="850" width="200" height="40" fill="#ffffff" rx="20"/>
+  <text x="580" y="875" fill="#4facfe" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Suscribirme</text>
+
+  <!-- Social Proof -->
+  <rect x="810" y="750" width="340" height="200" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+  <text x="980" y="780" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Seguidores</text>
+
+  <circle cx="860" cy="810" r="25" fill="#4facfe"/>
+  <text x="860" y="818" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">📱</text>
+  <text x="920" y="815" fill="#2d3748" font-family="Arial, sans-serif" font-size="14" font-weight="bold">12.5K</text>
+  <text x="920" y="830" fill="#718096" font-family="Arial, sans-serif" font-size="12">Instagram</text>
+
+  <circle cx="860" cy="860" r="25" fill="#4facfe"/>
+  <text x="860" y="868" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">🐦</text>
+  <text x="920" y="865" fill="#2d3748" font-family="Arial, sans-serif" font-size="14" font-weight="bold">8.3K</text>
+  <text x="920" y="880" fill="#718096" font-family="Arial, sans-serif" font-size="12">Twitter</text>
+
+  <circle cx="860" cy="910" r="25" fill="#4facfe"/>
+  <text x="860" y="918" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">💼</text>
+  <text x="920" y="915" fill="#2d3748" font-family="Arial, sans-serif" font-size="14" font-weight="bold">5.7K</text>
+  <text x="920" y="930" fill="#718096" font-family="Arial, sans-serif" font-size="12">LinkedIn</text>
+</svg>

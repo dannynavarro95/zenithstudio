@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2F4550"/>
+      <stop offset="100%" stop-color="#1F2937"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#F8B64C"/>
+      <stop offset="100%" stop-color="#F05F6F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#0A101D"/>
+  <rect x="100" y="100" width="450" height="220" rx="30" fill="url(#g1)" opacity="0.95"/>
+  <rect x="100" y="350" width="450" height="280" rx="32" fill="#111827" opacity="0.95"/>
+  <rect x="620" y="120" width="420" height="220" rx="28" fill="url(#g2)" opacity="0.95"/>
+  <circle cx="850" cy="540" r="70" fill="#49E4B0" opacity="0.85"/>
+  <rect x="650" y="440" width="420" height="220" rx="36" fill="#111827" opacity="0.95"/>
+  <path d="M140 150h380" stroke="#F8B64C" stroke-width="18" stroke-linecap="round"/>
+  <path d="M140 210h260" stroke="#F05F6F" stroke-width="18" stroke-linecap="round"/>
+  <path d="M140 270h320" stroke="#ffffff" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+  <path d="M680 170h300" stroke="#ffffff" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+  <path d="M680 230h260" stroke="#ffffff" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+  <path d="M680 290h180" stroke="#ffffff" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="420" cy="440" r="22" fill="#49E4B0"/>
+  <circle cx="500" cy="520" r="18" fill="#F8B64C"/>
+  <circle cx="600" cy="470" r="16" fill="#F05F6F"/>
+  <text x="120" y="420" fill="#F8B64C" font-size="48" font-family="Inter, sans-serif" font-weight="800">Demo restaurante</text>
+</svg>

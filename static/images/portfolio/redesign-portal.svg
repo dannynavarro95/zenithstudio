@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0E1A2A"/>
+      <stop offset="100%" stop-color="#152B42"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g1)"/>
+  <rect x="100" y="120" width="460" height="240" rx="36" fill="#172D40"/>
+  <rect x="620" y="120" width="420" height="240" rx="36" fill="#1E3C5A"/>
+  <rect x="140" y="180" width="380" height="32" rx="16" fill="#49E4B0"/>
+  <rect x="140" y="240" width="320" height="28" rx="14" fill="#A0AEC0" opacity="0.8"/>
+  <rect x="680" y="180" width="300" height="32" rx="16" fill="#33B7FF"/>
+  <rect x="680" y="240" width="220" height="28" rx="14" fill="#94A3B8" opacity="0.8"/>
+  <rect x="120" y="420" width="960" height="260" rx="40" fill="#111B2B"/>
+  <rect x="160" y="470" width="520" height="32" rx="16" fill="#49E4B0"/>
+  <rect x="160" y="520" width="720" height="22" rx="11" fill="#ffffff" opacity="0.14"/>
+  <rect x="160" y="560" width="360" height="22" rx="11" fill="#ffffff" opacity="0.12"/>
+  <rect x="160" y="610" width="440" height="20" rx="10" fill="#ffffff" opacity="0.1"/>
+  <circle cx="900" cy="520" r="72" fill="#F5C343" opacity="0.28"/>
+  <text x="150" y="440" fill="#ffffff" font-size="42" font-family="Inter, sans-serif" font-weight="800">Rediseño E-Commerce</text>
+</svg>

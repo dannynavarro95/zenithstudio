@@ -1,0 +1,86 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ecommerceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7fafc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="productGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Chrome -->
+  <rect width="1200" height="800" fill="#2d3748" rx="8"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#1a202c" rx="8"/>
+  <circle cx="20" cy="20" r="6" fill="#e53e3e"/>
+  <circle cx="40" cy="20" r="6" fill="#d69e2e"/>
+  <circle cx="60" cy="20" r="6" fill="#38a169"/>
+  <rect x="100" y="10" width="400" height="20" fill="#4a5568" rx="10"/>
+  <text x="110" y="25" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12">https://atlas-commerce.com</text>
+
+  <!-- Content Area -->
+  <rect x="0" y="40" width="1200" height="760" fill="url(#ecommerceGradient)"/>
+
+  <!-- Navigation -->
+  <rect x="0" y="40" width="1200" height="70" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="50" y="80" fill="#2d3748" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Atlas Commerce</text>
+  <text x="750" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Productos</text>
+  <text x="850" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Categorías</text>
+  <text x="950" y="75" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Ofertas</text>
+  <rect x="1050" y="55" width="100" height="30" fill="#667eea" rx="15"/>
+  <text x="1100" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Carrito (3)</text>
+
+  <!-- Hero Section -->
+  <rect x="0" y="110" width="1200" height="300" fill="url(#productGradient)"/>
+  <text x="100" y="180" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="bold">Descubre Nuestra</text>
+  <text x="100" y="230" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="bold">Colección Premium</text>
+  <text x="100" y="270" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" opacity="0.9">Productos exclusivos con envío gratuito en 24h</text>
+
+  <rect x="100" y="300" width="160" height="45" fill="#ffffff" rx="22"/>
+  <text x="180" y="328" fill="#667eea" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Comprar Ahora</text>
+
+  <!-- Product Grid -->
+  <text x="50" y="420" fill="#2d3748" font-family="Arial, sans-serif" font-size="28" font-weight="bold">Productos Destacados</text>
+
+  <!-- Product Cards -->
+  <rect x="50" y="440" width="250" height="300" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="12"/>
+  <rect x="60" y="450" width="230" height="150" fill="#f7fafc" rx="8"/>
+  <rect x="70" y="470" width="50" height="50" fill="#667eea" rx="25"/>
+  <text x="95" y="500" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Producto</text>
+  <text x="175" y="540" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold">$299.99</text>
+  <rect x="70" y="560" width="100" height="35" fill="#667eea" rx="17"/>
+  <text x="120" y="582" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Añadir</text>
+
+  <rect x="330" y="440" width="250" height="300" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="12"/>
+  <rect x="340" y="450" width="230" height="150" fill="#f7fafc" rx="8"/>
+  <rect x="350" y="470" width="50" height="50" fill="#764ba2" rx="25"/>
+  <text x="375" y="500" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Producto</text>
+  <text x="455" y="540" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold">$199.99</text>
+  <rect x="350" y="560" width="100" height="35" fill="#764ba2" rx="17"/>
+  <text x="400" y="582" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Añadir</text>
+
+  <rect x="610" y="440" width="250" height="300" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="12"/>
+  <rect x="620" y="450" width="230" height="150" fill="#f7fafc" rx="8"/>
+  <rect x="630" y="470" width="50" height="50" fill="#38a169" rx="25"/>
+  <text x="655" y="500" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Producto</text>
+  <text x="735" y="540" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold">$149.99</text>
+  <rect x="630" y="560" width="100" height="35" fill="#38a169" rx="17"/>
+  <text x="680" y="582" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Añadir</text>
+
+  <!-- Filters Sidebar -->
+  <rect x="900" y="440" width="250" height="300" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="12"/>
+  <text x="950" y="470" fill="#2d3748" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Filtros</text>
+
+  <rect x="920" y="490" width="20" height="20" fill="none" stroke="#667eea" stroke-width="2" rx="3"/>
+  <text x="950" y="505" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Precio: $0 - $500</text>
+
+  <rect x="920" y="520" width="20" height="20" fill="none" stroke="#667eea" stroke-width="2" rx="3"/>
+  <text x="950" y="535" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Categoría: Todos</text>
+
+  <rect x="920" y="550" width="20" height="20" fill="none" stroke="#667eea" stroke-width="2" rx="3"/>
+  <text x="950" y="565" fill="#4a5568" font-family="Arial, sans-serif" font-size="14">Marca: Todas</text>
+
+  <rect x="920" y="600" width="200" height="40" fill="#667eea" rx="20"/>
+  <text x="1020" y="625" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Aplicar Filtros</text>
+</svg>

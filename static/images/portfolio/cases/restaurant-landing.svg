@@ -1,0 +1,100 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="restaurantGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d1b69;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#11998e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="foodGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fecfef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Chrome -->
+  <rect width="1200" height="800" fill="#2d3748" rx="8"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#1a202c" rx="8"/>
+  <circle cx="20" cy="20" r="6" fill="#e53e3e"/>
+  <circle cx="40" cy="20" r="6" fill="#d69e2e"/>
+  <circle cx="60" cy="20" r="6" fill="#38a169"/>
+  <rect x="100" y="10" width="400" height="20" fill="#4a5568" rx="10"/>
+  <text x="110" y="25" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12">https://bella-ristorante.com</text>
+
+  <!-- Content Area -->
+  <rect x="0" y="40" width="1200" height="760" fill="url(#restaurantGradient)"/>
+
+  <!-- Navigation -->
+  <rect x="0" y="40" width="1200" height="80" fill="rgba(0,0,0,0.3)"/>
+  <text x="50" y="85" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Bella Ristorante</text>
+  <text x="800" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Menú</text>
+  <text x="880" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Reservas</text>
+  <text x="970" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Sobre Nosotros</text>
+  <rect x="1050" y="60" width="120" height="35" fill="#ff6b6b" rx="17"/>
+  <text x="1110" y="82" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Reservar Mesa</text>
+
+  <!-- Hero Section -->
+  <text x="100" y="180" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">Cocina Italiana</text>
+  <text x="100" y="230" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">Auténtica</text>
+  <text x="100" y="280" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" opacity="0.9">Sabores tradicionales con un toque moderno</text>
+  <text x="100" y="310" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" opacity="0.9">desde 1995</text>
+
+  <!-- Menu Preview -->
+  <rect x="100" y="350" width="400" height="350" fill="rgba(255,255,255,0.95)" rx="12"/>
+  <text x="300" y="385" fill="#2d3748" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">Menú del Día</text>
+
+  <!-- Menu Items -->
+  <rect x="120" y="400" width="360" height="50" fill="#f8f9fa" rx="8"/>
+  <text x="140" y="425" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Risotto ai Funghi Porcini</text>
+  <text x="460" y="425" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="16" font-weight="bold">€24</text>
+  <text x="140" y="445" fill="#718096" font-family="Arial, sans-serif" font-size="14">Arroz cremoso con setas silvestres</text>
+
+  <rect x="120" y="460" width="360" height="50" fill="#ffffff" rx="8"/>
+  <text x="140" y="485" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Osso Buco alla Milanese</text>
+  <text x="460" y="485" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="16" font-weight="bold">€32</text>
+  <text x="140" y="505" fill="#718096" font-family="Arial, sans-serif" font-size="14">Jarrete de ternera con verduras</text>
+
+  <rect x="120" y="520" width="360" height="50" fill="#f8f9fa" rx="8"/>
+  <text x="140" y="545" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Tiramisù Tradicional</text>
+  <text x="460" y="545" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="16" font-weight="bold">€12</text>
+  <text x="140" y="565" fill="#718096" font-family="Arial, sans-serif" font-size="14">Postre italiano clásico</text>
+
+  <rect x="120" y="580" width="360" height="50" fill="#ffffff" rx="8"/>
+  <text x="140" y="605" fill="#2d3748" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Vino Chianti Classico</text>
+  <text x="460" y="605" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="16" font-weight="bold">€18</text>
+  <text x="140" y="625" fill="#718096" font-family="Arial, sans-serif" font-size="14">Vino tinto de la región de Toscana</text>
+
+  <!-- Food Images Gallery -->
+  <rect x="550" y="350" width="600" height="350" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="850" y="385" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Nuestros Platos</text>
+
+  <!-- Food Images Grid -->
+  <rect x="570" y="400" width="170" height="120" fill="url(#foodGradient)" rx="8"/>
+  <circle cx="655" cy="460" r="25" fill="#ff6b6b"/>
+  <text x="655" y="467" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">🍝</text>
+
+  <rect x="760" y="400" width="170" height="120" fill="url(#foodGradient)" rx="8"/>
+  <circle cx="845" cy="460" r="25" fill="#ff6b6b"/>
+  <text x="845" y="467" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">🍕</text>
+
+  <rect x="950" y="400" width="170" height="120" fill="url(#foodGradient)" rx="8"/>
+  <circle cx="1035" cy="460" r="25" fill="#ff6b6b"/>
+  <text x="1035" y="467" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">🍷</text>
+
+  <rect x="570" y="540" width="170" height="120" fill="url(#foodGradient)" rx="8"/>
+  <circle cx="655" cy="600" r="25" fill="#ff6b6b"/>
+  <text x="655" y="607" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">🧀</text>
+
+  <rect x="760" y="540" width="170" height="120" fill="url(#foodGradient)" rx="8"/>
+  <circle cx="845" cy="600" r="25" fill="#ff6b6b"/>
+  <text x="845" y="607" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">🥗</text>
+
+  <rect x="950" y="540" width="170" height="120" fill="url(#foodGradient)" rx="8"/>
+  <circle cx="1035" cy="600" r="25" fill="#ff6b6b"/>
+  <text x="1035" y="607" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">🍰</text>
+
+  <!-- Reservation CTA -->
+  <rect x="100" y="720" width="200" height="50" fill="#ff6b6b" rx="25"/>
+  <text x="200" y="750" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Hacer Reserva</text>
+
+  <rect x="320" y="720" width="200" height="50" fill="rgba(255,255,255,0.2)" stroke="#ffffff" stroke-width="2" rx="25"/>
+  <text x="420" y="750" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Ver Menú Completo</text>
+</svg>

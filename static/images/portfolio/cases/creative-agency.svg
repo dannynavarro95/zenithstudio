@@ -1,0 +1,102 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="agencyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffa500;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="projectGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Chrome -->
+  <rect width="1200" height="800" fill="#2d3748" rx="8"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#1a202c" rx="8"/>
+  <circle cx="20" cy="20" r="6" fill="#e53e3e"/>
+  <circle cx="40" cy="20" r="6" fill="#d69e2e"/>
+  <circle cx="60" cy="20" r="6" fill="#38a169"/>
+  <rect x="100" y="10" width="400" height="20" fill="#4a5568" rx="10"/>
+  <text x="110" y="25" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12">https://creative-studio.com</text>
+
+  <!-- Content Area -->
+  <rect x="0" y="40" width="1200" height="760" fill="url(#agencyGradient)"/>
+
+  <!-- Navigation -->
+  <rect x="0" y="40" width="1200" height="80" fill="rgba(0,0,0,0.2)"/>
+  <text x="50" y="85" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Creative Studio</text>
+  <text x="800" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Trabajos</text>
+  <text x="890" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Servicios</text>
+  <text x="980" y="75" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Sobre Nosotros</text>
+  <rect x="1080" y="60" width="90" height="35" fill="#ffffff" rx="17"/>
+  <text x="1125" y="82" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Contacto</text>
+
+  <!-- Hero Section -->
+  <text x="100" y="180" fill="#ffffff" font-family="Arial, sans-serif" font-size="52" font-weight="bold">Creamos Experiencias</text>
+  <text x="100" y="230" fill="#ffffff" font-family="Arial, sans-serif" font-size="52" font-weight="bold">que Inspiran</text>
+  <text x="100" y="280" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" opacity="0.9">Diseño, branding y desarrollo web para marcas que quieren destacar</text>
+
+  <!-- CTA Buttons -->
+  <rect x="100" y="320" width="180" height="50" fill="#ffffff" rx="25"/>
+  <text x="190" y="350" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Ver Portfolio</text>
+
+  <rect x="300" y="320" width="180" height="50" fill="rgba(255,255,255,0.2)" stroke="#ffffff" stroke-width="2" rx="25"/>
+  <text x="390" y="350" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Nuestros Servicios</text>
+
+  <!-- Featured Work Grid -->
+  <text x="100" y="450" fill="#ffffff" font-family="Arial, sans-serif" font-size="32" font-weight="bold">Trabajos Destacados</text>
+
+  <!-- Project Cards -->
+  <rect x="100" y="480" width="350" height="250" fill="rgba(255,255,255,0.95)" rx="12"/>
+  <rect x="120" y="500" width="310" height="150" fill="url(#projectGradient)" rx="8"/>
+  <text x="275" y="530" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Proyecto Creativo</text>
+  <text x="275" y="580" fill="#2d3748" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Brand Identity</text>
+  <text x="275" y="600" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Identidad visual completa</text>
+  <text x="275" y="615" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">para startup tecnológica</text>
+  <text x="275" y="700" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Ver caso completo →</text>
+
+  <rect x="480" y="480" width="350" height="250" fill="rgba(255,255,255,0.95)" rx="12"/>
+  <rect x="500" y="500" width="310" height="150" fill="#f093fb" rx="8"/>
+  <text x="655" y="530" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Proyecto Digital</text>
+  <text x="655" y="580" fill="#2d3748" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">E-commerce Platform</text>
+  <text x="655" y="600" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Tienda online premium</text>
+  <text x="655" y="615" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">con experiencia única</text>
+  <text x="655" y="700" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Ver caso completo →</text>
+
+  <rect x="860" y="480" width="350" height="250" fill="rgba(255,255,255,0.95)" rx="12"/>
+  <rect x="880" y="500" width="310" height="150" fill="#4facfe" rx="8"/>
+  <text x="1035" y="530" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Proyecto Web</text>
+  <text x="1035" y="580" fill="#2d3748" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Landing Page</text>
+  <text x="1035" y="600" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Página de conversión</text>
+  <text x="1035" y="615" fill="#718096" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">que genera resultados</text>
+  <text x="1035" y="700" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Ver caso completo →</text>
+
+  <!-- Services Section -->
+  <rect x="100" y="760" width="1000" height="150" fill="rgba(255,255,255,0.1)" rx="12"/>
+  <text x="600" y="790" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">Nuestros Servicios</text>
+
+  <!-- Service Icons -->
+  <circle cx="200" cy="830" r="30" fill="rgba(255,255,255,0.2)"/>
+  <text x="200" y="838" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">🎨</text>
+  <text x="200" y="870" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Diseño</text>
+
+  <circle cx="350" cy="830" r="30" fill="rgba(255,255,255,0.2)"/>
+  <text x="350" y="838" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">💻</text>
+  <text x="350" y="870" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Desarrollo</text>
+
+  <circle cx="500" cy="830" r="30" fill="rgba(255,255,255,0.2)"/>
+  <text x="500" y="838" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">📱</text>
+  <text x="500" y="870" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Mobile</text>
+
+  <circle cx="650" cy="830" r="30" fill="rgba(255,255,255,0.2)"/>
+  <text x="650" y="838" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">🚀</text>
+  <text x="650" y="870" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Marketing</text>
+
+  <circle cx="800" cy="830" r="30" fill="rgba(255,255,255,0.2)"/>
+  <text x="800" y="838" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">📊</text>
+  <text x="800" y="870" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Analytics</text>
+
+  <circle cx="950" cy="830" r="30" fill="rgba(255,255,255,0.2)"/>
+  <text x="950" y="838" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">🎯</text>
+  <text x="950" y="870" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Estrategia</text>
+</svg>

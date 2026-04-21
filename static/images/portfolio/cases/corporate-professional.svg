@@ -1,0 +1,79 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buttonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00bfff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Chrome -->
+  <rect width="1200" height="800" fill="#2d3748" rx="8"/>
+  <rect x="0" y="0" width="1200" height="40" fill="#1a202c" rx="8"/>
+  <circle cx="20" cy="20" r="6" fill="#e53e3e"/>
+  <circle cx="40" cy="20" r="6" fill="#d69e2e"/>
+  <circle cx="60" cy="20" r="6" fill="#38a169"/>
+  <rect x="100" y="10" width="400" height="20" fill="#4a5568" rx="10"/>
+  <text x="110" y="25" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12">https://techflow-solutions.com</text>
+
+  <!-- Content Area -->
+  <rect x="0" y="40" width="1200" height="760" fill="url(#heroGradient)"/>
+
+  <!-- Navigation -->
+  <rect x="0" y="40" width="1200" height="80" fill="rgba(255,255,255,0.05)"/>
+  <text x="50" y="85" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="bold">TechFlow Solutions</text>
+  <text x="800" y="75" fill="#a0aec0" font-family="Arial, sans-serif" font-size="14">Inicio</text>
+  <text x="880" y="75" fill="#a0aec0" font-family="Arial, sans-serif" font-size="14">Servicios</text>
+  <text x="970" y="75" fill="#a0aec0" font-family="Arial, sans-serif" font-size="14">Sobre Nosotros</text>
+  <text x="1080" y="75" fill="#00d4ff" font-family="Arial, sans-serif" font-size="14">Contacto</text>
+
+  <!-- Hero Content -->
+  <text x="100" y="200" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">Innovación Tecnológica</text>
+  <text x="100" y="250" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">para tu Negocio</text>
+  <text x="100" y="310" fill="#a0aec0" font-family="Arial, sans-serif" font-size="18">Soluciones digitales avanzadas que impulsan el crecimiento</text>
+  <text x="100" y="340" fill="#a0aec0" font-family="Arial, sans-serif" font-size="18">de tu empresa en la era digital.</text>
+
+  <!-- CTA Buttons -->
+  <rect x="100" y="380" width="180" height="50" fill="url(#buttonGradient)" rx="25"/>
+  <text x="190" y="410" fill="#ffffff" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Ver Servicios</text>
+
+  <rect x="300" y="380" width="180" height="50" fill="rgba(255,255,255,0.1)" stroke="#a0aec0" stroke-width="1" rx="25"/>
+  <text x="390" y="410" fill="#a0aec0" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Conócenos</text>
+
+  <!-- Stats -->
+  <rect x="100" y="480" width="150" height="80" fill="rgba(255,255,255,0.05)" rx="8"/>
+  <text x="175" y="510" fill="#00d4ff" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">500+</text>
+  <text x="175" y="530" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Clientes Satisfechos</text>
+
+  <rect x="280" y="480" width="150" height="80" fill="rgba(255,255,255,0.05)" rx="8"/>
+  <text x="355" y="510" fill="#00d4ff" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">98%</text>
+  <text x="355" y="530" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Tasa de Éxito</text>
+
+  <rect x="460" y="480" width="150" height="80" fill="rgba(255,255,255,0.05)" rx="8"/>
+  <text x="535" y="510" fill="#00d4ff" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">24/7</text>
+  <text x="535" y="530" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Soporte Técnico</text>
+
+  <!-- Services Preview -->
+  <rect x="700" y="200" width="400" height="300" fill="rgba(255,255,255,0.05)" rx="12"/>
+  <text x="900" y="230" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Nuestros Servicios</text>
+
+  <!-- Service Cards -->
+  <rect x="720" y="250" width="160" height="100" fill="rgba(0,212,255,0.1)" rx="8"/>
+  <text x="800" y="280" fill="#00d4ff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Cloud Computing</text>
+  <text x="800" y="300" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Infraestructura escalable</text>
+
+  <rect x="900" y="250" width="160" height="100" fill="rgba(0,212,255,0.1)" rx="8"/>
+  <text x="980" y="280" fill="#00d4ff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">IA & Machine Learning</text>
+  <text x="980" y="300" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Automatización inteligente</text>
+
+  <rect x="720" y="370" width="160" height="100" fill="rgba(0,212,255,0.1)" rx="8"/>
+  <text x="800" y="400" fill="#00d4ff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Cyberseguridad</text>
+  <text x="800" y="420" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Protección avanzada</text>
+
+  <rect x="900" y="370" width="160" height="100" fill="rgba(0,212,255,0.1)" rx="8"/>
+  <text x="980" y="400" fill="#00d4ff" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Consultoría Digital</text>
+  <text x="980" y="420" fill="#a0aec0" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Estrategia y transformación</text>
+</svg>
