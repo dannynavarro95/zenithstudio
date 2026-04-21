@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 520" width="800" height="520">
+  <defs>
+    <linearGradient id="ra-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(0,0,0,0.15)"/><stop offset="1" stop-color="rgba(0,0,0,0.55)"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="#fafafa"/>
+  <rect x="0" y="0" width="800" height="52" fill="#fff" stroke="#eee"/>
+  <text x="32" y="35" fill="#111" font-family="system-ui" font-size="11" letter-spacing="0.28em">ROMA ATELIER</text>
+  <text x="420" y="34" fill="#666" font-family="system-ui" font-size="10">Nuevo</text>
+  <text x="490" y="34" fill="#666" font-family="system-ui" font-size="10">Colecciones</text>
+  <text x="610" y="34" fill="#666" font-family="system-ui" font-size="10">Editorial</text>
+  <text x="720" y="34" fill="#111" font-family="system-ui" font-size="10" font-weight="700">Cesta (2)</text>
+  <image href="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1200&amp;h=780&amp;q=80" x="0" y="52" width="800" height="268" preserveAspectRatio="xMidYMid slice"/>
+  <rect x="0" y="52" width="800" height="268" fill="url(#ra-fade)"/>
+  <text x="400" y="200" fill="#fff" font-family="system-ui" font-size="38" font-weight="200" text-anchor="middle">Primavera 26</text>
+  <text x="400" y="234" fill="#e5e5e5" font-family="system-ui" font-size="13" text-anchor="middle">Siluetas fluidas · tejidos europeos</text>
+  <rect x="340" y="252" width="120" height="38" fill="#fff"/>
+  <text x="400" y="276" fill="#111" font-family="system-ui" font-size="11" font-weight="700" text-anchor="middle">Ver lookbook</text>
+  <rect x="0" y="320" width="800" height="200" fill="#fafafa"/>
+  <rect x="32" y="340" width="240" height="160" fill="#fff" stroke="#e5e5e5"/>
+  <image href="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&amp;fit=crop&amp;w=400&amp;h=500&amp;q=80" x="48" y="356" width="208" height="120" preserveAspectRatio="xMidYMid slice"/>
+  <text x="48" y="498" fill="#111" font-family="system-ui" font-size="12" font-weight="700">Chaqueta lino</text>
+  <text x="48" y="516" fill="#666" font-family="system-ui" font-size="11">189 EUR</text>
+  <rect x="288" y="340" width="240" height="160" fill="#fff" stroke="#e5e5e5"/>
+  <image href="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&amp;fit=crop&amp;w=400&amp;h=500&amp;q=80" x="304" y="356" width="208" height="120" preserveAspectRatio="xMidYMid slice"/>
+  <text x="304" y="498" fill="#111" font-family="system-ui" font-size="12" font-weight="700">Vestido midi</text>
+  <text x="304" y="516" fill="#666" font-family="system-ui" font-size="11">145 EUR</text>
+  <rect x="544" y="340" width="224" height="160" fill="#fff" stroke="#e5e5e5"/>
+  <image href="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&amp;fit=crop&amp;w=400&amp;h=500&amp;q=80" x="560" y="356" width="192" height="120" preserveAspectRatio="xMidYMid slice"/>
+  <text x="560" y="498" fill="#111" font-family="system-ui" font-size="12" font-weight="700">Bolso piel</text>
+  <text x="560" y="516" fill="#111" font-family="system-ui" font-size="11" font-weight="800">Anadir · 220 EUR</text>
+</svg>

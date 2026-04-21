@@ -1,19 +1,10 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { mockupSvg } from '$lib/portfolioMockupUrls';
+	import PortfolioMockupSvg from '$lib/PortfolioMockupSvg.svelte';
 	import { getContext } from 'svelte';
 	import type { Action } from 'svelte/action';
 
 	const scrollObserverAction = getContext<Action<HTMLElement>>('scrollObserverAction');
-
-	function staticUrl(path: string): string {
-		return `${base}${path.startsWith('/') ? path : `/${path}`}`;
-	}
-
-	/** Mockups en `static/images/portfolio/mockups/` */
-	const heroMain = staticUrl('/images/portfolio/mockups/barber-prime.svg');
-	const heroThumb1 = staticUrl('/images/portfolio/mockups/liora-beauty.svg');
-	const heroThumb2 = staticUrl('/images/portfolio/mockups/nexa-fit.svg');
-	const heroThumb3 = staticUrl('/images/portfolio/mockups/roma-atelier.svg');
 </script>
 
 <section class="portfolio-hero">
@@ -36,36 +27,23 @@
 		</div>
 
 		<div class="hero-showcase">
-			<div class="browser mockup-main">
-				<div class="browser-top"><span></span><span></span><span></span></div>
-				<div class="screen">
-					<img
-						src={heroMain}
-						alt="Vista previa web barbería"
-						width="800"
-						height="520"
-						decoding="async"
-						fetchpriority="high"
-					/>
-				</div>
-			</div>
-			<div class="hero-submockups">
-				<div class="browser mockup-tile">
+			<div class="mockup-collage">
+				<div class="collage-card collage-a browser">
 					<div class="browser-top"><span></span><span></span><span></span></div>
-					<div class="screen screen-sm">
-						<img src={heroThumb1} alt="" width="800" height="520" decoding="async" />
+					<div class="screen screen-a">
+						<PortfolioMockupSvg svg={mockupSvg.barberPrime} label="Vista previa web barbería" />
 					</div>
 				</div>
-				<div class="browser mockup-tile">
+				<div class="collage-card collage-b browser">
 					<div class="browser-top"><span></span><span></span><span></span></div>
-					<div class="screen screen-sm">
-						<img src={heroThumb2} alt="" width="800" height="520" decoding="async" />
+					<div class="screen screen-b">
+						<PortfolioMockupSvg svg={mockupSvg.lioraBeauty} decorative />
 					</div>
 				</div>
-				<div class="browser mockup-tile">
+				<div class="collage-card collage-c browser">
 					<div class="browser-top"><span></span><span></span><span></span></div>
-					<div class="screen screen-sm">
-						<img src={heroThumb3} alt="" width="800" height="520" decoding="async" />
+					<div class="screen screen-c">
+						<PortfolioMockupSvg svg={mockupSvg.nexaFit} decorative />
 					</div>
 				</div>
 			</div>
@@ -76,7 +54,7 @@
 <style>
 	.portfolio-hero {
 		position: relative;
-		padding: 7.5rem 0 4rem;
+		padding: 7.5rem 0 5.5rem;
 		background: radial-gradient(circle at 10% 20%, rgba(73, 228, 176, 0.18), transparent 30%),
 			radial-gradient(circle at 90% 10%, rgba(0, 191, 255, 0.14), transparent 25%),
 			linear-gradient(180deg, rgba(11, 14, 20, 1) 0%, rgba(11, 14, 20, 0.92) 100%);
@@ -94,7 +72,7 @@
 		position: relative;
 		z-index: 1;
 		display: grid;
-		grid-template-columns: 1fr 1.1fr;
+		grid-template-columns: 1fr 1.12fr;
 		gap: 2rem;
 		align-items: center;
 	}
@@ -152,24 +130,80 @@
 	}
 
 	.hero-showcase {
+		position: relative;
 		display: flex;
-		flex-direction: column;
-		gap: 0.85rem;
+		align-items: center;
+		justify-content: flex-end;
 		min-height: 0;
 	}
 
-	.hero-submockups {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 0.55rem;
+	.mockup-collage {
+		position: relative;
+		width: 100%;
+		max-width: 520px;
+		height: clamp(320px, 42vw, 400px);
+		margin-left: auto;
+		isolation: isolate;
 	}
 
-	.browser {
+	.collage-card {
+		position: absolute;
 		border-radius: 14px;
 		overflow: hidden;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		background: rgba(13, 17, 24, 0.9);
-		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+		border: 1px solid rgba(255, 255, 255, 0.22);
+		background: rgba(13, 17, 24, 0.95);
+		box-shadow:
+			0 24px 48px rgba(0, 0, 0, 0.5),
+			0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+		transform-origin: center center;
+		transition:
+			transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.35s ease,
+			z-index 0s linear;
+		will-change: transform;
+	}
+
+	.collage-card:hover {
+		z-index: 40;
+		box-shadow:
+			0 32px 64px rgba(0, 0, 0, 0.55),
+			0 0 0 1px rgba(73, 228, 176, 0.35);
+	}
+
+	.collage-a {
+		left: -2%;
+		top: 10%;
+		width: 64%;
+		z-index: 3;
+		transform: rotate(-4deg);
+	}
+
+	.collage-a:hover {
+		transform: rotate(-2deg) scale(1.03);
+	}
+
+	.collage-b {
+		right: -6%;
+		top: -4%;
+		width: 58%;
+		z-index: 4;
+		transform: rotate(6deg);
+	}
+
+	.collage-b:hover {
+		transform: rotate(4deg) scale(1.03);
+	}
+
+	.collage-c {
+		left: 8%;
+		bottom: -10%;
+		width: 60%;
+		z-index: 2;
+		transform: rotate(-2.5deg);
+	}
+
+	.collage-c:hover {
+		transform: rotate(-1deg) scale(1.03);
 	}
 
 	.browser-top {
@@ -190,26 +224,19 @@
 
 	.screen {
 		position: relative;
-		height: 260px;
 		background: #0d1118;
 	}
 
-	.screen img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: top center;
-		display: block;
+	.screen-a {
+		height: 220px;
 	}
 
-	.screen-sm {
-		height: 120px;
+	.screen-b {
+		height: 200px;
 	}
 
-	.mockup-main {
-		width: 100%;
-		max-width: 520px;
-		margin-left: auto;
+	.screen-c {
+		height: 210px;
 	}
 
 	@media (max-width: 900px) {
@@ -217,17 +244,47 @@
 			grid-template-columns: 1fr;
 		}
 
-		.mockup-main {
-			margin-left: auto;
-			margin-right: auto;
+		.hero-showcase {
+			justify-content: center;
 		}
 
-		.screen {
-			height: 220px;
+		.mockup-collage {
+			max-width: 100%;
+			height: clamp(300px, 78vw, 380px);
+			margin: 0 auto;
 		}
 
-		.screen-sm {
-			height: 100px;
+		.collage-a {
+			left: 0;
+			top: 12%;
+			width: 68%;
+			transform: rotate(-2.5deg);
+		}
+
+		.collage-b {
+			right: -2%;
+			top: -2%;
+			width: 62%;
+			transform: rotate(4deg);
+		}
+
+		.collage-c {
+			left: 6%;
+			bottom: -4%;
+			width: 64%;
+			transform: rotate(-1.5deg);
+		}
+
+		.screen-a {
+			height: 200px;
+		}
+
+		.screen-b {
+			height: 180px;
+		}
+
+		.screen-c {
+			height: 190px;
 		}
 	}
 </style>

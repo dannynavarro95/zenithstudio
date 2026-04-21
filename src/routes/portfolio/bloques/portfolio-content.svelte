@@ -1,10 +1,5 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-
-	/** Prefijo correcto para `static/` cuando la app tiene `paths.base` configurado */
-	function staticUrl(path: string): string {
-		return `${base}${path.startsWith('/') ? path : `/${path}`}`;
-	}
+	import PortfolioMockupSvg from '$lib/PortfolioMockupSvg.svelte';
 
 	export let stats: Array<{ icon: string; stat: string; description: string }> = [];
 	export let featured: {
@@ -13,6 +8,7 @@
 		description: string;
 		results: Array<{ label: string; value: string }>;
 		deliverables: string[];
+		/** Markup SVG completo (`mockupSvg.*` desde `+page`) */
 		image: string;
 	};
 	export let projects: Array<{
@@ -57,16 +53,10 @@
 				{/each}
 			</div>
 
-			<div class="showcase-mini">
+			<div class="showcase-mini featured-showcase">
 				<div class="mini-top"></div>
 				<div class="mini-content">
-					<img
-						src={staticUrl(featured.image)}
-						alt={`Vista previa ${featured.title}`}
-						width="800"
-						height="520"
-						decoding="async"
-					/>
+					<PortfolioMockupSvg svg={featured.image} label={`Vista previa ${featured.title}`} />
 				</div>
 			</div>
 		</div>
@@ -96,13 +86,9 @@
 							<span></span><span></span><span></span>
 						</div>
 						<div class="preview-body">
-							<img
-								src={staticUrl(project.image)}
-								alt={`Vista previa web ${project.title}`}
-								width="800"
-								height="520"
-								loading="lazy"
-								decoding="async"
+							<PortfolioMockupSvg
+								svg={project.image}
+								label={`Vista previa web ${project.title}`}
 							/>
 						</div>
 					</div>
@@ -243,22 +229,47 @@
 		border: 1px solid rgba(255, 255, 255, 0.18);
 	}
 
+	/* Glow Studio: ventana más grande, ratio de mockup real, imagen a cubrir todo el hueco */
+	.featured-showcase {
+		margin-top: 1.15rem;
+	}
+
+	.featured-showcase .mini-top {
+		height: 24px;
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	.featured-showcase .mini-content {
+		position: relative;
+		width: 100%;
+		height: clamp(260px, 34vw, 400px);
+		background: #0d1118;
+	}
+
+	.featured-showcase .mini-content :global(.portfolio-mockup-svg) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.featured-showcase .mini-content :global(.portfolio-mockup-svg svg) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top center;
+		display: block;
+	}
+
 	.mini-top {
 		height: 20px;
 		background: rgba(255, 255, 255, 0.18);
 	}
 
 	.mini-content {
+		position: relative;
 		height: 130px;
 		background: #0d1118;
-	}
-
-	.mini-content img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: top center;
-		display: block;
 	}
 
 	.results {
@@ -296,6 +307,10 @@
 	@media (max-width: 900px) {
 		.featured-wrap {
 			grid-template-columns: 1fr;
+		}
+
+		.featured-showcase .mini-content {
+			height: clamp(240px, 58vw, 360px);
 		}
 	}
 
@@ -354,18 +369,11 @@
 	}
 
 	.preview-body {
+		position: relative;
 		border-radius: 0 0 10px 10px;
 		height: 200px;
 		overflow: hidden;
 		background: #0d1118;
-	}
-
-	.preview-body img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: top center;
-		display: block;
 	}
 
 	.meta {

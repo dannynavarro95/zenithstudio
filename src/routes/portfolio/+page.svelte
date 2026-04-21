@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { mockupSvg } from '$lib/portfolioMockupUrls';
 	import Hero from './bloques/hero.svelte';
 	import PortfolioContent from './bloques/portfolio-content.svelte';
 
@@ -19,7 +20,7 @@
 			{ label: 'Conversión de visitas a lead', value: '+37%' }
 		],
 		deliverables: ['Diseño premium', 'SEO local', 'WhatsApp integrado', 'Mobile first'],
-		image: '/images/portfolio/mockups/glow-studio.svg'
+		image: mockupSvg.glowStudio
 	};
 
 	const portfolioProjects: Array<{
@@ -34,42 +35,42 @@
 			category: 'Barbería',
 			result: '+52% reservas online',
 			tags: ['Reservas', 'Landing', 'SEO local'],
-			image: '/images/portfolio/mockups/barber-prime.svg'
+			image: mockupSvg.barberPrime
 		},
 		{
 			title: 'Nexa Fit Club',
 			category: 'Gimnasio',
 			result: '+39% altas desde web',
 			tags: ['Prueba gratis', 'Ads', 'Tracking'],
-			image: '/images/portfolio/mockups/nexa-fit.svg'
+			image: mockupSvg.nexaFit
 		},
 		{
 			title: 'Liora Beauty',
 			category: 'Clínica estética',
 			result: '+44% formularios cualificados',
 			tags: ['Autoridad', 'Storytelling', 'Formulario'],
-			image: '/images/portfolio/mockups/liora-beauty.svg'
+			image: mockupSvg.lioraBeauty
 		},
 		{
 			title: 'Café Aura',
 			category: 'Restauración',
 			result: '+31% reservas entre semana',
 			tags: ['Carta', 'Reservas', 'Eventos'],
-			image: '/images/portfolio/mockups/cafe-aura.svg'
+			image: mockupSvg.cafeAura
 		},
 		{
 			title: 'Roma Atelier',
 			category: 'Moda',
 			result: '+27% conversión ecommerce',
 			tags: ['Ecommerce', 'Checkout', 'Upsell'],
-			image: '/images/portfolio/mockups/roma-atelier.svg'
+			image: mockupSvg.romaAtelier
 		},
 		{
 			title: 'Dental Nova',
 			category: 'Clínica dental',
 			result: '+46% solicitudes de valoración',
 			tags: ['Tratamientos', 'Confianza', 'Carga rápida'],
-			image: '/images/portfolio/mockups/dental-nova.svg'
+			image: mockupSvg.dentalNova
 		}
 	];
 

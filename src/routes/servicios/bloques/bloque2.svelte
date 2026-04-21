@@ -12,7 +12,7 @@
 			number: '02',
 			title: 'Arquitectura y UX/UI',
 			description: 'Creamos prototipos de alta fidelidad enfocados en la experiencia del usuario y la identidad visual de tu marca.',
-			icon: 'fas fa-drafting-pencil'
+			icon: 'fas fa-pencil-alt' // Icono para "Arquitectura y UX/UI"
 		},
 		{
 			number: '03',
@@ -123,11 +123,16 @@
 
 	.timeline-container {
 		position: relative;
-		display: grid;
+		display: flex; /* Usamos flexbox para un control más preciso */
+		justify-content: space-between; /* Espaciado uniforme entre los cuadros */
+		align-items: flex-start; /* Alineamos los cuadros al inicio */
+		gap: 1rem; /* Espaciado entre cuadros */
 		width: 100%;
-		/* Usamos minmax(0, 1fr) para asegurar que los 4 bloques quepan siempre en escritorio */
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 2rem;
+		/* Forzamos que los 4 cuadros estén en la misma línea */
+		/* grid-template-columns: repeat(4, 1fr); /1* 4 columnas iguales *1/ */
+		/* gap: 1rem; /1* Espaciado uniforme *1/ */
+		/* justify-items: center; /1* Centramos los cuadros *1/ */
+		/* align-items: start; /1* Alineamos los cuadros al inicio *1/ */
 		margin-top: 4rem;
 		margin-bottom: 8rem;
 		z-index: 1;
@@ -226,21 +231,5 @@
 	.primary-button:hover {
 		transform: scale(1.05);
 		box-shadow: 0 15px 40px rgba(73, 228, 176, 0.4);
-	}
-
-	/* Bajamos a 2x2 en pantallas medianas (tablets/portátiles pequeños) */
-	@media (max-width: 1200px) {
-		.timeline-container {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media (max-width: 768px) {
-		.timeline-container {
-			grid-template-columns: 1fr;
-		}
-		.final-cta {
-			padding: 4rem 1.5rem;
-		}
 	}
 </style>

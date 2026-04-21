@@ -2,7 +2,6 @@
 	import Hero from './bloques/hero.svelte';
 	import Bloque1 from './bloques/bloque1.svelte';
 	import Bloque2 from './bloques/bloque2.svelte';
-	import Bloque3 from './bloques/bloque3.svelte';
 	import { setContext, onMount } from 'svelte';
 	import type { Action } from 'svelte/action';
 
@@ -48,5 +47,4 @@
 	<Hero />
 	<Bloque1 />
 	<Bloque2 />
-	<Bloque3 />
 </div>
