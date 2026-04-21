@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { getContext, onMount } from 'svelte';
-	import type { Action } from 'svelte/action';
+	import { onMount } from 'svelte';
+	import { getScrollObserverAction } from '$lib/scrollObserverContext';
 
-	const observeSections = getContext<Action<HTMLElement>>('scrollObserverAction'); // Acción para observar el scroll
+	const observeSections = getScrollObserverAction();
 
 	// Mapa de tecnologías a iconos de Font Awesome para un toque más visual
 	const techIcons: { [key: string]: string } = {
@@ -47,10 +47,11 @@
 		const cards = sectionElement.querySelectorAll('.project-card');
 
 		cards.forEach((card) => {
-			card.addEventListener('mousemove', (e: MouseEvent) => {
+			card.addEventListener('mousemove', (e: Event) => {
+				const me = e as MouseEvent;
 				const rect = (card as HTMLElement).getBoundingClientRect();
-				const x = e.clientX - rect.left;
-				const y = e.clientY - rect.top;
+				const x = me.clientX - rect.left;
+				const y = me.clientY - rect.top;
 				(card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
 				(card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
 			});

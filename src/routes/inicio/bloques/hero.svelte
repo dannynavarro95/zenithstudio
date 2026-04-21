@@ -1,8 +1,9 @@
 <script>
-    import { onMount, getContext } from 'svelte';
-    import TypewriterText from '$lib/TypewriterText.svelte'; 
+    import { onMount } from 'svelte';
+    import { getScrollObserverAction } from '$lib/scrollObserverContext';
+    import TypewriterText from '$lib/TypewriterText.svelte';
 
-    const scrollObserverAction = getContext('scrollObserverAction');
+    const scrollObserverAction = getScrollObserverAction();
     
     let isFinished = false; 
     

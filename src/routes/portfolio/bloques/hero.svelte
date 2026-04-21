@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { mockupSvg } from '$lib/portfolioMockupUrls';
 	import PortfolioMockupSvg from '$lib/PortfolioMockupSvg.svelte';
-	import { getContext } from 'svelte';
-	import type { Action } from 'svelte/action';
+	import { getScrollObserverAction } from '$lib/scrollObserverContext';
 
-	const scrollObserverAction = getContext<Action<HTMLElement>>('scrollObserverAction');
+	const scrollObserverAction = getScrollObserverAction();
 </script>
 
 <section class="portfolio-hero">

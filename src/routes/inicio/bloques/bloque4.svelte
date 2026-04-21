@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-    import type { Action } from 'svelte/action';
-    
-    const observeSections = getContext<Action<HTMLElement>>('scrollObserverAction');
+    import { getScrollObserverAction } from '$lib/scrollObserverContext';
+
+    const observeSections = getScrollObserverAction();
     
     let name = '';
     let email = '';
