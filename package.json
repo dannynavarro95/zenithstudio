@@ -34,6 +34,7 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@sveltejs/adapter-node": "^5.5.4",
 		"svelte-typewriter": "^3.2.3"
 	}
 }
