@@ -13,7 +13,7 @@
         { label: "Inicio", href: "/inicio" },
         { label: "Servicios", href: "/servicios" },
         { label: "Portfolio", href: "/portfolio" },
-        { label: "Contáctenos", href: "#contact" }, 
+        { label: "Contáctenos", href: "/contacto" }, 
     ];
     
     function handleScroll() {
@@ -120,7 +120,7 @@
                     </a>
                 </div>
                 
-                <a href="#contact" class="cta-nav-button desktop-only" on:click={(e) => handleNavigation(e, '#contact')}>
+                <a href="/contacto" class="cta-nav-button desktop-only" on:click={(e) => handleNavigation(e, '/contacto')}>
                     Contáctenos
                 </a>
             </div>
@@ -140,7 +140,7 @@
                     {link.label}
                 </a>
             {/each}
-            <a href="#contact" class="mobile-cta" on:click={(e) => handleNavigation(e, '#contact')}>Contáctenos</a>
+            <a href="/contacto" class="mobile-cta" on:click={(e) => handleNavigation(e, '/contacto')}>Contáctenos</a>
         </div>
     </header>
     
@@ -154,16 +154,32 @@
                 <a href="/inicio" class="logo-link">
                     <img src="/zenithstudio-logo-blanco.png" alt="Zenith Studio Logo" class="logo-img-footer">
                 </a>
-                <p>Maestría en desarrollo web, enfocada en rendimiento y escalabilidad.</p>
+                <p>
+                    Diseñamos y desarrollamos webs premium con foco en conversión, velocidad y crecimiento
+                    sostenible.
+                </p>
+                <div class="footer-badges">
+                    <span><i class="fa-solid fa-gauge-high"></i> Alto rendimiento</span>
+                    <span><i class="fa-solid fa-mobile-screen"></i> Mobile first</span>
+                    <span><i class="fa-solid fa-chart-line"></i> Orientado a resultados</span>
+                </div>
             </div>
             
             <div class="footer-links">
-                <h4>Servicios</h4>
-                <a href="/servicios">Estrategia</a>
-                <a href="/servicios">Desarrollo</a>
-                <a href="/servicios">UX/UI</a>
+                <h4>Navegación</h4>
+                <a href="/inicio">Inicio</a>
+                <a href="/servicios">Servicios</a>
+                <a href="/portfolio">Portfolio</a>
+                <a href="/contacto">Contacto</a>
             </div>
             
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <a href="mailto:contacto@zenithstudio.com">contacto@zenithstudio.com</a>
+                <a href="https://wa.me/613003673" target="_blank" rel="noreferrer">WhatsApp</a>
+                <a href="https://www.instagram.com/zenithstudio.es" target="_blank" rel="noreferrer">Instagram</a>
+            </div>
+
             <div class="footer-links">
                 <h4>Legal</h4>
                 <a href="/politica-privacidad">Política de Privacidad</a>
@@ -171,7 +187,8 @@
             </div>
         </div>
         <div class="footer-bottom content-wrapper">
-            <p>&copy; {new Date().getFullYear()} Zenith Studio. Todos los derechos reservados.</p>
+            <p>&copy; {new Date().getFullYear()} Zenith Studio. Webs premium para negocios ambiciosos.</p>
+            <p>Hecho con estrategia, diseño y rendimiento.</p>
         </div>
     </footer>
 </div>
@@ -468,43 +485,83 @@
     
     .main-footer {
         background-color: var(--color-surface);
-        padding-top: 4rem;
+        padding-top: 2.2rem;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .main-footer::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at 10% 0%, rgba(73, 228, 176, 0.12), transparent 30%),
+            radial-gradient(circle at 90% 0%, rgba(0, 191, 255, 0.1), transparent 30%);
     }
     
     .footer-content {
-        display: flex;
-        justify-content: space-between;
-        gap: 3rem;
-        margin-bottom: 3rem;
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1.5fr repeat(3, minmax(0, 1fr));
+        gap: 2rem;
+        margin-bottom: 2.2rem;
     }
     
     .footer-brand {
-        max-width: 400px;
+        max-width: 470px;
     }
     
     .logo-img-footer {
         height: 45px;
-        margin-bottom: 1rem;
+        margin-bottom: 0.9rem;
         display: inline-block;
     }
     
     .footer-brand p {
         color: var(--color-text-muted);
-        font-size: 0.95rem;
+        font-size: 0.93rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .footer-badges {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .footer-badges span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.78rem;
+        color: var(--color-text-muted);
+        padding: 0.35rem 0.6rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .footer-badges i {
+        color: var(--color-primary);
     }
     
     .footer-links h4 {
         color: var(--color-text-light);
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin: 0 0 0.8rem;
     }
     
     .footer-links a {
         display: block;
         color: var(--color-text-muted);
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
+        margin-bottom: 0.55rem;
+        font-size: 0.88rem;
     }
     
     .footer-links a:hover {
@@ -512,12 +569,19 @@
     }
     
     .footer-bottom {
+        position: relative;
+        z-index: 1;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
-        text-align: center;
-        padding: 1.5rem 1.5rem;
+        padding: 1rem 1.5rem 1.3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
     }
     
     .footer-bottom p {
+        margin: 0;
         color: var(--color-text-muted);
         font-size: 0.85rem;
     }
@@ -539,8 +603,12 @@
             display: none;
         }
         .footer-content {
-            flex-direction: column;
+            grid-template-columns: 1fr;
             gap: 2rem;
+        }
+        .footer-bottom {
+            justify-content: center;
+            text-align: center;
         }
     }
 

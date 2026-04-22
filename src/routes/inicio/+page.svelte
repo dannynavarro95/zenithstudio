@@ -7,6 +7,10 @@
 
 <svelte:head>
 	<title>ZenithStudio - Arquitectura Digital de Vanguardia</title>
+	<meta
+		name="description"
+		content="Zenith Studio crea experiencias web premium orientadas a conversión: estrategia digital, diseño visual y desarrollo de alto rendimiento."
+	/>
 </svelte:head>
 
 <!-- 1. BLOQUE HERO (con lógica de Parallax y Fade) -->

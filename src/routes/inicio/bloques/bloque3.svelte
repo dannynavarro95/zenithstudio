@@ -1,252 +1,259 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { getScrollObserverAction } from '$lib/scrollObserverContext';
 
 	const observeSections = getScrollObserverAction();
 
-	// Mapa de tecnologías a iconos de Font Awesome para un toque más visual
 	const techIcons: { [key: string]: string } = {
 		SvelteKit: 'fas fa-cogs',
-		'D3.js': 'fas fa-chart-bar',
-		PostgreSQL: 'fas fa-database', // Este es un comentario de ejemplo
-		React: 'fab fa-react',
-		'Node.js': 'fab fa-node-js',
+		'SEO Técnico': 'fas fa-magnifying-glass-chart',
+		HubSpot: 'fas fa-bullseye',
+		'React + Vite': 'fab fa-react',
+		Shopify: 'fab fa-shopify',
 		Stripe: 'fab fa-stripe-s',
-		Angular: 'fab fa-angular',
-		Capacitor: 'fas fa-mobile-alt',
-		Firebase: 'fas fa-fire'
+		'Next.js': 'fas fa-layer-group',
+		'GA4': 'fas fa-chart-line',
+		'Meta Ads': 'fab fa-meta'
 	};
 
 	const projects = [
-        {
-            title: 'Plataforma Analítica IA',
-            description: 'Un dashboard de alto rendimiento para visualización de datos en tiempo real, impulsado por SvelteKit.',
-            tech: ['SvelteKit', 'D3.js', 'PostgreSQL'],
-            link: '#'
-        },
-        {
-            title: 'E-commerce Modular B2B',
-            description: 'Solución de comercio electrónico escalable con microservicios y una interfaz React ultra-rápida.',
-            tech: ['React', 'Node.js', 'Stripe'],
-            link: '#'
-        },
-        {
-            title: 'Aplicación Móvil Híbrida',
-            description: 'Aplicación multiplataforma para gestión de equipos, con una experiencia de usuario nativa y fluida.',
-            tech: ['Angular', 'Capacitor', 'Firebase'],
-            link: '#'
-        }
-    ];
-
-	let sectionElement: HTMLElement;
-
-	// onMount se ejecuta después de que el componente se ha renderizado en el DOM.
-	// Es el lugar seguro para interactuar con elementos del DOM.
-	onMount(() => {
-		// Seleccionamos las tarjetas de proyecto que están DENTRO de este componente.
-		const cards = sectionElement.querySelectorAll('.project-card');
-
-		cards.forEach((card) => {
-			card.addEventListener('mousemove', (e: Event) => {
-				const me = e as MouseEvent;
-				const rect = (card as HTMLElement).getBoundingClientRect();
-				const x = me.clientX - rect.left;
-				const y = me.clientY - rect.top;
-				(card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
-				(card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
-			});
-		});
-	});
+		{
+			title: 'Rebranding web para Glow Studio',
+			result: '+68% en reservas mensuales',
+			description:
+				'Rediseño de experiencia, velocidad y narrativa comercial para elevar percepción de marca y conversión.',
+			tech: ['SvelteKit', 'SEO Técnico', 'HubSpot'],
+			link: '/portfolio'
+		},
+		{
+			title: 'Ecommerce para Roma Atelier',
+			result: '+27% en conversión de checkout',
+			description:
+				'Arquitectura de compra simplificada con enfoque mobile y optimización de ticket medio.',
+			tech: ['React + Vite', 'Shopify', 'Stripe'],
+			link: '/portfolio'
+		},
+		{
+			title: 'Lanzamiento digital Nexa Fit',
+			result: '+39% en altas desde web',
+			description:
+				'Página de captación y automatización de leads para acelerar la adquisición de nuevos clientes.',
+			tech: ['Next.js', 'GA4', 'Meta Ads'],
+			link: '/portfolio'
+		}
+	];
 </script>
 
-<section class="section projects-section" id="projects" bind:this={sectionElement}>
-    <div class="content-wrapper">
-        <h2 class="section-title animated-content-ratio" use:observeSections>
-            Nuestros <span class="gradient-title">Proyectos Destacados</span>
-        </h2>
-        <p class="section-subtitle animated-content-ratio" use:observeSections>
-            La prueba de nuestra maestría. Soluciones reales, impactantes y técnicamente
-            sofisticadas.
-        </p>
+<section class="section projects-section" id="projects">
+	<div class="content-wrapper">
+		<h2 class="section-title animated-content-ratio" use:observeSections>
+			Proyectos <span class="gradient-title">con impacto medible</span>
+		</h2>
+		<p class="section-subtitle animated-content-ratio" use:observeSections>
+			Trabajos recientes donde diseño, posicionamiento y estrategia comercial se unieron para producir
+			resultados reales.
+		</p>
 
-        <div class="projects-grid">
-            {#each projects as project, i}
-                <div
-                    class="project-card animated-content-ratio"
-                    use:observeSections
-                    style={`--delay: ${i * 0.1}s`}
-                >
-                    <div class="project-header">
-                        <i class="fas fa-folder-open project-icon"></i>
-                        <a href={project.link} class="project-link-icon" aria-label="Ver proyecto">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">{project.title}</h3>
-                        <p class="project-description">{project.description}</p>
-                    </div>
-                    <div class="project-tech">
-                        {#each project.tech as tech}
-                            <span><i class={techIcons[tech] || 'fas fa-microchip'}></i> {tech}</span>
-                        {/each}
-                    </div>
-                </div>
-            {/each}
-        </div>
-        
-        <div class="view-more-container animated-content-ratio" use:observeSections>
-            <button class="view-more-button">
-                Ver todos los casos de éxito <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
+		<div class="projects-grid">
+			{#each projects as project, i}
+				<article
+					class="project-card animated-content-ratio"
+					use:observeSections
+					style={`transition-delay: ${i * 0.1}s;`}
+				>
+					<div class="project-header">
+						<p class="project-result">{project.result}</p>
+						<a href={project.link} class="project-link-icon" aria-label="Ver caso en portfolio">
+							<i class="fas fa-arrow-up-right-from-square"></i>
+						</a>
+					</div>
+
+					<h3 class="project-title">{project.title}</h3>
+					<p class="project-description">{project.description}</p>
+
+					<div class="project-tech">
+						{#each project.tech as tech}
+							<span><i class={techIcons[tech] || 'fas fa-microchip'}></i> {tech}</span>
+						{/each}
+					</div>
+				</article>
+			{/each}
+		</div>
+
+		<div class="view-more-container animated-content-ratio" use:observeSections>
+			<a href="/portfolio" class="view-more-button">
+				Ver portfolio completo <i class="fas fa-chevron-right"></i>
+			</a>
+			<a href="/contacto" class="text-link">Quiero una propuesta similar</a>
+		</div>
+	</div>
 </section>
 
 <style>
 	.projects-section {
-        /* Fondo con un gradiente sutil para dar profundidad */
-        background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-        background-color: var(--color-background);
-        padding-top: 5rem;
-        padding-bottom: 5rem;
-    }
+		background:
+			radial-gradient(ellipse at bottom, rgba(27, 39, 53, 0.88) 0%, rgba(9, 10, 15, 1) 100%),
+			var(--color-background);
+	}
 
 	.projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 4rem;
-    }
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
 
 	.project-card {
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px); /* Para Safari */
-        position: relative;
-        overflow: hidden;
-        animation-delay: var(--delay); /* Retraso de animación individual */
-    }
-
-	.project-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1), transparent 40%);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        pointer-events: none;
-    }
-
-	.project-card:hover::before {
-        opacity: 1;
-    }
+		padding: 1.25rem;
+		border-radius: 16px;
+		background: linear-gradient(155deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+		border: 1px solid rgba(255, 255, 255, 0.11);
+		transition:
+			transform 0.28s ease,
+			border-color 0.28s ease,
+			box-shadow 0.28s ease;
+		display: flex;
+		flex-direction: column;
+	}
 
 	.project-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(73, 228, 176, 0.2);
-        border-color: rgba(73, 228, 176, 0.4);
-    }
+		transform: translateY(-4px);
+		border-color: rgba(73, 228, 176, 0.38);
+		box-shadow: 0 20px 38px rgba(0, 0, 0, 0.28);
+	}
 
 	.project-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.15rem;
+	}
 
-	.project-icon {
-        font-size: 2rem;
-        color: var(--color-primary);
-        opacity: 0.8;
-    }
+	.project-result {
+		margin: 0;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.35rem 0.65rem;
+		border-radius: 999px;
+		background: rgba(73, 228, 176, 0.13);
+		color: var(--color-primary);
+		font-size: 0.8rem;
+		font-weight: 700;
+	}
 
 	.project-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin: 0;
-        color: var(--color-text-light);
-    }
-
-	.project-content {
-        flex-grow: 1;
-    }
+		font-size: 1.2rem;
+		font-weight: 700;
+		margin: 0;
+		color: var(--color-text-light);
+		line-height: 1.3;
+	}
 
 	.project-description {
-        color: var(--color-text-muted);
-        margin-bottom: 1.5rem;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
+		color: var(--color-text-muted);
+		margin: 0.65rem 0 1.15rem;
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
 
 	.project-tech {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: auto; /* Empuja las tecnologías al final de la tarjeta */
-    }
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin-top: auto;
+	}
 
 	.project-tech span {
-        background-color: rgba(73, 228, 176, 0.1);
-        color: var(--color-primary);
-        padding: 0.4rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 500;
+		background-color: rgba(73, 228, 176, 0.09);
+		color: var(--color-primary);
+		padding: 0.32rem 0.62rem;
+		border-radius: 20px;
+		font-size: 0.76rem;
+		font-weight: 500;
 		display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-    }
+		align-items: center;
+		gap: 0.35rem;
+		border: 1px solid rgba(73, 228, 176, 0.18);
+	}
 
 	.project-link-icon {
-        font-size: 1.2rem;
-        color: var(--color-text-muted);
-        transition: transform 0.3s ease, color 0.3s ease;
-    }
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		transition:
+			transform 0.25s ease,
+			color 0.25s ease,
+			border-color 0.25s ease;
+	}
 
 	.project-card:hover .project-link-icon {
-        color: var(--color-primary);
-        transform: scale(1.2);
-    }
+		color: var(--color-primary);
+		transform: translateY(-2px);
+		border-color: rgba(73, 228, 176, 0.4);
+	}
 
-    .view-more-container {
-        text-align: center;
-        margin-top: 4rem;
-    }
+	.view-more-container {
+		margin-top: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
 
 	.view-more-button {
-        background: linear-gradient(90deg, var(--color-primary), #00BFFF);
-        color: var(--color-background);
-        border: none;
-        padding: 12px 30px;
-        border-radius: 50px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 15px rgba(73, 228, 176, 0.2);
-    }
+		background: linear-gradient(90deg, var(--color-primary), #00bfff);
+		color: var(--color-background);
+		padding: 0.75rem 1.15rem;
+		border-radius: 999px;
+		font-size: 0.95rem;
+		font-weight: 700;
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+		box-shadow: 0 10px 22px rgba(73, 228, 176, 0.2);
+	}
 
 	.view-more-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(73, 228, 176, 0.3);
-    }
+		transform: translateY(-2px);
+		box-shadow: 0 16px 30px rgba(73, 228, 176, 0.24);
+	}
 
 	.view-more-button i {
-        margin-left: 8px;
-        transition: transform 0.3s ease;
-    }
+		margin-left: 0.45rem;
+		transition: transform 0.25s ease;
+	}
 
 	.view-more-button:hover i {
-        transform: translateX(4px);
-    }
+		transform: translateX(3px);
+	}
+
+	.text-link {
+		color: var(--color-text-muted);
+		font-size: 0.9rem;
+		border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+		padding-bottom: 0.2rem;
+	}
+
+	.text-link:hover {
+		color: var(--color-primary);
+		border-bottom-color: rgba(73, 228, 176, 0.5);
+	}
+
+	@media (max-width: 1024px) {
+		.projects-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
