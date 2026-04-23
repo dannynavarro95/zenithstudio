@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	// --- Elementos del DOM ---
 	let container: HTMLElement;
@@ -26,8 +27,11 @@
 	let mouseY = -1000;
 	let isInside = false;
 	let isHoveringText = false;
-	let animationFrameId: number;
+	let animationFrameId = 0;
 	let hasInteracted = false; // Controla si el usuario ya ha movido el ratón
+
+	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
+	let isMobileLayout = false;
 
 	type Particle = {
 		x: number;
@@ -50,13 +54,15 @@
 	};
 
 	function animateCursor() {
-		if (cursorDot) {
+		const narrow =
+			typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
+		if (cursorDot && !narrow) {
 			cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
 		}
-		if (trailCtx) {
+		if (trailCtx && !narrow) {
 			drawFluidTrail();
 		}
-		if (particleCtx) {
+		if (particleCtx && !narrow) {
 			drawParticles();
 		}
 		animationFrameId = requestAnimationFrame(animateCursor);
@@ -136,6 +142,19 @@
 		mouseY = event.clientY;
 	}
 
+	function syncMobileLayout() {
+		if (!browser || typeof window === 'undefined') return;
+		isMobileLayout = window.matchMedia('(max-width: 900px)').matches;
+	}
+
+	function handleTouchGlow(event: TouchEvent) {
+		if (!isMobileLayout || !container) return;
+		const t = event.touches[0];
+		if (!t) return;
+		container.style.setProperty('--mouse-x', `${t.clientX}px`);
+		container.style.setProperty('--mouse-y', `${t.clientY}px`);
+	}
+
 	function handleSectionMouseMove(event: MouseEvent) {
 		if (!container || !track) return;
 		if (!hasInteracted) {
@@ -167,21 +186,39 @@
 	}
 
 	onMount(() => {
-		if (trailCanvas) trailCtx = trailCanvas.getContext('2d');
-		if (particleCanvas) {
-			particleCtx = particleCanvas.getContext('2d');
-			createParticles();
-		}
-		if (typeof window !== 'undefined') {
-			window.addEventListener('resize', resizeCanvas);
+		if (!browser) return;
+
+		syncMobileLayout();
+		const mq = window.matchMedia('(max-width: 900px)');
+		const onMq = () => {
+			syncMobileLayout();
+			if (isMobileLayout && animationFrameId) {
+				cancelAnimationFrame(animationFrameId);
+				animationFrameId = 0;
+			} else if (!isMobileLayout && trailCtx && particleCtx && !animationFrameId) {
+				animationFrameId = requestAnimationFrame(animateCursor);
+			}
+		};
+		mq.addEventListener('change', onMq);
+
+		window.addEventListener('resize', resizeCanvas);
+
+		if (!isMobileLayout) {
+			if (trailCanvas) trailCtx = trailCanvas.getContext('2d');
+			if (particleCanvas) {
+				particleCtx = particleCanvas.getContext('2d');
+				createParticles();
+			}
 			resizeCanvas();
+			if (!trailCtx || !particleCtx) {
+				console.error('Failed to get canvas contexts');
+			} else {
+				animationFrameId = requestAnimationFrame(animateCursor);
+			}
 		}
-		if (!trailCtx || !particleCtx) {
-			console.error("Failed to get canvas contexts");
-			return;
-		}
-		animationFrameId = requestAnimationFrame(animateCursor);
+
 		return () => {
+			mq.removeEventListener('change', onMq);
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
 		};
@@ -203,25 +240,35 @@
 </svelte:head>
 <svelte:window on:mousemove={handleWindowMouseMove} />
 
-<canvas class="particle-canvas" bind:this={particleCanvas}></canvas>
-<canvas class="trail-canvas" bind:this={trailCanvas}></canvas>
+<canvas class="particle-canvas" class:hero-canvas--hidden={isMobileLayout} bind:this={particleCanvas}></canvas>
+<canvas class="trail-canvas" class:hero-canvas--hidden={isMobileLayout} bind:this={trailCanvas}></canvas>
 
-<div class="custom-cursor" class:is-inside={isInside} class:is-hovering-text={isHoveringText} bind:this={cursorContainer}>
+<div
+	class="custom-cursor"
+	class:hero-canvas--hidden={isMobileLayout}
+	class:is-inside={isInside}
+	class:is-hovering-text={isHoveringText}
+	bind:this={cursorContainer}
+>
 	<div class="cursor-dot" bind:this={cursorDot}></div>
 </div>
 
 <section
 	class="hero-section"
 	on:mousemove={handleSectionMouseMove}
+	on:touchstart={handleTouchGlow}
+	on:touchmove={handleTouchGlow}
 	on:mouseenter={() => (isInside = true)}
 	on:mouseleave={() => (isInside = false)}
 	bind:this={container}
-	role="application"
-	aria-label="Carrusel interactivo de servicios y efecto Plasma Trail"
+	role="region"
+	aria-label="Servicios destacados"
 >
+	<div class="hero-touch-orb" aria-hidden="true"></div>
 	<!-- Contenedor para el Título y el Indicador de Interacción -->
 	<div
 		class="hero-intro-wrapper"
+		role="presentation"
 		on:mouseenter={() => (isHoveringText = true)}
 		on:mouseleave={() => (isHoveringText = false)}
 		class:is-dimmed={hasInteracted && !isHoveringText}
@@ -229,7 +276,7 @@
 		<h1 class="hero-title">Nuestros Servicios</h1>
 
 		<!-- Indicador de Interacción -->
-		<div class="interaction-prompt">
+		<div class="interaction-prompt interaction-prompt--desktop">
 			<div class="prompt-icon-wrapper">
 				<!-- Icono de Ratón -->
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -237,6 +284,14 @@
 				</svg>
 			</div>
 			<p class="prompt-text">Mueve el cursor</p>
+		</div>
+
+		<div class="mobile-touch-prompt" aria-hidden="true">
+			<div class="swipe-glyph">
+				<span class="swipe-hand"><i class="fas fa-hand-pointer"></i></span>
+				<span class="swipe-arrows"><i class="fas fa-arrows-alt-h"></i></span>
+			</div>
+			<p class="mobile-touch-text">Desliza para explorar</p>
 		</div>
 	</div>
 
@@ -275,6 +330,18 @@
 	.custom-cursor { z-index: 300; width: 100%; height: 100%; opacity: 0; transition: opacity 0.3s ease; }
 	.custom-cursor.is-inside { opacity: 1; }
 
+	.hero-canvas--hidden {
+		display: none !important;
+	}
+
+	@media (max-width: 900px) {
+		.particle-canvas,
+		.trail-canvas,
+		.custom-cursor {
+			display: none !important;
+		}
+	}
+
 	.hero-section {
 		--mouse-x: 50vw;
 		--mouse-y: 50vh;
@@ -299,7 +366,74 @@
 		pointer-events: none;
 		z-index: 1;
 	}
-	.hero-section:hover::before { opacity: 1; }
+	.hero-section:hover::before {
+		opacity: 1;
+	}
+
+	.hero-touch-orb {
+		display: none;
+		pointer-events: none;
+	}
+
+	.mobile-touch-prompt {
+		display: none;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		margin-top: 1.75rem;
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+
+	.swipe-glyph {
+		position: relative;
+		width: 88px;
+		height: 88px;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: radial-gradient(circle at 30% 25%, rgba(73, 228, 176, 0.18), transparent 55%),
+			rgba(255, 255, 255, 0.04);
+		box-shadow: 0 0 0 1px rgba(73, 228, 176, 0.12) inset, 0 12px 30px rgba(0, 0, 0, 0.35);
+		animation: swipe-hint 2.8s ease-in-out infinite;
+	}
+
+	.swipe-hand {
+		font-size: 1.35rem;
+		color: var(--color-text-light);
+		opacity: 0.95;
+	}
+
+	.swipe-arrows {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		font-size: 0.78rem;
+		color: var(--color-primary);
+		opacity: 0.85;
+	}
+
+	.mobile-touch-text {
+		margin: 0;
+		font-size: 0.88rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: rgba(240, 244, 248, 0.88);
+		text-shadow: 0 0 14px rgba(73, 228, 176, 0.25);
+	}
+
+	@keyframes swipe-hint {
+		0%,
+		100% {
+			transform: translateX(0) scale(1);
+			box-shadow: 0 0 0 1px rgba(73, 228, 176, 0.12) inset, 0 12px 30px rgba(0, 0, 0, 0.35);
+		}
+		50% {
+			transform: translateX(8px) scale(1.03);
+			box-shadow: 0 0 0 1px rgba(73, 228, 176, 0.28) inset, 0 16px 36px rgba(0, 0, 0, 0.42);
+		}
+	}
 
 	.cursor-dot {
 		position: absolute;
@@ -506,68 +640,147 @@
 			cursor: auto;
 			min-height: 100svh;
 			height: auto;
-			padding: 6rem 0 2rem;
+			padding: 5.5rem 0 2.25rem;
 		}
 
-		.hero-section::before,
-		.custom-cursor,
-		.particle-canvas,
-		.trail-canvas,
-		.interaction-prompt {
+		.hero-section::before {
+			opacity: 0.62;
+		}
+
+		.interaction-prompt--desktop {
 			display: none;
+		}
+
+		.mobile-touch-prompt {
+			display: flex;
+		}
+
+		.hero-touch-orb {
+			display: block;
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			left: var(--mouse-x, 50%);
+			top: var(--mouse-y, 35%);
+			transform: translate(-50%, -50%);
+			border-radius: 50%;
+			z-index: 4;
+			background: radial-gradient(
+				circle,
+				rgba(73, 228, 176, 0.42) 0%,
+				rgba(0, 191, 255, 0.14) 42%,
+				transparent 72%
+			);
+			filter: blur(14px);
+			opacity: 0.88;
+			transition: left 0.14s ease-out, top 0.14s ease-out, opacity 0.35s ease;
 		}
 
 		.hero-title {
 			font-size: clamp(2rem, 10vw, 3rem);
 			padding: 0 1rem;
+			animation: hero-title-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+		}
+
+		@keyframes hero-title-in {
+			from {
+				opacity: 0;
+				transform: translateY(16px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
 		.cards-wrapper {
-			opacity: 1;
+			position: relative;
+			inset: auto;
+			margin-top: 0.5rem;
+			min-height: 300px;
+			opacity: 1 !important;
 			-webkit-mask-image: none;
 			mask-image: none;
+			perspective: none;
 		}
 
 		.cards-track {
+			position: relative;
+			inset: auto;
+			width: 100%;
+			max-width: 100%;
+			animation: none;
+			transform: none !important;
+			transition: none;
+			overflow-x: auto;
+			overflow-y: visible;
+			scroll-snap-type: x mandatory;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: thin;
 			gap: 1rem;
-			padding: 1rem 0.8rem;
+			padding: 1rem 1.25rem 1.75rem;
+			justify-content: flex-start;
+			align-items: center;
+			flex-wrap: nowrap;
+			touch-action: pan-x;
+		}
+
+		.cards-track::-webkit-scrollbar {
+			height: 6px;
+		}
+		.cards-track::-webkit-scrollbar-thumb {
+			background: rgba(73, 228, 176, 0.28);
+			border-radius: 999px;
 		}
 
 		.card {
-			width: 220px;
-			height: 300px;
-			border-radius: 14px;
+			flex: 0 0 auto;
+			scroll-snap-align: center;
+			width: 240px;
+			height: 310px;
+			border-radius: 16px;
+			transform: scale(1) rotateX(0deg) rotateY(0deg);
+			opacity: 1;
+			animation: card-float-soft 5.5s ease-in-out infinite;
+		}
+
+		.card:nth-child(3n + 1) {
+			animation-delay: 0s;
+		}
+		.card:nth-child(3n + 2) {
+			animation-delay: 0.4s;
+		}
+		.card:nth-child(3n) {
+			animation-delay: 0.8s;
+		}
+
+		@keyframes card-float-soft {
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+			50% {
+				transform: translateY(-7px);
+			}
 		}
 
 		.card-content {
-			padding: 1.2rem;
+			padding: 1.25rem;
 		}
 
 		.card-icon {
-			font-size: 2.4rem;
-			margin-bottom: 0.9rem;
+			font-size: 2.5rem;
+			margin-bottom: 0.85rem;
 		}
 
 		.card-title {
-			font-size: 1.15rem;
-			margin-bottom: 0.7rem;
+			font-size: 1.12rem;
+			margin-bottom: 0.65rem;
 		}
 
 		.card-description {
 			font-size: 0.82rem;
 			line-height: 1.45;
-		}
-	}
-
-	@media (hover: none), (pointer: coarse) {
-		.custom-cursor,
-		.particle-canvas,
-		.trail-canvas {
-			display: none;
-		}
-
-		.hero-section {
-			cursor: auto;
 		}
 	}
 </style>

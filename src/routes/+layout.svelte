@@ -15,6 +15,9 @@
         { label: "Portfolio", href: "/portfolio" },
         { label: "Contáctenos", href: "/contacto" }, 
     ];
+
+    /** Enlaces del drawer móvil: mismas páginas que escritorio excepto contacto (sustituido por iconos sociales). */
+    const navLinksMobile = navLinks.filter((link) => link.href !== "/contacto");
     
     function handleScroll() {
         if (browser) {
@@ -89,7 +92,7 @@
 
 <div class="app-layout">
     
-    <header class="navbar" class:scrolled={isScrolled}>
+    <header class="navbar" class:scrolled={isScrolled} class:menu-open={isMenuOpen}>
         <div class="content-wrapper nav-container">
             <div class="left-items">
                 <a href="/inicio" class="logo-link">
@@ -112,10 +115,10 @@
             
             <div class="right-items">
                 <div class="social-buttons">
-                    <a href="https://www.instagram.com/zenithstudio.es" target="_blank" class="instagram-icon">
+                    <a href="https://www.instagram.com/zenithstudio.es" target="_blank" rel="noreferrer" class="instagram-icon" aria-label="Instagram de Zenith Studio" title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://wa.me/613003673" target="_blank" class="whatsapp-button">
+                    <a href="https://wa.me/613003673" target="_blank" rel="noreferrer" class="whatsapp-button" aria-label="WhatsApp de Zenith Studio" title="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>
@@ -135,12 +138,44 @@
         </div>
         
         <div class="mobile-nav-menu" class:open={isMenuOpen}>
-            {#each navLinks as link}
-                <a href={link.href} on:click={(e) => handleNavigation(e, link.href)}>
-                    {link.label}
-                </a>
-            {/each}
-            <a href="/contacto" class="mobile-cta" on:click={(e) => handleNavigation(e, '/contacto')}>Contáctenos</a>
+            <div class="mobile-nav-panel">
+                <p class="mobile-nav-kicker">Navegación</p>
+                <nav class="mobile-nav-links" aria-label="Principal">
+                    {#each navLinksMobile as link, i}
+                        <a
+                            href={link.href}
+                            class="mobile-nav-link"
+                            style="--i: {i}"
+                            on:click={(e) => handleNavigation(e, link.href)}
+                        >
+                            <span class="mobile-nav-link-label">{link.label}</span>
+                            <i class="fas fa-chevron-right mobile-nav-chevron" aria-hidden="true"></i>
+                        </a>
+                    {/each}
+                </nav>
+                <div class="mobile-nav-social">
+                    <a
+                        href="https://www.instagram.com/zenithstudio.es"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="mobile-social-btn mobile-social-instagram"
+                        aria-label="Instagram"
+                        on:click={() => (isMenuOpen = false)}
+                    >
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a
+                        href="https://wa.me/613003673"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="mobile-social-btn mobile-social-whatsapp"
+                        aria-label="WhatsApp"
+                        on:click={() => (isMenuOpen = false)}
+                    >
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
     
@@ -219,6 +254,10 @@
         box-shadow: none;
         border-radius: 0; 
         transition: all 0.4s ease-in-out, top 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    }
+
+    .navbar.menu-open {
+        overflow: visible;
     }
 
     .navbar.scrolled {
@@ -436,52 +475,161 @@
     }
     
     .mobile-nav-menu {
-        position: absolute; 
-        top: 80px; 
+        position: absolute;
+        top: 100%;
+        left: 0;
         right: 0;
         width: 100%;
         max-height: 0;
         overflow: hidden;
-        background-color: var(--color-surface);
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        transition:
+            max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            padding 0.45s ease,
+            opacity 0.35s ease;
+        opacity: 0;
+        pointer-events: none;
+        border-top: 1px solid rgba(73, 228, 176, 0.12);
+        background: linear-gradient(
+            168deg,
+            rgba(22, 27, 34, 0.97) 0%,
+            rgba(11, 14, 20, 0.96) 55%,
+            rgba(11, 14, 20, 0.92) 100%
+        );
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow:
+            0 18px 48px rgba(0, 0, 0, 0.45),
+            0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+            0 0 28px rgba(73, 228, 176, 0.08);
     }
 
     .navbar.scrolled .mobile-nav-menu {
-        top: 70px; 
-        border-radius: 0 0 15px 15px; 
-    }
-    
-    .mobile-nav-menu.open {
-        max-height: calc(100vh - 70px);
-        padding: 20px 0;
-        width: 100%;
-        overflow-y: auto;
+        border-radius: 0 0 16px 16px;
     }
 
-    .mobile-nav-menu a {
-        width: 90%;
-        padding: 12px 0;
-        text-align: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        color: var(--color-text-light);
-        transition: background-color 0.3s ease;
+    .mobile-nav-menu.open {
+        max-height: min(85vh, 520px);
+        padding: 0.35rem 0 1rem;
+        overflow-y: auto;
+        opacity: 1;
+        pointer-events: auto;
     }
-    
-    .mobile-nav-menu a:hover {
-        background-color: rgba(73, 228, 176, 0.1);
+
+    .mobile-nav-panel {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 0.5rem 1rem 0.25rem;
     }
-    
-    .mobile-cta {
-        margin-top: 15px;
-        border-bottom: none !important;
-        background-color: var(--color-primary);
-        color: var(--color-background) !important;
-        border-radius: 6px;
+
+    .mobile-nav-kicker {
+        margin: 0 0 0.65rem;
+        font-size: 0.72rem;
         font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(73, 228, 176, 0.85);
+    }
+
+    .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .mobile-nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.95rem 1rem;
+        border-radius: 12px;
+        color: var(--color-text-light);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        transition:
+            opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.25s ease,
+            background 0.25s ease,
+            box-shadow 0.25s ease;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    .mobile-nav-menu.open .mobile-nav-link {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: calc(0.04s + var(--i) * 0.055s);
+    }
+
+    .mobile-nav-link:active {
+        transform: scale(0.98);
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible {
+        border-color: rgba(73, 228, 176, 0.35);
+        background: rgba(73, 228, 176, 0.08);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28), 0 0 20px rgba(73, 228, 176, 0.12);
+    }
+
+    .mobile-nav-chevron {
+        font-size: 0.72rem;
+        color: rgba(160, 174, 192, 0.9);
+    }
+
+    .mobile-nav-social {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .mobile-social-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.45rem;
+        color: var(--color-text-light);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+    }
+
+    .mobile-social-btn:active {
+        transform: scale(0.96);
+    }
+
+    .mobile-social-instagram:hover,
+    .mobile-social-instagram:focus-visible {
+        border-color: rgba(225, 48, 108, 0.55);
+        color: #f472b6;
+        box-shadow: 0 10px 26px rgba(225, 48, 108, 0.2);
+    }
+
+    .mobile-social-whatsapp:hover,
+    .mobile-social-whatsapp:focus-visible {
+        border-color: rgba(37, 211, 102, 0.55);
+        color: #4ade80;
+        box-shadow: 0 10px 26px rgba(37, 211, 102, 0.18);
     }
     
     .main-footer {
@@ -603,11 +751,21 @@
     
     @media (max-width: 899px) {
         .navbar.scrolled {
-            width: 100%;
-            left: 0;
-            top: 0;
-            border-radius: 0;
+            width: calc(100% - 24px);
+            left: 12px;
+            top: 10px;
+            height: 64px;
+            border-radius: 16px;
+            background-color: rgba(11, 14, 20, 0.88);
+            box-shadow:
+                0 10px 36px rgba(0, 0, 0, 0.42),
+                0 0 22px rgba(73, 228, 176, 0.22);
         }
+
+        .navbar.scrolled .logo-img {
+            height: 32px;
+        }
+
         .desktop-nav,
         .separator {
             display: none;
