@@ -16,8 +16,6 @@
         { label: "Contáctenos", href: "/contacto" }, 
     ];
 
-    /** Enlaces del drawer móvil: mismas páginas que escritorio excepto contacto (sustituido por iconos sociales). */
-    const navLinksMobile = navLinks.filter((link) => link.href !== "/contacto");
     
     function handleScroll() {
         if (browser) {
@@ -141,7 +139,7 @@
             <div class="mobile-nav-panel">
                 <p class="mobile-nav-kicker">Navegación</p>
                 <nav class="mobile-nav-links" aria-label="Principal">
-                    {#each navLinksMobile as link, i}
+                    {#each navLinks as link, i}
                         <a
                             href={link.href}
                             class="mobile-nav-link"
@@ -597,39 +595,89 @@
     }
 
     .mobile-social-btn {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
+        position: relative;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.45rem;
+        font-size: 1.38rem;
         color: var(--color-text-light);
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-        transition:
-            transform 0.25s ease,
-            box-shadow 0.25s ease,
-            border-color 0.25s ease;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        isolation: isolate;
+        transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .mobile-social-btn::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.22) 0%,
+            rgba(255, 255, 255, 0.04) 38%,
+            transparent 52%
+        );
+        opacity: 0.55;
+        pointer-events: none;
+        z-index: 0;
+        filter: blur(0.5px);
+    }
+
+    .mobile-social-btn::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        width: 60%;
+        height: 5px;
+        transform: translateX(-50%) scaleX(0.85);
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255, 255, 255, 0.35), transparent 72%);
+        opacity: 0.45;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .mobile-social-btn i {
+        position: relative;
+        z-index: 1;
     }
 
     .mobile-social-btn:active {
-        transform: scale(0.96);
+        transform: scale(0.94);
+    }
+
+    .mobile-social-instagram i {
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px rgba(225, 48, 108, 0.35));
+    }
+
+    .mobile-social-whatsapp i {
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px rgba(37, 211, 102, 0.32));
     }
 
     .mobile-social-instagram:hover,
     .mobile-social-instagram:focus-visible {
-        border-color: rgba(225, 48, 108, 0.55);
-        color: #f472b6;
-        box-shadow: 0 10px 26px rgba(225, 48, 108, 0.2);
+        color: #fda4d0;
+    }
+
+    .mobile-social-instagram:hover i,
+    .mobile-social-instagram:focus-visible i {
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 14px rgba(244, 114, 182, 0.55));
     }
 
     .mobile-social-whatsapp:hover,
     .mobile-social-whatsapp:focus-visible {
-        border-color: rgba(37, 211, 102, 0.55);
-        color: #4ade80;
-        box-shadow: 0 10px 26px rgba(37, 211, 102, 0.18);
+        color: #86efac;
+    }
+
+    .mobile-social-whatsapp:hover i,
+    .mobile-social-whatsapp:focus-visible i {
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 14px rgba(74, 222, 128, 0.5));
     }
     
     .main-footer {

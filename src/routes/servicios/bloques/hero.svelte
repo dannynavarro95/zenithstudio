@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { browser } from '$app/environment';
 
 	// --- Elementos del DOM ---
@@ -32,6 +32,10 @@
 
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
+
+	let mobileCarouselRaf = 0;
+	let mobileCarouselPaused = false;
+	let mobileResumeTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	type Particle = {
 		x: number;
@@ -155,6 +159,66 @@
 		container.style.setProperty('--mouse-y', `${t.clientY}px`);
 	}
 
+	function clearMobileResume() {
+		if (mobileResumeTimeout) {
+			clearTimeout(mobileResumeTimeout);
+			mobileResumeTimeout = null;
+		}
+	}
+
+	function scheduleMobileResume() {
+		clearMobileResume();
+		mobileResumeTimeout = setTimeout(() => {
+			mobileCarouselPaused = false;
+			mobileResumeTimeout = null;
+		}, 2400);
+	}
+
+	function onTrackTouchStart() {
+		if (!isMobileLayout) return;
+		mobileCarouselPaused = true;
+		clearMobileResume();
+	}
+
+	function onTrackTouchEnd() {
+		if (!isMobileLayout) return;
+		scheduleMobileResume();
+	}
+
+	function mobileCarouselLoop() {
+		if (!browser || !isMobileLayout) {
+			mobileCarouselRaf = 0;
+			return;
+		}
+		if (track && !mobileCarouselPaused) {
+			const max = track.scrollWidth - track.clientWidth;
+			if (max > 2) {
+				track.scrollLeft += 0.52;
+				if (track.scrollLeft >= max - 0.8) {
+					track.scrollLeft = 0;
+				}
+			}
+		}
+		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
+	}
+
+	function stopMobileCarouselLoop() {
+		if (mobileCarouselRaf) {
+			cancelAnimationFrame(mobileCarouselRaf);
+			mobileCarouselRaf = 0;
+		}
+		clearMobileResume();
+	}
+
+	async function bootstrapMobileCarousel() {
+		if (!isMobileLayout) return;
+		stopMobileCarouselLoop();
+		await tick();
+		if (!isMobileLayout || !track) return;
+		mobileCarouselPaused = false;
+		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
+	}
+
 	function handleSectionMouseMove(event: MouseEvent) {
 		if (!container || !track) return;
 		if (!hasInteracted) {
@@ -198,6 +262,11 @@
 			} else if (!isMobileLayout && trailCtx && particleCtx && !animationFrameId) {
 				animationFrameId = requestAnimationFrame(animateCursor);
 			}
+			if (isMobileLayout) {
+				bootstrapMobileCarousel();
+			} else {
+				stopMobileCarouselLoop();
+			}
 		};
 		mq.addEventListener('change', onMq);
 
@@ -217,10 +286,15 @@
 			}
 		}
 
+		if (isMobileLayout) {
+			bootstrapMobileCarousel();
+		}
+
 		return () => {
 			mq.removeEventListener('change', onMq);
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
+			stopMobileCarouselLoop();
 		};
 	});
 
@@ -291,13 +365,19 @@
 				<span class="swipe-hand"><i class="fas fa-hand-pointer"></i></span>
 				<span class="swipe-arrows"><i class="fas fa-arrows-alt-h"></i></span>
 			</div>
-			<p class="mobile-touch-text">Desliza para explorar</p>
+			<p class="mobile-touch-text">Carrusel automático · desliza cuando quieras</p>
 		</div>
 	</div>
 
 	<!-- Contenido Principal (Tarjetas) -->
 	<div class="cards-wrapper" class:is-interactive={hasInteracted && !isHoveringText}>
-		<div class="cards-track" bind:this={track}>
+		<div
+			class="cards-track"
+			bind:this={track}
+			on:touchstart={onTrackTouchStart}
+			on:touchend={onTrackTouchEnd}
+			on:touchcancel={onTrackTouchEnd}
+		>
 			{#each displayServices as service}
 				<div class="card">
 					<div class="card-border"></div>
@@ -699,9 +779,10 @@
 			margin-top: 0.5rem;
 			min-height: 300px;
 			opacity: 1 !important;
-			-webkit-mask-image: none;
-			mask-image: none;
-			perspective: none;
+			perspective: 1100px;
+			perspective-origin: 50% 45%;
+			-webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+			mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 		}
 
 		.cards-track {
@@ -717,8 +798,8 @@
 			scroll-snap-type: x mandatory;
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: thin;
-			gap: 1rem;
-			padding: 1rem 1.25rem 1.75rem;
+			gap: 1.1rem;
+			padding: 1rem 1.25rem 1.85rem;
 			justify-content: flex-start;
 			align-items: center;
 			flex-wrap: nowrap;
@@ -739,28 +820,30 @@
 			width: 240px;
 			height: 310px;
 			border-radius: 16px;
-			transform: scale(1) rotateX(0deg) rotateY(0deg);
 			opacity: 1;
-			animation: card-float-soft 5.5s ease-in-out infinite;
+			transform-style: preserve-3d;
+			--rotate-x: 0deg;
+			--rotate-y: 0deg;
+			animation: card-float-3d 8s ease-in-out infinite;
 		}
 
 		.card:nth-child(3n + 1) {
 			animation-delay: 0s;
 		}
 		.card:nth-child(3n + 2) {
-			animation-delay: 0.4s;
+			animation-delay: 0.55s;
 		}
 		.card:nth-child(3n) {
-			animation-delay: 0.8s;
+			animation-delay: 1.1s;
 		}
 
-		@keyframes card-float-soft {
+		@keyframes card-float-3d {
 			0%,
 			100% {
-				transform: translateY(0);
+				transform: translateY(0) rotateX(4deg) rotateY(-6deg) scale(1);
 			}
 			50% {
-				transform: translateY(-7px);
+				transform: translateY(-10px) rotateX(-3deg) rotateY(6deg) scale(1.02);
 			}
 		}
 
@@ -781,6 +864,21 @@
 		.card-description {
 			font-size: 0.82rem;
 			line-height: 1.45;
+		}
+
+		.card-border {
+			opacity: 0.3;
+			animation: mobile-border-glow 5.5s ease-in-out infinite;
+		}
+
+		@keyframes mobile-border-glow {
+			0%,
+			100% {
+				opacity: 0.22;
+			}
+			50% {
+				opacity: 0.5;
+			}
 		}
 	}
 </style>
