@@ -116,7 +116,7 @@
 
 	.services-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 		gap: 2rem;
 	}
 
@@ -202,8 +202,18 @@
 	}
 
 	@media (max-width: 768px) {
+		.service-card {
+			padding: 1.35rem;
+			border-radius: 18px;
+		}
+
+		.service-title {
+			font-size: 1.2rem;
+		}
+
 		.services-grid {
 			grid-template-columns: 1fr;
+			gap: 1rem;
 		}
 	}
 </style>

@@ -232,4 +232,52 @@
 		transform: scale(1.05);
 		box-shadow: 0 15px 40px rgba(73, 228, 176, 0.4);
 	}
+
+	@media (max-width: 1100px) {
+		.timeline-container {
+			flex-wrap: wrap;
+		}
+
+		.process-step {
+			flex: 1 1 calc(50% - 0.5rem);
+			min-width: 0;
+		}
+	}
+
+	@media (max-width: 700px) {
+		.timeline-container {
+			gap: 0.8rem;
+			margin-top: 2.2rem;
+			margin-bottom: 4rem;
+		}
+
+		.process-step {
+			flex: 1 1 100%;
+		}
+
+		.step-content-box {
+			padding: 1.35rem 1.1rem;
+			border-radius: 18px;
+		}
+
+		.step-number {
+			font-size: 2rem;
+			right: 1.2rem;
+		}
+
+		.final-cta {
+			padding: 2.2rem 1rem;
+			border-radius: 18px;
+		}
+
+		.cta-text {
+			font-size: 0.95rem;
+			margin-bottom: 1.6rem;
+		}
+
+		.primary-button {
+			padding: 0.85rem 1.4rem;
+			gap: 0.6rem;
+		}
+	}
 </style>

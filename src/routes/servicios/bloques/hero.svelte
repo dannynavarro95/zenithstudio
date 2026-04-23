@@ -500,4 +500,74 @@
 		font-size: 0.9rem;
 		line-height: 1.6;
 	}
+
+	@media (max-width: 900px) {
+		.hero-section {
+			cursor: auto;
+			min-height: 100svh;
+			height: auto;
+			padding: 6rem 0 2rem;
+		}
+
+		.hero-section::before,
+		.custom-cursor,
+		.particle-canvas,
+		.trail-canvas,
+		.interaction-prompt {
+			display: none;
+		}
+
+		.hero-title {
+			font-size: clamp(2rem, 10vw, 3rem);
+			padding: 0 1rem;
+		}
+
+		.cards-wrapper {
+			opacity: 1;
+			-webkit-mask-image: none;
+			mask-image: none;
+		}
+
+		.cards-track {
+			gap: 1rem;
+			padding: 1rem 0.8rem;
+		}
+
+		.card {
+			width: 220px;
+			height: 300px;
+			border-radius: 14px;
+		}
+
+		.card-content {
+			padding: 1.2rem;
+		}
+
+		.card-icon {
+			font-size: 2.4rem;
+			margin-bottom: 0.9rem;
+		}
+
+		.card-title {
+			font-size: 1.15rem;
+			margin-bottom: 0.7rem;
+		}
+
+		.card-description {
+			font-size: 0.82rem;
+			line-height: 1.45;
+		}
+	}
+
+	@media (hover: none), (pointer: coarse) {
+		.custom-cursor,
+		.particle-canvas,
+		.trail-canvas {
+			display: none;
+		}
+
+		.hero-section {
+			cursor: auto;
+		}
+	}
 </style>

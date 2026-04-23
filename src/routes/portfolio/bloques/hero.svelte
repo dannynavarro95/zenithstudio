@@ -239,6 +239,10 @@
 	}
 
 	@media (max-width: 900px) {
+		.portfolio-hero {
+			overflow: hidden;
+		}
+
 		.hero-grid {
 			grid-template-columns: 1fr;
 		}
@@ -254,23 +258,23 @@
 		}
 
 		.collage-a {
-			left: 0;
+			left: 2%;
 			top: 12%;
-			width: 68%;
+			width: 62%;
 			transform: rotate(-2.5deg);
 		}
 
 		.collage-b {
-			right: -2%;
+			right: 2%;
 			top: -2%;
-			width: 62%;
+			width: 58%;
 			transform: rotate(4deg);
 		}
 
 		.collage-c {
-			left: 6%;
-			bottom: -4%;
-			width: 64%;
+			left: 9%;
+			bottom: -2%;
+			width: 60%;
 			transform: rotate(-1.5deg);
 		}
 
