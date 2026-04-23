@@ -35,6 +35,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-node": "^5.5.4",
+		"express": "^5.2.1",
 		"svelte-typewriter": "^3.2.3"
 	}
 }
