@@ -5,6 +5,7 @@
 	// --- Elementos del DOM ---
 	let container: HTMLElement;
 	let track: HTMLElement;
+	let mobileCarousel: HTMLElement;
 	let mobileHeroTrack: HTMLElement;
 	let cursorDot: HTMLElement;
 	let cursorContainer: HTMLElement;
@@ -165,16 +166,16 @@
 	}
 
 	function startMobileAutoScroll() {
-		if (!browser || !isMobileLayout || !mobileHeroTrack || mobileAutoScrollId) return;
+		if (!browser || !isMobileLayout || !mobileCarousel || mobileAutoScrollId) return;
 		pauseMobileAutoScroll(1000);
 		mobileAutoScrollId = setInterval(() => {
-			if (!isMobileLayout || !mobileHeroTrack) return;
+			if (!isMobileLayout || !mobileCarousel) return;
 			if (Date.now() < mobilePauseUntil) return;
-			const half = mobileHeroTrack.scrollWidth / 2;
-			if (half <= mobileHeroTrack.clientWidth + 8) return;
-			mobileHeroTrack.scrollLeft += 1;
-			if (mobileHeroTrack.scrollLeft >= half) {
-				mobileHeroTrack.scrollLeft -= half;
+			const half = mobileCarousel.scrollWidth / 2;
+			if (half <= mobileCarousel.clientWidth + 8) return;
+			mobileCarousel.scrollLeft += 1;
+			if (mobileCarousel.scrollLeft >= half) {
+				mobileCarousel.scrollLeft -= half;
 			}
 			updateMobileActiveCard();
 		}, 16);
@@ -376,7 +377,14 @@
 		<p class="hero-mobile-subtitle">Desliza o deja que el carrusel avance automaticamente</p>
 	</div>
 
-	<div class="hero-mobile-carousel">
+	<div
+		class="hero-mobile-carousel"
+		bind:this={mobileCarousel}
+		on:scroll={() => {
+			pauseMobileAutoScroll(1400);
+			updateMobileActiveCard();
+		}}
+	>
 		<div
 			class="hero-mobile-track"
 			bind:this={mobileHeroTrack}
@@ -384,10 +392,6 @@
 			on:touchmove={() => pauseMobileAutoScroll(2600)}
 			on:touchend={() => pauseMobileAutoScroll(1100)}
 			on:touchcancel={() => pauseMobileAutoScroll(1100)}
-			on:scroll={() => {
-				pauseMobileAutoScroll(1400);
-				updateMobileActiveCard();
-			}}
 		>
 			{#each displayServices as service, i}
 				<article class="hero-mobile-card" class:hero-mobile-card--active={i === mobileActiveIndex}>
@@ -823,6 +827,7 @@
 			width: max-content;
 			padding: 0.7rem 0.95rem 1rem;
 			animation: none;
+			pointer-events: none;
 		}
 
 		.hero-mobile-card {
