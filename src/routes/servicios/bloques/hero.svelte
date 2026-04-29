@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { browser } from '$app/environment';
 
 	// --- Elementos del DOM ---
@@ -151,6 +151,8 @@
 
 	function handleTouchGlow(event: TouchEvent) {
 		if (!isMobileLayout || !container) return;
+		// En móvil desactivamos el "orb" para evitar glitches visuales y conflictos táctiles.
+		return;
 		const t = event.touches[0];
 		if (!t) return;
 		const rect = container.getBoundingClientRect();
@@ -185,7 +187,8 @@
 	}
 
 	function startMobileCarousel() {
-		if (!isMobileLayout || !track || mobileCarouselRaf) return;
+		if (!isMobileLayout || mobileCarouselRaf) return;
+		if (!track) return;
 		mobilePauseUntil = Date.now() + 1000;
 		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
 	}
@@ -199,6 +202,7 @@
 
 	function handleSectionMouseMove(event: MouseEvent) {
 		if (!container || !track) return;
+		if (isMobileLayout) return;
 		if (!hasInteracted) {
 			hasInteracted = true;
 		}
@@ -227,8 +231,9 @@
 		});
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		if (!browser) return;
+		await tick();
 
 		syncMobileLayout();
 		const mq = window.matchMedia('(max-width: 900px)');
@@ -718,7 +723,7 @@
 		}
 
 		.hero-touch-orb {
-			display: block;
+			display: none !important;
 			position: absolute;
 			width: 200px;
 			height: 200px;
@@ -827,27 +832,13 @@
 			transform-style: preserve-3d;
 			--rotate-x: 0deg;
 			--rotate-y: 0deg;
-			animation: card-float-3d 8s ease-in-out infinite;
+			animation: none;
 		}
 
-		.card:nth-child(3n + 1) {
-			animation-delay: 0s;
-		}
-		.card:nth-child(3n + 2) {
-			animation-delay: 0.55s;
-		}
+		.card:nth-child(3n + 1),
+		.card:nth-child(3n + 2),
 		.card:nth-child(3n) {
-			animation-delay: 1.1s;
-		}
-
-		@keyframes card-float-3d {
-			0%,
-			100% {
-				transform: translateY(0) rotateX(4deg) rotateY(-6deg) scale(1);
-			}
-			50% {
-				transform: translateY(-10px) rotateX(-3deg) rotateY(6deg) scale(1.02);
-			}
+			animation-delay: 0s;
 		}
 
 		.card-content {
