@@ -37,6 +37,7 @@
 	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
 	let mobilePauseUntil = 0;
 	let mobileActiveIndex = 0;
+	let isProgrammaticMobileScroll = false;
 
 	type Particle = {
 		x: number;
@@ -173,9 +174,13 @@
 			if (Date.now() < mobilePauseUntil) return;
 			const half = mobileCarousel.scrollWidth / 2;
 			if (half <= mobileCarousel.clientWidth + 8) return;
+			isProgrammaticMobileScroll = true;
 			mobileCarousel.scrollLeft += 1;
 			normalizeMobileInfiniteScroll();
 			updateMobileActiveCard();
+			requestAnimationFrame(() => {
+				isProgrammaticMobileScroll = false;
+			});
 		}, 16);
 	}
 
@@ -391,7 +396,9 @@
 		class="hero-mobile-carousel"
 		bind:this={mobileCarousel}
 		on:scroll={() => {
-			pauseMobileAutoScroll(1400);
+			if (!isProgrammaticMobileScroll) {
+				pauseMobileAutoScroll(1400);
+			}
 			normalizeMobileInfiniteScroll();
 			updateMobileActiveCard();
 		}}
@@ -858,12 +865,12 @@
 		}
 
 		.hero-mobile-card--active {
-			transform: scale(1.06) translateY(-2px);
-			border-color: rgba(73, 228, 176, 0.55);
+			transform: scale(1.09) translateY(-4px);
+			border-color: rgba(73, 228, 176, 0.9);
 			box-shadow:
-				0 28px 50px rgba(0, 0, 0, 0.5),
-				0 0 0 1px rgba(73, 228, 176, 0.35) inset,
-				0 0 34px rgba(73, 228, 176, 0.28);
+				0 30px 56px rgba(0, 0, 0, 0.55),
+				0 0 0 2px rgba(73, 228, 176, 0.7) inset,
+				0 0 42px rgba(73, 228, 176, 0.45);
 			z-index: 4;
 		}
 
@@ -902,8 +909,8 @@
 		}
 
 		.hero-mobile-card--active::after {
-			opacity: 0.82;
-			transform: scale(1.12);
+			opacity: 0.95;
+			transform: scale(1.22);
 		}
 
 		.hero-mobile-card:nth-child(3n + 1) {
