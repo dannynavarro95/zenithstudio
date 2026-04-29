@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 
 	// --- Elementos del DOM ---
@@ -32,8 +32,6 @@
 
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
-	let mobileCarouselRaf = 0;
-	let mobilePauseUntil = 0;
 
 	type Particle = {
 		x: number;
@@ -151,53 +149,7 @@
 
 	function handleTouchGlow(event: TouchEvent) {
 		if (!isMobileLayout || !container) return;
-		// En móvil desactivamos el "orb" para evitar glitches visuales y conflictos táctiles.
-		return;
-		const t = event.touches[0];
-		if (!t) return;
-		const rect = container.getBoundingClientRect();
-		const relativeX = t.clientX - rect.left;
-		const relativeY = t.clientY - rect.top;
-		container.style.setProperty('--mouse-x', `${relativeX}px`);
-		container.style.setProperty('--mouse-y', `${relativeY}px`);
-	}
-
-	function pauseMobileCarousel(ms = 2200) {
-		mobilePauseUntil = Date.now() + ms;
-	}
-
-	function mobileCarouselLoop() {
-		if (!browser || !isMobileLayout || !track) {
-			mobileCarouselRaf = 0;
-			return;
-		}
-
-		const now = Date.now();
-		if (now >= mobilePauseUntil) {
-			const half = track.scrollWidth / 2;
-			if (half > track.clientWidth + 8) {
-				track.scrollLeft += 1.25;
-				if (track.scrollLeft >= half) {
-					track.scrollLeft -= half;
-				}
-			}
-		}
-
-		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
-	}
-
-	function startMobileCarousel() {
-		if (!isMobileLayout || mobileCarouselRaf) return;
-		if (!track) return;
-		mobilePauseUntil = Date.now() + 1000;
-		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
-	}
-
-	function stopMobileCarousel() {
-		if (mobileCarouselRaf) {
-			cancelAnimationFrame(mobileCarouselRaf);
-			mobileCarouselRaf = 0;
-		}
+		// En móvil no usamos glow dinámico para evitar interferencias con el scroll táctil.
 	}
 
 	function handleSectionMouseMove(event: MouseEvent) {
@@ -231,9 +183,8 @@
 		});
 	}
 
-	onMount(async () => {
+	onMount(() => {
 		if (!browser) return;
-		await tick();
 
 		syncMobileLayout();
 		const mq = window.matchMedia('(max-width: 900px)');
@@ -244,12 +195,6 @@
 				animationFrameId = 0;
 			} else if (!isMobileLayout && trailCtx && particleCtx && !animationFrameId) {
 				animationFrameId = requestAnimationFrame(animateCursor);
-			}
-
-			if (isMobileLayout) {
-				startMobileCarousel();
-			} else {
-				stopMobileCarousel();
 			}
 		};
 		mq.addEventListener('change', onMq);
@@ -270,15 +215,10 @@
 			}
 		}
 
-		if (isMobileLayout) {
-			startMobileCarousel();
-		}
-
 		return () => {
 			mq.removeEventListener('change', onMq);
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
-			stopMobileCarousel();
 		};
 	});
 
@@ -354,16 +294,10 @@
 	</div>
 
 	<!-- Contenido Principal (Tarjetas) -->
-	<div class="mobile-test-marker" aria-hidden="true">PRUEBA MOVIL V3 ACTIVO</div>
 	<div class="cards-wrapper" class:is-interactive={hasInteracted && !isHoveringText}>
 		<div
 			class="cards-track"
 			bind:this={track}
-			on:touchstart={() => pauseMobileCarousel(3000)}
-			on:touchmove={() => pauseMobileCarousel(3000)}
-			on:touchend={() => pauseMobileCarousel(1400)}
-			on:touchcancel={() => pauseMobileCarousel(1400)}
-			on:wheel={() => pauseMobileCarousel(1400)}
 		>
 			{#each displayServices as service}
 				<div class="card">
@@ -705,13 +639,15 @@
 	@media (max-width: 900px) {
 		.hero-section {
 			cursor: auto;
-			min-height: 100svh;
+			min-height: auto;
 			height: auto;
-			padding: 5.5rem 0 2.25rem;
+			padding: 2.25rem 0 1.2rem;
+			display: block;
+			overflow: visible;
 		}
 
 		.hero-section::before {
-			opacity: 0.62;
+			opacity: 0;
 		}
 
 		.interaction-prompt--desktop {
@@ -719,7 +655,7 @@
 		}
 
 		.mobile-touch-prompt {
-			display: flex;
+			display: none;
 		}
 
 		.hero-touch-orb {
@@ -763,33 +699,12 @@
 		.cards-wrapper {
 			position: relative;
 			inset: auto;
-			margin-top: 0.5rem;
-			min-height: 300px;
+			margin-top: 1rem;
+			min-height: auto;
 			opacity: 1 !important;
-			perspective: 1100px;
-			perspective-origin: 50% 45%;
+			perspective: none;
 			-webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 			mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
-		}
-
-		.mobile-test-marker {
-			position: relative;
-			z-index: 120;
-			display: inline-flex;
-			margin-top: 0.75rem;
-			margin-bottom: 0.7rem;
-			padding: 0.55rem 0.85rem;
-			border-radius: 10px;
-			background: #ff2a2a;
-			border: 2px solid #ffffff;
-			color: #fff;
-			font-size: 0.8rem;
-			font-weight: 900;
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
-			opacity: 1;
-			filter: none;
 		}
 
 		.cards-track {
@@ -806,7 +721,7 @@
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: thin;
 			gap: 1.1rem;
-			padding: 1rem 1.25rem 1.85rem;
+			padding: 0.7rem 1rem 1.1rem;
 			justify-content: flex-start;
 			align-items: center;
 			flex-wrap: nowrap;
@@ -826,10 +741,10 @@
 			flex: 0 0 auto;
 			scroll-snap-align: center;
 			width: 240px;
-			height: 310px;
+			height: 295px;
 			border-radius: 16px;
 			opacity: 1;
-			transform-style: preserve-3d;
+			transform-style: flat;
 			--rotate-x: 0deg;
 			--rotate-y: 0deg;
 			animation: none;
