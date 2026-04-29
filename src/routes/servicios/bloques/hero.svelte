@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 
 	// --- Elementos del DOM ---
@@ -32,10 +32,6 @@
 
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
-
-	let mobileCarouselRaf = 0;
-	let mobileCarouselPaused = false;
-	let mobileResumeTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	type Particle = {
 		x: number;
@@ -155,68 +151,11 @@
 		if (!isMobileLayout || !container) return;
 		const t = event.touches[0];
 		if (!t) return;
-		container.style.setProperty('--mouse-x', `${t.clientX}px`);
-		container.style.setProperty('--mouse-y', `${t.clientY}px`);
-	}
-
-	function clearMobileResume() {
-		if (mobileResumeTimeout) {
-			clearTimeout(mobileResumeTimeout);
-			mobileResumeTimeout = null;
-		}
-	}
-
-	function scheduleMobileResume() {
-		clearMobileResume();
-		mobileResumeTimeout = setTimeout(() => {
-			mobileCarouselPaused = false;
-			mobileResumeTimeout = null;
-		}, 2400);
-	}
-
-	function onTrackTouchStart() {
-		if (!isMobileLayout) return;
-		mobileCarouselPaused = true;
-		clearMobileResume();
-	}
-
-	function onTrackTouchEnd() {
-		if (!isMobileLayout) return;
-		scheduleMobileResume();
-	}
-
-	function mobileCarouselLoop() {
-		if (!browser || !isMobileLayout) {
-			mobileCarouselRaf = 0;
-			return;
-		}
-		if (track && !mobileCarouselPaused) {
-			const max = track.scrollWidth - track.clientWidth;
-			if (max > 2) {
-				track.scrollLeft += 0.52;
-				if (track.scrollLeft >= max - 0.8) {
-					track.scrollLeft = 0;
-				}
-			}
-		}
-		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
-	}
-
-	function stopMobileCarouselLoop() {
-		if (mobileCarouselRaf) {
-			cancelAnimationFrame(mobileCarouselRaf);
-			mobileCarouselRaf = 0;
-		}
-		clearMobileResume();
-	}
-
-	async function bootstrapMobileCarousel() {
-		if (!isMobileLayout) return;
-		stopMobileCarouselLoop();
-		await tick();
-		if (!isMobileLayout || !track) return;
-		mobileCarouselPaused = false;
-		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
+		const rect = container.getBoundingClientRect();
+		const relativeX = t.clientX - rect.left;
+		const relativeY = t.clientY - rect.top;
+		container.style.setProperty('--mouse-x', `${relativeX}px`);
+		container.style.setProperty('--mouse-y', `${relativeY}px`);
 	}
 
 	function handleSectionMouseMove(event: MouseEvent) {
@@ -262,11 +201,6 @@
 			} else if (!isMobileLayout && trailCtx && particleCtx && !animationFrameId) {
 				animationFrameId = requestAnimationFrame(animateCursor);
 			}
-			if (isMobileLayout) {
-				bootstrapMobileCarousel();
-			} else {
-				stopMobileCarouselLoop();
-			}
 		};
 		mq.addEventListener('change', onMq);
 
@@ -286,15 +220,10 @@
 			}
 		}
 
-		if (isMobileLayout) {
-			bootstrapMobileCarousel();
-		}
-
 		return () => {
 			mq.removeEventListener('change', onMq);
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
-			stopMobileCarouselLoop();
 		};
 	});
 
@@ -374,9 +303,6 @@
 		<div
 			class="cards-track"
 			bind:this={track}
-			on:touchstart={onTrackTouchStart}
-			on:touchend={onTrackTouchEnd}
-			on:touchcancel={onTrackTouchEnd}
 		>
 			{#each displayServices as service}
 				<div class="card">
@@ -795,7 +721,7 @@
 			transition: none;
 			overflow-x: auto;
 			overflow-y: visible;
-			scroll-snap-type: x mandatory;
+			scroll-snap-type: x proximity;
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: thin;
 			gap: 1.1rem;
@@ -803,7 +729,8 @@
 			justify-content: flex-start;
 			align-items: center;
 			flex-wrap: nowrap;
-			touch-action: pan-x;
+			touch-action: auto;
+			overscroll-behavior-x: contain;
 		}
 
 		.cards-track::-webkit-scrollbar {

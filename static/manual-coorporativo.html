@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Zenith Studio · Propuesta comercial</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			@page {
+				size: A4;
+				margin: 0;
+			}
+
+			:root {
+				--bg: #0b0e14;
+				--primary: #49e4b0;
+				--cyan: #00bfff;
+				--text: #f0f4f8;
+				--muted: #a0aec0;
+				--panel: #141b26;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				width: 210mm;
+				font-family: Inter, system-ui, sans-serif;
+				background: var(--bg);
+				color: var(--text);
+				-webkit-font-smoothing: antialiased;
+			}
+
+			.page {
+				position: relative;
+				width: 210mm;
+				height: 297mm;
+				padding: 10mm 12mm 11mm;
+				overflow: hidden;
+				break-after: page;
+				background:
+					radial-gradient(circle at 14% 0%, rgba(73, 228, 176, 0.14), transparent 36%),
+					radial-gradient(circle at 92% 8%, rgba(0, 191, 255, 0.16), transparent 34%),
+					linear-gradient(180deg, #0b0e14 0%, #121826 55%, #0a0f18 100%);
+			}
+
+			.page:last-child {
+				break-after: auto;
+			}
+
+			.page::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: radial-gradient(rgba(255, 255, 255, 0.06) 0.45px, transparent 0.45px);
+				background-size: 3px 3px;
+				opacity: 0.1;
+				pointer-events: none;
+			}
+
+			.shell {
+				position: relative;
+				z-index: 2;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-shrink: 0;
+				margin-bottom: 5mm;
+			}
+
+			.logo {
+				height: 44px;
+				width: auto;
+				display: block;
+			}
+
+			.badge {
+				padding: 5px 11px;
+				border-radius: 999px;
+				font-size: 8px;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: #d8fff2;
+				border: 1px solid rgba(73, 228, 176, 0.38);
+				background: rgba(73, 228, 176, 0.1);
+			}
+
+			.main {
+				flex: 1;
+				min-height: 0;
+				display: flex;
+				flex-direction: column;
+			}
+
+			h1,
+			h2,
+			h3,
+			p {
+				margin: 0;
+			}
+
+			.accent {
+				color: #5ee9c5;
+				font-weight: 900;
+			}
+
+			.kicker {
+				font-size: 8.5px;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--primary);
+				margin-bottom: 2mm;
+			}
+
+			.intro {
+				flex-shrink: 0;
+				margin-bottom: 3mm;
+			}
+
+			.h1 {
+				font-size: 28px;
+				font-weight: 900;
+				line-height: 1.08;
+				letter-spacing: -0.03em;
+				max-width: 20ch;
+			}
+
+			.lead {
+				margin-top: 2mm;
+				font-size: 10.5px;
+				line-height: 1.5;
+				color: #c8d6ee;
+				max-width: 62ch;
+			}
+
+			/* P1 · Bandas horizontales a ancho útil (casi página) */
+			.p1-stack {
+				flex: 1;
+				min-height: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 2.2mm;
+				width: 100%;
+			}
+
+			.svc-band {
+				flex: 0 0 auto;
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+			}
+
+			.svc-band > h3 {
+				font-size: 10px;
+				font-weight: 800;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: #e6fff7;
+				margin-bottom: 2mm;
+				flex-shrink: 0;
+				width: 100%;
+			}
+
+			.svc-grid-wrap {
+				width: 100%;
+				border-radius: 12px;
+				border: 1px solid rgba(126, 239, 208, 0.22);
+				background: rgba(7, 11, 18, 0.65);
+				padding: 2mm;
+			}
+
+			.services-6 {
+				width: 100%;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-auto-rows: auto;
+				gap: 1.8mm;
+				align-items: stretch;
+			}
+
+			.svc6 {
+				border-radius: 9px;
+				padding: 2mm 2.2mm;
+				border: 1px solid rgba(126, 239, 208, 0.22);
+				background: rgba(16, 22, 34, 0.96);
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				min-height: 0;
+			}
+
+			.svc6 strong {
+				display: block;
+				font-size: 10px;
+				font-weight: 800;
+				color: #e6fff7;
+				margin-bottom: 1mm;
+				letter-spacing: 0.02em;
+			}
+
+			.svc6 span {
+				font-size: 8.2px;
+				line-height: 1.38;
+				color: var(--muted);
+				display: block;
+			}
+
+			.p1-hero-wide {
+				flex: 1 1 auto;
+				min-height: 22mm;
+				width: 100%;
+				border-radius: 11px;
+				border: 1px solid rgba(126, 239, 208, 0.22);
+				background: #060a10;
+				overflow: hidden;
+				display: flex;
+				align-items: flex-start;
+				/* Borde inferior un pelo más arriba + recorte mínimo por abajo; margen acopla stats y botón */
+				clip-path: inset(0 0 0.65mm 0);
+				margin-bottom: -0.65mm;
+			}
+
+			.p1-hero-wide img {
+				width: 100%;
+				height: calc(100% + 0.35mm);
+				flex-shrink: 0;
+				object-fit: cover;
+				object-position: center 40%;
+				display: block;
+			}
+
+			.stats {
+				flex-shrink: 0;
+				width: 100%;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2mm;
+			}
+
+			.stat {
+				text-align: center;
+				padding: 2.5mm 1.5mm;
+				border-radius: 10px;
+				border: 1px solid rgba(126, 239, 208, 0.18);
+				background: rgba(14, 20, 32, 0.88);
+			}
+
+			.stat strong {
+				display: block;
+				font-size: 14px;
+				font-weight: 800;
+				color: #e6fff7;
+			}
+
+			.stat span {
+				font-size: 7.5px;
+				color: #8ea0c4;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+			}
+
+			a.btn {
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				padding: 9px 14px;
+				border-radius: 999px;
+				font-size: 9.5px;
+				font-weight: 800;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #041018;
+				background: linear-gradient(90deg, var(--primary), var(--cyan));
+				text-decoration: none;
+				box-shadow: 0 8px 20px rgba(0, 191, 255, 0.22);
+			}
+
+			.footer {
+				flex-shrink: 0;
+				padding-top: 2.5mm;
+				display: flex;
+				justify-content: space-between;
+				font-size: 8px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: #6f819f;
+			}
+
+			.page:first-of-type .footer {
+				padding-top: 3.8mm;
+			}
+
+			/* Valor (P2) */
+			.valor-caja {
+				flex-shrink: 0;
+				display: flex;
+				flex-direction: column;
+				padding: 3mm;
+				border-radius: 12px;
+				border: 1px solid rgba(126, 239, 208, 0.22);
+				background: var(--panel);
+				box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+				margin-bottom: 3mm;
+			}
+
+			.valor-caja > h3 {
+				font-size: 11.5px;
+				font-weight: 800;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: #e6fff7;
+				margin-bottom: 2.8mm;
+			}
+
+			.points-2x2 {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2mm;
+			}
+
+			.ph {
+				display: flex;
+				flex-direction: column;
+				gap: 1.8mm;
+				padding: 2.6mm 2.8mm;
+				border-radius: 10px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				background: rgba(10, 14, 22, 0.88);
+			}
+
+			.ph-top {
+				display: flex;
+				align-items: center;
+				gap: 2mm;
+			}
+
+			.ph-dot {
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background: var(--primary);
+				flex-shrink: 0;
+			}
+
+			.ph strong {
+				font-size: 9.5px;
+				font-weight: 800;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: #dff;
+				line-height: 1.2;
+			}
+
+			.ph span {
+				font-size: 9.5px;
+				line-height: 1.45;
+				color: #b9c9e4;
+			}
+
+			/* ——— Página 2 ——— */
+			.intro2 {
+				flex-shrink: 0;
+				margin-bottom: 3mm;
+			}
+
+			.h2 {
+				font-size: 26px;
+				font-weight: 900;
+				line-height: 1.1;
+				letter-spacing: -0.03em;
+				max-width: 22ch;
+			}
+
+			.p2-lead {
+				margin-top: 2mm;
+				font-size: 10.5px;
+				line-height: 1.52;
+				color: #c8d6ee;
+				max-width: 62ch;
+			}
+
+			.split-p2 {
+				flex: 1;
+				min-height: 0;
+				display: grid;
+				grid-template-columns: 1fr 39%;
+				gap: 2mm;
+				align-items: stretch;
+				margin-bottom: 3mm;
+			}
+
+			.split-left {
+				display: flex;
+				flex-direction: column;
+				min-height: 0;
+			}
+
+			.plans-h {
+				font-size: 9px;
+				font-weight: 800;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--primary);
+				margin-bottom: 1.8mm;
+				flex-shrink: 0;
+			}
+
+			.plans-stack {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 1.8mm;
+				min-height: 0;
+			}
+
+			.plan {
+				flex: 1;
+				border-radius: 10px;
+				padding: 2.4mm 2.6mm;
+				border: 1px solid rgba(126, 239, 208, 0.2);
+				background: linear-gradient(160deg, rgba(22, 30, 44, 0.95), rgba(12, 18, 28, 0.98));
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				min-height: 0;
+			}
+
+			.plan .tag {
+				font-size: 8.5px;
+				font-weight: 800;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: #b9ccff;
+				margin-bottom: 1mm;
+			}
+
+			.plan .price {
+				font-size: 18px;
+				font-weight: 900;
+				color: #e6fff7;
+				letter-spacing: -0.02em;
+			}
+
+			.plan .hint {
+				margin-top: 1.5mm;
+				font-size: 11px;
+				line-height: 1.48;
+				color: var(--muted);
+			}
+
+			.split-right {
+				display: flex;
+				min-height: 0;
+				border-radius: 12px;
+				overflow: hidden;
+				border: 1px solid rgba(126, 239, 208, 0.22);
+				box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
+				background: #0a0f18;
+			}
+
+			.split-right img {
+				width: 100%;
+				height: 100%;
+				min-height: 0;
+				object-fit: cover;
+				object-position: center 40%;
+				display: block;
+			}
+
+			.contact-h {
+				font-size: 9px;
+				font-weight: 800;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--primary);
+				margin-bottom: 1.8mm;
+				flex-shrink: 0;
+			}
+
+			.contacts {
+				flex-shrink: 0;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2mm;
+			}
+
+			.contact {
+				border-radius: 11px;
+				padding: 2.6mm;
+				border: 1px solid rgba(126, 239, 208, 0.24);
+				background: rgba(14, 20, 32, 0.92);
+				display: flex;
+				flex-direction: column;
+				gap: 1.8mm;
+			}
+
+			.contact h3 {
+				font-size: 10.5px;
+				font-weight: 800;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				color: #e6fff7;
+				display: flex;
+				align-items: center;
+				gap: 2mm;
+			}
+
+			.ico-svg {
+				width: 17px;
+				height: 17px;
+				flex-shrink: 0;
+			}
+
+			.ico-svg.ico-line {
+				overflow: visible;
+			}
+
+			.contact p {
+				font-size: 8.5px;
+				line-height: 1.42;
+				color: var(--muted);
+				flex: 1;
+			}
+
+			a.cta-link {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 6px 8px;
+				border-radius: 999px;
+				font-size: 7.5px;
+				font-weight: 800;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				color: #dff;
+				border: 1px solid rgba(126, 239, 208, 0.35);
+				text-decoration: none;
+				background: rgba(73, 228, 176, 0.1);
+			}
+		</style>
+	</head>
+	<body>
+		<section class="page">
+			<div class="shell">
+				<div class="top">
+					<img class="logo" src="zenithstudio-logo-blanco.png" alt="Zenith Studio" />
+					<span class="badge">Estudio digital premium</span>
+				</div>
+				<div class="main">
+					<div class="intro">
+						<div class="kicker">Qué ofrecemos</div>
+						<h1 class="h1">Webs que <span class="accent">posicionan</span> y convierten.</h1>
+						<p class="lead">
+							Diseño, desarrollo y criterio comercial en una sola entrega: una web creíble, rápida y orientada a
+							generar contactos de calidad para tu negocio.
+						</p>
+					</div>
+
+					<div class="p1-stack">
+						<div class="svc-band">
+							<h3>Servicios para tu negocio</h3>
+							<div class="svc-grid-wrap">
+								<div class="services-6">
+								<div class="svc6">
+									<strong>Diseño web</strong>
+									<span>Creamos sitios web atractivos, funcionales y optimizados para todos los dispositivos.</span>
+								</div>
+								<div class="svc6">
+									<strong>Desarrollo web</strong>
+									<span>Implementamos soluciones técnicas avanzadas con las mejores prácticas de programación.</span>
+								</div>
+								<div class="svc6">
+									<strong>E-commerce</strong>
+									<span>Desarrollamos tiendas online que convierten visitantes en clientes satisfechos.</span>
+								</div>
+								<div class="svc6">
+									<strong>UI / UX</strong>
+									<span>Diseñamos experiencias digitales centradas en el usuario para aumentar la interacción y la retención.</span>
+								</div>
+								<div class="svc6">
+									<strong>SEO</strong>
+									<span>Optimizamos tu sitio para los motores de búsqueda y mejoramos tu posicionamiento.</span>
+								</div>
+								<div class="svc6">
+									<strong>Mantenimiento</strong>
+									<span>Servicio continuo para mantener tu sitio actualizado, seguro y funcionando perfectamente.</span>
+								</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="p1-hero-wide">
+							<img
+								src="Manual coorporativo/zenith-pdf-p1-wide-dark.png"
+								width="1536"
+								height="1024"
+								alt="Zenith Studio"
+							/>
+						</div>
+
+						<div class="stats">
+							<div class="stat"><strong>+70</strong><span>Proyectos</span></div>
+							<div class="stat"><strong>+43%</strong><span>Más contactos</span></div>
+							<div class="stat"><strong>4,9/5</strong><span>Valoración</span></div>
+						</div>
+
+						<a class="btn" href="https://zenithstudio.es/contacto">Solicitar presupuesto</a>
+					</div>
+				</div>
+				<div class="footer"><span>Zenith Studio</span><span>01 / 02 · Oferta</span></div>
+			</div>
+		</section>
+
+		<section class="page">
+			<div class="shell">
+				<div class="top">
+					<img class="logo" src="zenithstudio-logo-blanco.png" alt="Zenith Studio" />
+					<span class="badge">Siguiente paso</span>
+				</div>
+				<div class="main">
+					<div class="intro2">
+						<div class="kicker">Cierre comercial</div>
+						<h2 class="h2">Hablemos de tu <span class="accent">web definitiva</span>.</h2>
+						<p class="p2-lead">
+							Te enviamos alcance, plazos y presupuesto. Si encaja, arrancamos con un plan claro y entregas por
+							fases. Cuéntanos tu caso y respondemos en menos de 24 horas.
+						</p>
+					</div>
+
+					<div class="valor-caja">
+						<h3>Valor para tu negocio</h3>
+						<div class="points-2x2">
+							<div class="ph">
+								<div class="ph-top"><span class="ph-dot"></span><strong>Autoridad</strong></div>
+								<span>Mensaje claro y percepción premium desde el primer vistazo.</span>
+							</div>
+							<div class="ph">
+								<div class="ph-top"><span class="ph-dot"></span><strong>Conversión</strong></div>
+								<span>Estructura pensada para reservas, consultas o ventas.</span>
+							</div>
+							<div class="ph">
+								<div class="ph-top"><span class="ph-dot"></span><strong>Tecnología</strong></div>
+								<span>Rendimiento, SEO técnico y base preparada para crecer.</span>
+							</div>
+							<div class="ph">
+								<div class="ph-top"><span class="ph-dot"></span><strong>Integración</strong></div>
+								<span>WhatsApp, formularios y analítica alineados con cómo captas clientes.</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="split-p2">
+						<div class="split-left">
+							<div class="plans-h">Nuestros planes</div>
+							<div class="plans-stack">
+								<div class="plan">
+									<div class="tag">Esencial</div>
+									<div class="price">desde 249€</div>
+									<p class="hint">Web con presencia profesional, formulario y lo esencial para empezar a recibir consultas con buena imagen.</p>
+								</div>
+								<div class="plan">
+									<div class="tag">Profesional</div>
+									<div class="price">desde 499€</div>
+									<p class="hint">Más apartados, mejor narrativa en la home y llamadas a la acción pensadas para generar más contacto de calidad.</p>
+								</div>
+								<div class="plan">
+									<div class="tag">Avanzado</div>
+									<div class="price">desde 849€</div>
+									<p class="hint">Proyecto a medida con más integraciones, contenido propio y funciones especiales según lo que necesites.</p>
+								</div>
+							</div>
+						</div>
+						<div class="split-right">
+							<img src="Manual coorporativo/zenith-pdf-laptop-hero.png" alt="Diseño web profesional" />
+						</div>
+					</div>
+
+					<div class="contact-h">Contacto</div>
+					<div class="contacts">
+						<div class="contact">
+							<h3>
+								<svg class="ico-svg ico-line" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+									<rect x="3" y="5" width="18" height="14" rx="2" stroke="#49e4b0" stroke-width="1.55" />
+									<path d="M3 7.5l9 5.5 9-5.5" stroke="#49e4b0" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								Correo
+							</h3>
+							<p>Propuesta y seguimiento por email.</p>
+							<a class="cta-link" href="mailto:contacto@zenithstudio.com">Escribir correo</a>
+						</div>
+						<div class="contact">
+							<h3>
+								<svg class="ico-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+									<path
+										fill="#49e4b0"
+										d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+									/>
+								</svg>
+								WhatsApp
+							</h3>
+							<p>Mensaje directo para priorizar tu proyecto.</p>
+							<a class="cta-link" href="https://wa.me/613003673?text=Hola%20Zenith%20Studio%2C%20quiero%20informaci%C3%B3n%20sobre%20una%20web.">Abrir WhatsApp</a>
+						</div>
+						<div class="contact">
+							<h3>
+								<svg class="ico-svg ico-line" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+									<rect x="3" y="3" width="18" height="18" rx="5" stroke="#49e4b0" stroke-width="1.55" />
+									<circle cx="12" cy="12" r="4" stroke="#49e4b0" stroke-width="1.55" />
+									<circle cx="17.5" cy="6.5" r="1.15" stroke="#49e4b0" stroke-width="1.35" fill="none" />
+								</svg>
+								Instagram
+							</h3>
+							<p>Referencias visuales y actualidad del estudio.</p>
+							<a class="cta-link" href="https://www.instagram.com/zenithstudio.es" target="_blank" rel="noreferrer">Ver Instagram</a>
+						</div>
+					</div>
+				</div>
+				<div class="footer"><span>Zenith Studio</span><span>02 / 02 · Contacto</span></div>
+			</div>
+		</section>
+	</body>
+</html>

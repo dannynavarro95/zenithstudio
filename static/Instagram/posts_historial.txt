@@ -1,0 +1,2 @@
+post_001 | enfoque: presentacion oferta y conversion | hook: Tu web puede ser tu mejor vendedor
+post_001_desc | tono: directo y premium | cta: Escribe "WEB" por DM | archivo: descripciones_posts/post_001.txt
