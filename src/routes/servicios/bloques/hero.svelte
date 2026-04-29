@@ -852,17 +852,25 @@
 			position: relative;
 			overflow: hidden;
 			animation: mobile-card-depth 4.8s ease-in-out infinite;
-			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, filter 0.35s ease;
+			transform-origin: center bottom;
+			transform: perspective(900px) rotateY(-5deg) rotateX(1.5deg);
+			filter: saturate(0.95);
+		}
+
+		.hero-mobile-card:nth-child(2n) {
+			transform: perspective(900px) rotateY(5deg) rotateX(1.5deg);
 		}
 
 		.hero-mobile-card--turn {
-			transform: scale(1.06) translateY(-3px);
+			transform: perspective(900px) rotateY(0deg) rotateX(0deg) scale(1.08) translateY(-3px);
 			border-color: rgba(73, 228, 176, 0.75);
 			box-shadow:
 				0 26px 46px rgba(0, 0, 0, 0.48),
 				0 0 0 2px rgba(73, 228, 176, 0.45) inset,
 				0 0 34px rgba(73, 228, 176, 0.32);
 			z-index: 4;
+			filter: saturate(1.05);
 		}
 
 
