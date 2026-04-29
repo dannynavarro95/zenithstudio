@@ -174,7 +174,7 @@
 		if (now >= mobilePauseUntil) {
 			const half = track.scrollWidth / 2;
 			if (half > track.clientWidth + 8) {
-				track.scrollLeft += 0.45;
+				track.scrollLeft += 1.25;
 				if (track.scrollLeft >= half) {
 					track.scrollLeft -= half;
 				}
@@ -349,7 +349,7 @@
 	</div>
 
 	<!-- Contenido Principal (Tarjetas) -->
-	<div class="mobile-test-marker" aria-hidden="true">PRUEBA MOVIL V2</div>
+	<div class="mobile-test-marker" aria-hidden="true">PRUEBA MOVIL V3 ACTIVO</div>
 	<div class="cards-wrapper" class:is-interactive={hasInteracted && !isHoveringText}>
 		<div
 			class="cards-track"
@@ -768,21 +768,23 @@
 		}
 
 		.mobile-test-marker {
-			position: fixed;
-			top: 10px;
-			right: 10px;
-			z-index: 9999;
+			position: relative;
+			z-index: 120;
 			display: inline-flex;
-			padding: 0.55rem 0.8rem;
+			margin-top: 0.75rem;
+			margin-bottom: 0.7rem;
+			padding: 0.55rem 0.85rem;
 			border-radius: 10px;
 			background: #ff2a2a;
-			border: 2px solid #fff;
+			border: 2px solid #ffffff;
 			color: #fff;
-			font-size: 0.78rem;
+			font-size: 0.8rem;
 			font-weight: 900;
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
-			box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+			opacity: 1;
+			filter: none;
 		}
 
 		.cards-track {
