@@ -348,6 +348,7 @@
 
 <section class="hero-mobile" aria-label="Servicios destacados en movil">
 	<div class="hero-mobile-header">
+		<p class="hero-mobile-eyebrow">Excelencia Tecnica</p>
 		<h1 class="hero-mobile-title">Nuestros Servicios</h1>
 		<p class="hero-mobile-subtitle">Desliza o deja que el carrusel avance automaticamente</p>
 	</div>
@@ -715,16 +716,26 @@
 			margin-bottom: 1.1rem;
 		}
 
+		.hero-mobile-eyebrow {
+			margin: 0 0 0.45rem;
+			font-size: 0.68rem;
+			font-weight: 700;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			color: rgba(73, 228, 176, 0.86);
+		}
+
 		.hero-mobile-title {
 			margin: 0;
 			font-size: clamp(2.1rem, 10.5vw, 3.1rem);
 			font-weight: 900;
 			letter-spacing: -0.04em;
-			background: linear-gradient(95deg, #f0f4f8 0%, #49e4b0 48%, #f0f4f8 100%);
+			line-height: 1.02;
+			background: linear-gradient(102deg, #f7fafc 0%, #8df2d0 36%, #49e4b0 55%, #d9e5ef 100%);
 			-webkit-background-clip: text;
 			background-clip: text;
 			color: transparent;
-			text-shadow: 0 0 22px rgba(73, 228, 176, 0.16);
+			text-shadow: 0 0 32px rgba(73, 228, 176, 0.2);
 		}
 
 		.hero-mobile-subtitle {
@@ -755,8 +766,8 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			width: 180px;
-			height: 260px;
+			width: 190px;
+			height: 270px;
 			transform: translate(-50%, -50%);
 			pointer-events: none;
 			border-radius: 24px;
@@ -764,6 +775,22 @@
 			filter: blur(10px);
 			animation: center-premium-glow 3.2s ease-in-out infinite;
 			z-index: 2;
+		}
+
+		.hero-mobile-carousel::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			bottom: 6px;
+			width: 240px;
+			height: 30px;
+			transform: translateX(-50%);
+			border-radius: 50%;
+			background: radial-gradient(ellipse, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.08) 55%, transparent 80%);
+			filter: blur(10px);
+			pointer-events: none;
+			animation: center-ground-shadow 3.2s ease-in-out infinite;
+			z-index: 1;
 		}
 
 		.hero-mobile-track {
@@ -781,9 +808,12 @@
 			border-radius: 16px;
 			background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
 			border: 1px solid rgba(255, 255, 255, 0.15);
-			box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+			box-shadow:
+				0 12px 34px rgba(0, 0, 0, 0.34),
+				0 0 0 1px rgba(73, 228, 176, 0.1) inset;
 			position: relative;
 			overflow: hidden;
+			animation: mobile-card-depth 4.8s ease-in-out infinite;
 		}
 
 		.hero-mobile-card-content {
@@ -805,6 +835,29 @@
 			opacity: 0.45;
 			pointer-events: none;
 			animation: card-sheen 4.4s ease-in-out infinite;
+		}
+
+		.hero-mobile-card::after {
+			content: '';
+			position: absolute;
+			inset: auto 10% 8px 10%;
+			height: 20px;
+			border-radius: 999px;
+			background: radial-gradient(ellipse, rgba(0, 0, 0, 0.38), transparent 72%);
+			filter: blur(7px);
+			opacity: 0.55;
+			pointer-events: none;
+			animation: card-floor-shadow 4.8s ease-in-out infinite;
+		}
+
+		.hero-mobile-card:nth-child(3n + 1) {
+			animation-delay: 0s;
+		}
+		.hero-mobile-card:nth-child(3n + 2) {
+			animation-delay: 0.8s;
+		}
+		.hero-mobile-card:nth-child(3n) {
+			animation-delay: 1.6s;
 		}
 
 		.hero-mobile-card-icon {
@@ -838,6 +891,18 @@
 			}
 		}
 
+		@keyframes center-ground-shadow {
+			0%,
+			100% {
+				opacity: 0.36;
+				transform: translateX(-50%) scale(0.92);
+			}
+			50% {
+				opacity: 0.64;
+				transform: translateX(-50%) scale(1.06);
+			}
+		}
+
 		@keyframes card-sheen {
 			0%,
 			100% {
@@ -845,6 +910,36 @@
 			}
 			50% {
 				opacity: 0.54;
+			}
+		}
+
+		@keyframes mobile-card-depth {
+			0%,
+			100% {
+				transform: translateY(0) scale(0.985);
+				box-shadow:
+					0 12px 34px rgba(0, 0, 0, 0.32),
+					0 0 0 1px rgba(73, 228, 176, 0.1) inset,
+					0 0 22px rgba(73, 228, 176, 0.08);
+			}
+			50% {
+				transform: translateY(-4px) scale(1);
+				box-shadow:
+					0 20px 40px rgba(0, 0, 0, 0.42),
+					0 0 0 1px rgba(73, 228, 176, 0.2) inset,
+					0 0 34px rgba(73, 228, 176, 0.16);
+			}
+		}
+
+		@keyframes card-floor-shadow {
+			0%,
+			100% {
+				opacity: 0.42;
+				transform: scale(0.9);
+			}
+			50% {
+				opacity: 0.68;
+				transform: scale(1.02);
 			}
 		}
 
