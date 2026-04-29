@@ -36,7 +36,6 @@
 	let isMobileLayout = false;
 	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
 	let mobilePauseUntil = 0;
-	let mobileActiveIndex = 0;
 	let isProgrammaticMobileScroll = false;
 
 	type Particle = {
@@ -177,31 +176,10 @@
 			isProgrammaticMobileScroll = true;
 			mobileCarousel.scrollLeft += 1;
 			normalizeMobileInfiniteScroll();
-			updateMobileActiveCard();
 			requestAnimationFrame(() => {
 				isProgrammaticMobileScroll = false;
 			});
 		}, 16);
-	}
-
-	function updateMobileActiveCard() {
-		if (!mobileHeroTrack) return;
-		const cards = mobileHeroTrack.querySelectorAll<HTMLElement>('.hero-mobile-card');
-		if (!cards.length) return;
-		const trackRect = mobileHeroTrack.getBoundingClientRect();
-		const centerX = trackRect.left + trackRect.width / 2;
-		let bestIdx = 0;
-		let bestDist = Number.POSITIVE_INFINITY;
-		cards.forEach((card, idx) => {
-			const r = card.getBoundingClientRect();
-			const cardCenter = r.left + r.width / 2;
-			const dist = Math.abs(cardCenter - centerX);
-			if (dist < bestDist) {
-				bestDist = dist;
-				bestIdx = idx;
-			}
-		});
-		mobileActiveIndex = bestIdx;
 	}
 
 	function normalizeMobileInfiniteScroll() {
@@ -285,7 +263,6 @@
 		}
 		if (isMobileLayout) {
 			requestAnimationFrame(() => startMobileAutoScroll());
-			requestAnimationFrame(() => updateMobileActiveCard());
 		}
 
 		return () => {
@@ -400,7 +377,6 @@
 				pauseMobileAutoScroll(1400);
 			}
 			normalizeMobileInfiniteScroll();
-			updateMobileActiveCard();
 		}}
 	>
 		<div
@@ -411,8 +387,8 @@
 			on:touchend={() => pauseMobileAutoScroll(1100)}
 			on:touchcancel={() => pauseMobileAutoScroll(1100)}
 		>
-			{#each displayServices as service, i}
-				<article class="hero-mobile-card" class:hero-mobile-card--active={i === mobileActiveIndex}>
+			{#each displayServices as service}
+				<article class="hero-mobile-card">
 					<div class="hero-mobile-card-content">
 						<i class="{service.icon} hero-mobile-card-icon"></i>
 						<h3 class="hero-mobile-card-title">{service.title}</h3>
@@ -864,15 +840,6 @@
 			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 		}
 
-		.hero-mobile-card--active {
-			transform: scale(1.09) translateY(-4px);
-			border-color: rgba(73, 228, 176, 0.9);
-			box-shadow:
-				0 30px 56px rgba(0, 0, 0, 0.55),
-				0 0 0 2px rgba(73, 228, 176, 0.7) inset,
-				0 0 42px rgba(73, 228, 176, 0.45);
-			z-index: 4;
-		}
 
 		.hero-mobile-card-content {
 			height: 100%;
@@ -908,10 +875,6 @@
 			animation: card-floor-shadow 4.8s ease-in-out infinite;
 		}
 
-		.hero-mobile-card--active::after {
-			opacity: 0.95;
-			transform: scale(1.22);
-		}
 
 		.hero-mobile-card:nth-child(3n + 1) {
 			animation-delay: 0s;
