@@ -32,6 +32,8 @@
 
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
+	let mobileCarouselRaf = 0;
+	let mobilePauseUntil = 0;
 
 	type Particle = {
 		x: number;
@@ -158,6 +160,43 @@
 		container.style.setProperty('--mouse-y', `${relativeY}px`);
 	}
 
+	function pauseMobileCarousel(ms = 2200) {
+		mobilePauseUntil = Date.now() + ms;
+	}
+
+	function mobileCarouselLoop() {
+		if (!browser || !isMobileLayout || !track) {
+			mobileCarouselRaf = 0;
+			return;
+		}
+
+		const now = Date.now();
+		if (now >= mobilePauseUntil) {
+			const half = track.scrollWidth / 2;
+			if (half > track.clientWidth + 8) {
+				track.scrollLeft += 0.45;
+				if (track.scrollLeft >= half) {
+					track.scrollLeft -= half;
+				}
+			}
+		}
+
+		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
+	}
+
+	function startMobileCarousel() {
+		if (!isMobileLayout || !track || mobileCarouselRaf) return;
+		mobilePauseUntil = Date.now() + 1000;
+		mobileCarouselRaf = requestAnimationFrame(mobileCarouselLoop);
+	}
+
+	function stopMobileCarousel() {
+		if (mobileCarouselRaf) {
+			cancelAnimationFrame(mobileCarouselRaf);
+			mobileCarouselRaf = 0;
+		}
+	}
+
 	function handleSectionMouseMove(event: MouseEvent) {
 		if (!container || !track) return;
 		if (!hasInteracted) {
@@ -201,6 +240,12 @@
 			} else if (!isMobileLayout && trailCtx && particleCtx && !animationFrameId) {
 				animationFrameId = requestAnimationFrame(animateCursor);
 			}
+
+			if (isMobileLayout) {
+				startMobileCarousel();
+			} else {
+				stopMobileCarousel();
+			}
 		};
 		mq.addEventListener('change', onMq);
 
@@ -220,10 +265,15 @@
 			}
 		}
 
+		if (isMobileLayout) {
+			startMobileCarousel();
+		}
+
 		return () => {
 			mq.removeEventListener('change', onMq);
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
+			stopMobileCarousel();
 		};
 	});
 
@@ -304,6 +354,11 @@
 		<div
 			class="cards-track"
 			bind:this={track}
+			on:touchstart={() => pauseMobileCarousel(3000)}
+			on:touchmove={() => pauseMobileCarousel(3000)}
+			on:touchend={() => pauseMobileCarousel(1400)}
+			on:touchcancel={() => pauseMobileCarousel(1400)}
+			on:wheel={() => pauseMobileCarousel(1400)}
 		>
 			{#each displayServices as service}
 				<div class="card">
@@ -713,21 +768,21 @@
 		}
 
 		.mobile-test-marker {
-			position: relative;
-			z-index: 6;
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			z-index: 9999;
 			display: inline-flex;
-			margin-top: 1.1rem;
-			margin-bottom: 0.65rem;
-			padding: 0.6rem 1.1rem;
-			border-radius: 12px;
-			background: #49e4b0;
-			border: 1px solid rgba(255, 255, 255, 0.45);
-			color: #04120d;
-			font-size: 0.95rem;
-			font-weight: 800;
-			letter-spacing: 0.12em;
+			padding: 0.55rem 0.8rem;
+			border-radius: 10px;
+			background: #ff2a2a;
+			border: 2px solid #fff;
+			color: #fff;
+			font-size: 0.78rem;
+			font-weight: 900;
+			letter-spacing: 0.08em;
 			text-transform: uppercase;
-			box-shadow: 0 0 0 2px rgba(73, 228, 176, 0.22), 0 10px 24px rgba(0, 0, 0, 0.32);
+			box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
 		}
 
 		.cards-track {
