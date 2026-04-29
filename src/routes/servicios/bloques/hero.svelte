@@ -286,7 +286,7 @@
 </div>
 
 <section
-	class="hero-section"
+	class="hero-section hero-section--desktop"
 	on:mousemove={handleSectionMouseMove}
 	on:mouseenter={() => (isInside = true)}
 	on:mouseleave={() => (isInside = false)}
@@ -344,6 +344,27 @@
 						<p class="card-description">{service.description}</p>
 					</div>
 				</div>
+			{/each}
+		</div>
+	</div>
+</section>
+
+<section class="hero-mobile" aria-label="Servicios destacados en movil">
+	<div class="hero-mobile-header">
+		<h1 class="hero-mobile-title">Nuestros Servicios</h1>
+		<p class="hero-mobile-subtitle">Desliza o deja que el carrusel avance automaticamente</p>
+	</div>
+
+	<div class="hero-mobile-carousel">
+		<div class="hero-mobile-track">
+			{#each displayServices as service}
+				<article class="hero-mobile-card">
+					<div class="hero-mobile-card-content">
+						<i class="{service.icon} hero-mobile-card-icon"></i>
+						<h3 class="hero-mobile-card-title">{service.title}</h3>
+						<p class="hero-mobile-card-description">{service.description}</p>
+					</div>
+				</article>
 			{/each}
 		</div>
 	</div>
@@ -673,6 +694,99 @@
 	}
 
 	@media (max-width: 900px) {
+		.hero-section--desktop {
+			display: none;
+		}
+
+		.hero-mobile {
+			display: block;
+			padding: 2rem 0 1rem;
+			position: relative;
+			z-index: 2;
+		}
+
+		.hero-mobile-header {
+			text-align: center;
+			padding: 0 1rem;
+			margin-bottom: 1.1rem;
+		}
+
+		.hero-mobile-title {
+			margin: 0;
+			font-size: clamp(2rem, 10vw, 3rem);
+			font-weight: 900;
+			letter-spacing: -0.03em;
+			color: var(--color-text-light);
+		}
+
+		.hero-mobile-subtitle {
+			margin: 0.6rem auto 0;
+			max-width: 320px;
+			font-size: 0.88rem;
+			color: var(--color-text-muted);
+		}
+
+		.hero-mobile-carousel {
+			overflow: hidden;
+			-webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+			mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+		}
+
+		.hero-mobile-track {
+			display: flex;
+			gap: 0.95rem;
+			width: max-content;
+			padding: 0.7rem 0.95rem 1rem;
+			animation: hero-mobile-scroll 28s linear infinite;
+		}
+
+		.hero-mobile-card {
+			flex: 0 0 auto;
+			width: 235px;
+			height: 285px;
+			border-radius: 16px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+		}
+
+		.hero-mobile-card-content {
+			height: 100%;
+			padding: 1.25rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+
+		.hero-mobile-card-icon {
+			font-size: 2.3rem;
+			margin-bottom: 0.8rem;
+			color: var(--color-primary);
+		}
+
+		.hero-mobile-card-title {
+			margin: 0 0 0.6rem;
+			font-size: 1.08rem;
+			color: var(--color-text-light);
+		}
+
+		.hero-mobile-card-description {
+			margin: 0;
+			font-size: 0.82rem;
+			line-height: 1.45;
+			color: var(--color-text-muted);
+		}
+
+		@keyframes hero-mobile-scroll {
+			from {
+				transform: translateX(0);
+			}
+			to {
+				transform: translateX(-50%);
+			}
+		}
+
 		.hero-section {
 			cursor: auto;
 			min-height: 100svh;
@@ -837,6 +951,12 @@
 			50% {
 				opacity: 0.5;
 			}
+		}
+	}
+
+	@media (min-width: 901px) {
+		.hero-mobile {
+			display: none;
 		}
 	}
 </style>
