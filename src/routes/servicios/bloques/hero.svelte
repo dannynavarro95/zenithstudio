@@ -854,12 +854,24 @@
 			animation: mobile-card-depth 4.8s ease-in-out infinite;
 			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, filter 0.35s ease;
 			transform-origin: center bottom;
-			transform: perspective(900px) rotateY(-5deg) rotateX(1.5deg);
 			filter: saturate(0.95);
+			animation:
+				mobile-card-depth 4.8s ease-in-out infinite,
+				mobile-card-rock-left 3.6s ease-in-out infinite;
 		}
 
 		.hero-mobile-card:nth-child(2n) {
-			transform: perspective(900px) rotateY(5deg) rotateX(1.5deg);
+			animation-name: mobile-card-depth, mobile-card-rock-right;
+		}
+
+		.hero-mobile-card:nth-child(3n + 1) {
+			animation-delay: 0s, 0s;
+		}
+		.hero-mobile-card:nth-child(3n + 2) {
+			animation-delay: 0.8s, 0.35s;
+		}
+		.hero-mobile-card:nth-child(3n) {
+			animation-delay: 1.6s, 0.7s;
 		}
 
 		.hero-mobile-card--turn {
@@ -871,6 +883,9 @@
 				0 0 34px rgba(73, 228, 176, 0.32);
 			z-index: 4;
 			filter: saturate(1.05);
+			animation:
+				mobile-card-depth 4.8s ease-in-out infinite,
+				mobile-card-focus-rock 2.8s ease-in-out infinite;
 		}
 
 
@@ -913,16 +928,6 @@
 			transform: scale(1.16);
 		}
 
-
-		.hero-mobile-card:nth-child(3n + 1) {
-			animation-delay: 0s;
-		}
-		.hero-mobile-card:nth-child(3n + 2) {
-			animation-delay: 0.8s;
-		}
-		.hero-mobile-card:nth-child(3n) {
-			animation-delay: 1.6s;
-		}
 
 		.hero-mobile-card-icon {
 			font-size: 2.3rem;
@@ -990,6 +995,36 @@
 					0 20px 40px rgba(0, 0, 0, 0.42),
 					0 0 0 1px rgba(73, 228, 176, 0.2) inset,
 					0 0 34px rgba(73, 228, 176, 0.16);
+			}
+		}
+
+		@keyframes mobile-card-rock-left {
+			0%,
+			100% {
+				transform: perspective(900px) rotateY(-7deg) rotateX(1.4deg) translateY(0);
+			}
+			50% {
+				transform: perspective(900px) rotateY(-2.5deg) rotateX(0.6deg) translateY(-1px);
+			}
+		}
+
+		@keyframes mobile-card-rock-right {
+			0%,
+			100% {
+				transform: perspective(900px) rotateY(7deg) rotateX(1.4deg) translateY(0);
+			}
+			50% {
+				transform: perspective(900px) rotateY(2.5deg) rotateX(0.6deg) translateY(-1px);
+			}
+		}
+
+		@keyframes mobile-card-focus-rock {
+			0%,
+			100% {
+				transform: perspective(900px) rotateY(-1.5deg) rotateX(0deg) scale(1.08) translateY(-3px);
+			}
+			50% {
+				transform: perspective(900px) rotateY(1.5deg) rotateX(0deg) scale(1.1) translateY(-5px);
 			}
 		}
 
