@@ -5,6 +5,7 @@
 	// --- Elementos del DOM ---
 	let container: HTMLElement;
 	let track: HTMLElement;
+	let mobileHeroTrack: HTMLElement;
 	let cursorDot: HTMLElement;
 	let cursorContainer: HTMLElement;
 
@@ -163,16 +164,16 @@
 	}
 
 	function startMobileAutoScroll() {
-		if (!browser || !isMobileLayout || !track || mobileAutoScrollId) return;
+		if (!browser || !isMobileLayout || !mobileHeroTrack || mobileAutoScrollId) return;
 		pauseMobileAutoScroll(1000);
 		mobileAutoScrollId = setInterval(() => {
-			if (!isMobileLayout || !track) return;
+			if (!isMobileLayout || !mobileHeroTrack) return;
 			if (Date.now() < mobilePauseUntil) return;
-			const half = track.scrollWidth / 2;
-			if (half <= track.clientWidth + 8) return;
-			track.scrollLeft += 1;
-			if (track.scrollLeft >= half) {
-				track.scrollLeft -= half;
+			const half = mobileHeroTrack.scrollWidth / 2;
+			if (half <= mobileHeroTrack.clientWidth + 8) return;
+			mobileHeroTrack.scrollLeft += 1;
+			if (mobileHeroTrack.scrollLeft >= half) {
+				mobileHeroTrack.scrollLeft -= half;
 			}
 		}, 16);
 	}
@@ -330,10 +331,6 @@
 		<div
 			class="cards-track"
 			bind:this={track}
-			on:touchstart={() => pauseMobileAutoScroll(2600)}
-			on:touchmove={() => pauseMobileAutoScroll(2600)}
-			on:touchend={() => pauseMobileAutoScroll(1300)}
-			on:touchcancel={() => pauseMobileAutoScroll(1300)}
 		>
 			{#each displayServices as service}
 				<div class="card">
@@ -356,7 +353,14 @@
 	</div>
 
 	<div class="hero-mobile-carousel">
-		<div class="hero-mobile-track">
+		<div
+			class="hero-mobile-track"
+			bind:this={mobileHeroTrack}
+			on:touchstart={() => pauseMobileAutoScroll(2600)}
+			on:touchmove={() => pauseMobileAutoScroll(2600)}
+			on:touchend={() => pauseMobileAutoScroll(1100)}
+			on:touchcancel={() => pauseMobileAutoScroll(1100)}
+		>
 			{#each displayServices as service}
 				<article class="hero-mobile-card">
 					<div class="hero-mobile-card-content">
@@ -713,23 +717,53 @@
 
 		.hero-mobile-title {
 			margin: 0;
-			font-size: clamp(2rem, 10vw, 3rem);
+			font-size: clamp(2.1rem, 10.5vw, 3.1rem);
 			font-weight: 900;
-			letter-spacing: -0.03em;
-			color: var(--color-text-light);
+			letter-spacing: -0.04em;
+			background: linear-gradient(95deg, #f0f4f8 0%, #49e4b0 48%, #f0f4f8 100%);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			text-shadow: 0 0 22px rgba(73, 228, 176, 0.16);
 		}
 
 		.hero-mobile-subtitle {
-			margin: 0.6rem auto 0;
+			margin: 0.45rem auto 0;
 			max-width: 320px;
-			font-size: 0.88rem;
-			color: var(--color-text-muted);
+			font-size: 0.72rem;
+			letter-spacing: 0.02em;
+			color: rgba(170, 170, 170, 0.78);
 		}
 
 		.hero-mobile-carousel {
-			overflow: hidden;
+			position: relative;
+			overflow-x: auto;
+			overflow-y: hidden;
 			-webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 			mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			touch-action: pan-x;
+			overscroll-behavior-x: contain;
+		}
+		.hero-mobile-carousel::-webkit-scrollbar {
+			display: none;
+		}
+
+		.hero-mobile-carousel::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 180px;
+			height: 260px;
+			transform: translate(-50%, -50%);
+			pointer-events: none;
+			border-radius: 24px;
+			background: radial-gradient(circle, rgba(73, 228, 176, 0.24) 0%, rgba(73, 228, 176, 0.08) 48%, transparent 75%);
+			filter: blur(10px);
+			animation: center-premium-glow 3.2s ease-in-out infinite;
+			z-index: 2;
 		}
 
 		.hero-mobile-track {
@@ -737,7 +771,7 @@
 			gap: 0.95rem;
 			width: max-content;
 			padding: 0.7rem 0.95rem 1rem;
-			animation: hero-mobile-scroll 28s linear infinite;
+			animation: none;
 		}
 
 		.hero-mobile-card {
@@ -745,8 +779,11 @@
 			width: 235px;
 			height: 285px;
 			border-radius: 16px;
-			background: rgba(255, 255, 255, 0.05);
-			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+			position: relative;
+			overflow: hidden;
 		}
 
 		.hero-mobile-card-content {
@@ -757,6 +794,17 @@
 			align-items: center;
 			justify-content: center;
 			text-align: center;
+		}
+
+		.hero-mobile-card::before {
+			content: '';
+			position: absolute;
+			inset: -1px;
+			border-radius: inherit;
+			background: linear-gradient(120deg, rgba(73, 228, 176, 0.16), transparent 40%, rgba(73, 228, 176, 0.12));
+			opacity: 0.45;
+			pointer-events: none;
+			animation: card-sheen 4.4s ease-in-out infinite;
 		}
 
 		.hero-mobile-card-icon {
@@ -778,12 +826,25 @@
 			color: var(--color-text-muted);
 		}
 
-		@keyframes hero-mobile-scroll {
-			from {
-				transform: translateX(0);
+		@keyframes center-premium-glow {
+			0%,
+			100% {
+				opacity: 0.45;
+				transform: translate(-50%, -50%) scale(0.96);
 			}
-			to {
-				transform: translateX(-50%);
+			50% {
+				opacity: 0.82;
+				transform: translate(-50%, -50%) scale(1.05);
+			}
+		}
+
+		@keyframes card-sheen {
+			0%,
+			100% {
+				opacity: 0.24;
+			}
+			50% {
+				opacity: 0.54;
 			}
 		}
 
