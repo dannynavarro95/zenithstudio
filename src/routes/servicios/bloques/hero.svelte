@@ -147,14 +147,9 @@
 		isMobileLayout = window.matchMedia('(max-width: 900px)').matches;
 	}
 
-	function handleTouchGlow(event: TouchEvent) {
-		if (!isMobileLayout || !container) return;
-		// En móvil no usamos glow dinámico para evitar interferencias con el scroll táctil.
-	}
 
 	function handleSectionMouseMove(event: MouseEvent) {
 		if (!container || !track) return;
-		if (isMobileLayout) return;
 		if (!hasInteracted) {
 			hasInteracted = true;
 		}
@@ -254,8 +249,6 @@
 <section
 	class="hero-section"
 	on:mousemove={handleSectionMouseMove}
-	on:touchstart={handleTouchGlow}
-	on:touchmove={handleTouchGlow}
 	on:mouseenter={() => (isInside = true)}
 	on:mouseleave={() => (isInside = false)}
 	bind:this={container}
@@ -639,15 +632,13 @@
 	@media (max-width: 900px) {
 		.hero-section {
 			cursor: auto;
-			min-height: auto;
+			min-height: 100svh;
 			height: auto;
-			padding: 2.25rem 0 1.2rem;
-			display: block;
-			overflow: visible;
+			padding: 5.5rem 0 2.25rem;
 		}
 
 		.hero-section::before {
-			opacity: 0;
+			opacity: 0.62;
 		}
 
 		.interaction-prompt--desktop {
@@ -655,11 +646,11 @@
 		}
 
 		.mobile-touch-prompt {
-			display: none;
+			display: flex;
 		}
 
 		.hero-touch-orb {
-			display: none !important;
+			display: none;
 			position: absolute;
 			width: 200px;
 			height: 200px;
@@ -699,10 +690,11 @@
 		.cards-wrapper {
 			position: relative;
 			inset: auto;
-			margin-top: 1rem;
-			min-height: auto;
+			margin-top: 0.5rem;
+			min-height: 300px;
 			opacity: 1 !important;
-			perspective: none;
+			perspective: 1100px;
+			perspective-origin: 50% 45%;
 			-webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 			mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 		}
@@ -721,7 +713,7 @@
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: thin;
 			gap: 1.1rem;
-			padding: 0.7rem 1rem 1.1rem;
+			padding: 1rem 1.25rem 1.85rem;
 			justify-content: flex-start;
 			align-items: center;
 			flex-wrap: nowrap;
@@ -741,19 +733,33 @@
 			flex: 0 0 auto;
 			scroll-snap-align: center;
 			width: 240px;
-			height: 295px;
+			height: 310px;
 			border-radius: 16px;
 			opacity: 1;
-			transform-style: flat;
+			transform-style: preserve-3d;
 			--rotate-x: 0deg;
 			--rotate-y: 0deg;
-			animation: none;
+			animation: card-float-3d 8s ease-in-out infinite;
 		}
 
-		.card:nth-child(3n + 1),
-		.card:nth-child(3n + 2),
-		.card:nth-child(3n) {
+		.card:nth-child(3n + 1) {
 			animation-delay: 0s;
+		}
+		.card:nth-child(3n + 2) {
+			animation-delay: 0.55s;
+		}
+		.card:nth-child(3n) {
+			animation-delay: 1.1s;
+		}
+
+		@keyframes card-float-3d {
+			0%,
+			100% {
+				transform: translateY(0) rotateX(4deg) rotateY(-6deg) scale(1);
+			}
+			50% {
+				transform: translateY(-10px) rotateX(-3deg) rotateY(6deg) scale(1.02);
+			}
 		}
 
 		.card-content {
