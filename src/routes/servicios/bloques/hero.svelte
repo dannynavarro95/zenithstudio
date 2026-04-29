@@ -35,6 +35,7 @@
 	let isMobileLayout = false;
 	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
 	let mobilePauseUntil = 0;
+	let mobileActiveIndex = 0;
 
 	type Particle = {
 		x: number;
@@ -175,7 +176,28 @@
 			if (mobileHeroTrack.scrollLeft >= half) {
 				mobileHeroTrack.scrollLeft -= half;
 			}
+			updateMobileActiveCard();
 		}, 16);
+	}
+
+	function updateMobileActiveCard() {
+		if (!mobileHeroTrack) return;
+		const cards = mobileHeroTrack.querySelectorAll<HTMLElement>('.hero-mobile-card');
+		if (!cards.length) return;
+		const trackRect = mobileHeroTrack.getBoundingClientRect();
+		const centerX = trackRect.left + trackRect.width / 2;
+		let bestIdx = 0;
+		let bestDist = Number.POSITIVE_INFINITY;
+		cards.forEach((card, idx) => {
+			const r = card.getBoundingClientRect();
+			const cardCenter = r.left + r.width / 2;
+			const dist = Math.abs(cardCenter - centerX);
+			if (dist < bestDist) {
+				bestDist = dist;
+				bestIdx = idx;
+			}
+		});
+		mobileActiveIndex = bestIdx;
 	}
 
 	function handleSectionMouseMove(event: MouseEvent) {
@@ -247,6 +269,7 @@
 		}
 		if (isMobileLayout) {
 			requestAnimationFrame(() => startMobileAutoScroll());
+			requestAnimationFrame(() => updateMobileActiveCard());
 		}
 
 		return () => {
@@ -349,7 +372,7 @@
 <section class="hero-mobile" aria-label="Servicios destacados en movil">
 	<div class="hero-mobile-header">
 		<p class="hero-mobile-eyebrow">Excelencia Tecnica</p>
-		<h1 class="hero-mobile-title">Nuestros Servicios</h1>
+		<h1 class="hero-mobile-title section-title">Nuestros <span class="gradient-title">Servicios</span></h1>
 		<p class="hero-mobile-subtitle">Desliza o deja que el carrusel avance automaticamente</p>
 	</div>
 
@@ -361,9 +384,13 @@
 			on:touchmove={() => pauseMobileAutoScroll(2600)}
 			on:touchend={() => pauseMobileAutoScroll(1100)}
 			on:touchcancel={() => pauseMobileAutoScroll(1100)}
+			on:scroll={() => {
+				pauseMobileAutoScroll(1400);
+				updateMobileActiveCard();
+			}}
 		>
-			{#each displayServices as service}
-				<article class="hero-mobile-card">
+			{#each displayServices as service, i}
+				<article class="hero-mobile-card" class:hero-mobile-card--active={i === mobileActiveIndex}>
 					<div class="hero-mobile-card-content">
 						<i class="{service.icon} hero-mobile-card-icon"></i>
 						<h3 class="hero-mobile-card-title">{service.title}</h3>
@@ -731,11 +758,8 @@
 			font-weight: 900;
 			letter-spacing: -0.04em;
 			line-height: 1.02;
-			background: linear-gradient(102deg, #f7fafc 0%, #8df2d0 36%, #49e4b0 55%, #d9e5ef 100%);
-			-webkit-background-clip: text;
-			background-clip: text;
-			color: transparent;
-			text-shadow: 0 0 32px rgba(73, 228, 176, 0.2);
+			color: var(--color-text-light);
+			text-shadow: 0 0 26px rgba(73, 228, 176, 0.16);
 		}
 
 		.hero-mobile-subtitle {
@@ -814,6 +838,17 @@
 			position: relative;
 			overflow: hidden;
 			animation: mobile-card-depth 4.8s ease-in-out infinite;
+			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+		}
+
+		.hero-mobile-card--active {
+			transform: scale(1.06) translateY(-2px);
+			border-color: rgba(73, 228, 176, 0.55);
+			box-shadow:
+				0 28px 50px rgba(0, 0, 0, 0.5),
+				0 0 0 1px rgba(73, 228, 176, 0.35) inset,
+				0 0 34px rgba(73, 228, 176, 0.28);
+			z-index: 4;
 		}
 
 		.hero-mobile-card-content {
@@ -848,6 +883,11 @@
 			opacity: 0.55;
 			pointer-events: none;
 			animation: card-floor-shadow 4.8s ease-in-out infinite;
+		}
+
+		.hero-mobile-card--active::after {
+			opacity: 0.82;
+			transform: scale(1.12);
 		}
 
 		.hero-mobile-card:nth-child(3n + 1) {
