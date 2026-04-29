@@ -299,6 +299,7 @@
 	</div>
 
 	<!-- Contenido Principal (Tarjetas) -->
+	<div class="mobile-test-marker" aria-hidden="true">PRUEBA</div>
 	<div class="cards-wrapper" class:is-interactive={hasInteracted && !isHoveringText}>
 		<div
 			class="cards-track"
@@ -709,6 +710,24 @@
 			perspective-origin: 50% 45%;
 			-webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 			mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+		}
+
+		.mobile-test-marker {
+			position: relative;
+			z-index: 6;
+			display: inline-flex;
+			margin-top: 1rem;
+			margin-bottom: 0.55rem;
+			padding: 0.35rem 0.75rem;
+			border-radius: 999px;
+			background: rgba(73, 228, 176, 0.22);
+			border: 1px solid rgba(73, 228, 176, 0.45);
+			color: #eafff7;
+			font-size: 0.75rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			box-shadow: 0 0 14px rgba(73, 228, 176, 0.25);
 		}
 
 		.cards-track {
