@@ -35,10 +35,11 @@
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
 	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
-	let mobileHighlightId: ReturnType<typeof setInterval> | null = null;
 	let mobilePauseUntil = 0;
 	let isProgrammaticMobileScroll = false;
 	let mobileHighlightIndex = 0;
+	const MOBILE_SCROLL_PX_PER_TICK = 1.45;
+	const MOBILE_CARD_STRIDE = 250;
 
 	type Particle = {
 		x: number;
@@ -167,13 +168,6 @@
 		}
 	}
 
-	function stopMobileHighlightCycle() {
-		if (mobileHighlightId) {
-			clearInterval(mobileHighlightId);
-			mobileHighlightId = null;
-		}
-	}
-
 	function startMobileAutoScroll() {
 		if (!browser || !isMobileLayout || !mobileCarousel || mobileAutoScrollId) return;
 		pauseMobileAutoScroll(1000);
@@ -183,19 +177,19 @@
 			const half = mobileCarousel.scrollWidth / 2;
 			if (half <= mobileCarousel.clientWidth + 8) return;
 			isProgrammaticMobileScroll = true;
-			mobileCarousel.scrollLeft += 1.25;
+			mobileCarousel.scrollLeft += MOBILE_SCROLL_PX_PER_TICK;
 			normalizeMobileInfiniteScroll();
+			syncMobileHighlightToScroll();
 			requestAnimationFrame(() => {
 				isProgrammaticMobileScroll = false;
 			});
 		}, 16);
 	}
 
-	function startMobileHighlightCycle() {
-		if (!isMobileLayout || mobileHighlightId) return;
-		mobileHighlightId = setInterval(() => {
-			mobileHighlightIndex = (mobileHighlightIndex + 1) % displayServices.length;
-		}, 1300);
+	function syncMobileHighlightToScroll() {
+		if (!mobileCarousel || !displayServices.length) return;
+		const normalized = Math.floor(mobileCarousel.scrollLeft / MOBILE_CARD_STRIDE);
+		mobileHighlightIndex = ((normalized % displayServices.length) + displayServices.length) % displayServices.length;
 	}
 
 	function normalizeMobileInfiniteScroll() {
@@ -256,10 +250,9 @@
 			}
 			if (isMobileLayout) {
 				requestAnimationFrame(() => startMobileAutoScroll());
-				startMobileHighlightCycle();
+				requestAnimationFrame(() => syncMobileHighlightToScroll());
 			} else {
 				stopMobileAutoScroll();
-				stopMobileHighlightCycle();
 			}
 		};
 		mq.addEventListener('change', onMq);
@@ -281,7 +274,7 @@
 		}
 		if (isMobileLayout) {
 			requestAnimationFrame(() => startMobileAutoScroll());
-			startMobileHighlightCycle();
+			requestAnimationFrame(() => syncMobileHighlightToScroll());
 		}
 
 		return () => {
@@ -289,7 +282,6 @@
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
 			stopMobileAutoScroll();
-			stopMobileHighlightCycle();
 		};
 	});
 
@@ -397,6 +389,7 @@
 				pauseMobileAutoScroll(1400);
 			}
 			normalizeMobileInfiniteScroll();
+			syncMobileHighlightToScroll();
 		}}
 	>
 		<div
