@@ -38,7 +38,7 @@
 	let mobilePauseUntil = 0;
 	let isProgrammaticMobileScroll = false;
 	let mobileHighlightIndex = 0;
-	const MOBILE_SCROLL_PX_PER_TICK = 1.62;
+	const MOBILE_SCROLL_PX_PER_TICK = 1.78;
 	const MOBILE_CARD_STRIDE = 252;
 
 	type Particle = {
@@ -188,7 +188,9 @@
 
 	function syncMobileHighlightToScroll() {
 		if (!mobileCarousel || !displayServices.length) return;
-		const normalized = Math.floor(mobileCarousel.scrollLeft / MOBILE_CARD_STRIDE);
+		// Adelantamos el foco para que destaque cuando la tarjeta empieza a entrar por la derecha.
+		const leadOffset = mobileCarousel.clientWidth * 0.88;
+		const normalized = Math.floor((mobileCarousel.scrollLeft + leadOffset) / MOBILE_CARD_STRIDE);
 		mobileHighlightIndex = ((normalized % displayServices.length) + displayServices.length) % displayServices.length;
 	}
 
