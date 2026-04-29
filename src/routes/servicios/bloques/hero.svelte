@@ -37,7 +37,6 @@
 	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
 	let mobilePauseUntil = 0;
 	let isProgrammaticMobileScroll = false;
-	let mobileHighlightIndex = 0;
 	const MOBILE_SCROLL_PX_PER_TICK = 2.35;
 	const MOBILE_CARD_STRIDE = 252;
 
@@ -187,11 +186,20 @@
 	}
 
 	function syncMobileHighlightToScroll() {
-		if (!mobileCarousel || !displayServices.length) return;
-		// Adelantamos el foco para que destaque cuando la tarjeta empieza a entrar por la derecha.
-		const leadOffset = mobileCarousel.clientWidth * 0.88;
-		const normalized = Math.floor((mobileCarousel.scrollLeft + leadOffset) / MOBILE_CARD_STRIDE);
-		mobileHighlightIndex = ((normalized % displayServices.length) + displayServices.length) % displayServices.length;
+		if (!mobileCarousel || !mobileHeroTrack) return;
+		const cards = mobileHeroTrack.querySelectorAll<HTMLElement>('.hero-mobile-card');
+		if (!cards.length) return;
+		const viewportRect = mobileCarousel.getBoundingClientRect();
+		// Punto de foco adelantado a la derecha para pre-destacar.
+		const focusX = viewportRect.left + viewportRect.width * 0.86;
+		const influence = viewportRect.width * 0.7;
+		cards.forEach((card) => {
+			const r = card.getBoundingClientRect();
+			const centerX = r.left + r.width / 2;
+			const dist = Math.abs(centerX - focusX);
+			const focus = Math.max(0, 1 - dist / influence);
+			card.style.setProperty('--focus', focus.toFixed(3));
+		});
 	}
 
 	function normalizeMobileInfiniteScroll() {
@@ -402,8 +410,8 @@
 			on:touchend={() => pauseMobileAutoScroll(1100)}
 			on:touchcancel={() => pauseMobileAutoScroll(1100)}
 		>
-			{#each displayServices as service, i}
-				<article class="hero-mobile-card" class:hero-mobile-card--turn={i === mobileHighlightIndex}>
+			{#each displayServices as service}
+				<article class="hero-mobile-card">
 					<div class="hero-mobile-card-content">
 						<i class="{service.icon} hero-mobile-card-icon"></i>
 						<h3 class="hero-mobile-card-title">{service.title}</h3>
@@ -840,6 +848,9 @@
 		}
 
 		.hero-mobile-card {
+			--focus: 0;
+			--tilt-y: -4deg;
+			--tilt-x: 1deg;
 			flex: 0 0 auto;
 			width: 235px;
 			height: 285px;
@@ -855,37 +866,23 @@
 			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, filter 0.35s ease;
 			transform-origin: center bottom;
 			filter: saturate(0.95);
-			animation:
-				mobile-card-depth 4.8s ease-in-out infinite,
-				mobile-card-rock-left 3.6s ease-in-out infinite;
+			animation: mobile-card-depth 4.8s ease-in-out infinite;
+			transform: perspective(900px) rotateY(var(--tilt-y)) rotateX(var(--tilt-x))
+				translateY(calc(var(--focus) * -6px)) scale(calc(0.98 + var(--focus) * 0.1));
 		}
 
 		.hero-mobile-card:nth-child(2n) {
-			animation-name: mobile-card-depth, mobile-card-rock-right;
+			--tilt-y: 4deg;
 		}
 
 		.hero-mobile-card:nth-child(3n + 1) {
-			animation-delay: 0s, 0s;
+			animation-delay: 0s;
 		}
 		.hero-mobile-card:nth-child(3n + 2) {
-			animation-delay: 0.8s, 0.35s;
+			animation-delay: 0.8s;
 		}
 		.hero-mobile-card:nth-child(3n) {
-			animation-delay: 1.6s, 0.7s;
-		}
-
-		.hero-mobile-card--turn {
-			transform: perspective(900px) rotateY(0deg) rotateX(0deg) scale(1.08) translateY(-3px);
-			border-color: rgba(73, 228, 176, 0.75);
-			box-shadow:
-				0 26px 46px rgba(0, 0, 0, 0.48),
-				0 0 0 2px rgba(73, 228, 176, 0.45) inset,
-				0 0 34px rgba(73, 228, 176, 0.32);
-			z-index: 4;
-			filter: saturate(1.05);
-			animation:
-				mobile-card-depth 4.8s ease-in-out infinite,
-				mobile-card-focus-rock 2.8s ease-in-out infinite;
+			animation-delay: 1.6s;
 		}
 
 
@@ -921,11 +918,7 @@
 			opacity: 0.55;
 			pointer-events: none;
 			animation: card-floor-shadow 4.8s ease-in-out infinite;
-		}
-
-		.hero-mobile-card--turn::after {
-			opacity: 0.88;
-			transform: scale(1.16);
+			transition: opacity 0.28s ease, transform 0.28s ease;
 		}
 
 
@@ -987,44 +980,14 @@
 			100% {
 				box-shadow:
 					0 12px 34px rgba(0, 0, 0, 0.32),
-					0 0 0 1px rgba(73, 228, 176, 0.1) inset,
-					0 0 22px rgba(73, 228, 176, 0.08);
+					0 0 0 1px rgba(73, 228, 176, calc(0.08 + var(--focus) * 0.5)) inset,
+					0 0 calc(20px + var(--focus) * 16px) rgba(73, 228, 176, calc(0.07 + var(--focus) * 0.24));
 			}
 			50% {
 				box-shadow:
 					0 20px 40px rgba(0, 0, 0, 0.42),
-					0 0 0 1px rgba(73, 228, 176, 0.2) inset,
-					0 0 34px rgba(73, 228, 176, 0.16);
-			}
-		}
-
-		@keyframes mobile-card-rock-left {
-			0%,
-			100% {
-				transform: perspective(900px) rotateY(-7deg) rotateX(1.4deg) translateY(0);
-			}
-			50% {
-				transform: perspective(900px) rotateY(-2.5deg) rotateX(0.6deg) translateY(-1px);
-			}
-		}
-
-		@keyframes mobile-card-rock-right {
-			0%,
-			100% {
-				transform: perspective(900px) rotateY(7deg) rotateX(1.4deg) translateY(0);
-			}
-			50% {
-				transform: perspective(900px) rotateY(2.5deg) rotateX(0.6deg) translateY(-1px);
-			}
-		}
-
-		@keyframes mobile-card-focus-rock {
-			0%,
-			100% {
-				transform: perspective(900px) rotateY(-1.5deg) rotateX(0deg) scale(1.08) translateY(-3px);
-			}
-			50% {
-				transform: perspective(900px) rotateY(1.5deg) rotateX(0deg) scale(1.1) translateY(-5px);
+					0 0 0 1px rgba(73, 228, 176, calc(0.16 + var(--focus) * 0.56)) inset,
+					0 0 calc(30px + var(--focus) * 20px) rgba(73, 228, 176, calc(0.12 + var(--focus) * 0.3));
 			}
 		}
 
