@@ -174,9 +174,7 @@
 			const half = mobileCarousel.scrollWidth / 2;
 			if (half <= mobileCarousel.clientWidth + 8) return;
 			mobileCarousel.scrollLeft += 1;
-			if (mobileCarousel.scrollLeft >= half) {
-				mobileCarousel.scrollLeft -= half;
-			}
+			normalizeMobileInfiniteScroll();
 			updateMobileActiveCard();
 		}, 16);
 	}
@@ -199,6 +197,18 @@
 			}
 		});
 		mobileActiveIndex = bestIdx;
+	}
+
+	function normalizeMobileInfiniteScroll() {
+		if (!mobileCarousel) return;
+		const half = mobileCarousel.scrollWidth / 2;
+		if (half <= mobileCarousel.clientWidth + 8) return;
+		if (mobileCarousel.scrollLeft >= half) {
+			mobileCarousel.scrollLeft -= half;
+		}
+		if (mobileCarousel.scrollLeft < 0.5) {
+			mobileCarousel.scrollLeft += half;
+		}
 	}
 
 	function handleSectionMouseMove(event: MouseEvent) {
@@ -382,6 +392,7 @@
 		bind:this={mobileCarousel}
 		on:scroll={() => {
 			pauseMobileAutoScroll(1400);
+			normalizeMobileInfiniteScroll();
 			updateMobileActiveCard();
 		}}
 	>
@@ -961,14 +972,12 @@
 		@keyframes mobile-card-depth {
 			0%,
 			100% {
-				transform: translateY(0) scale(0.985);
 				box-shadow:
 					0 12px 34px rgba(0, 0, 0, 0.32),
 					0 0 0 1px rgba(73, 228, 176, 0.1) inset,
 					0 0 22px rgba(73, 228, 176, 0.08);
 			}
 			50% {
-				transform: translateY(-4px) scale(1);
 				box-shadow:
 					0 20px 40px rgba(0, 0, 0, 0.42),
 					0 0 0 1px rgba(73, 228, 176, 0.2) inset,
