@@ -38,8 +38,8 @@
 	let mobilePauseUntil = 0;
 	let isProgrammaticMobileScroll = false;
 	let mobileHighlightIndex = 0;
-	const MOBILE_SCROLL_PX_PER_TICK = 1.45;
-	const MOBILE_CARD_STRIDE = 250;
+	const MOBILE_SCROLL_PX_PER_TICK = 1.62;
+	const MOBILE_CARD_STRIDE = 252;
 
 	type Particle = {
 		x: number;
