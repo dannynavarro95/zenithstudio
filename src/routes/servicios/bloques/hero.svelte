@@ -32,6 +32,8 @@
 
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
+	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
+	let mobilePauseUntil = 0;
 
 	type Particle = {
 		x: number;
@@ -147,9 +149,35 @@
 		isMobileLayout = window.matchMedia('(max-width: 900px)').matches;
 	}
 
+	function pauseMobileAutoScroll(ms = 1800) {
+		mobilePauseUntil = Date.now() + ms;
+	}
+
+	function stopMobileAutoScroll() {
+		if (mobileAutoScrollId) {
+			clearInterval(mobileAutoScrollId);
+			mobileAutoScrollId = null;
+		}
+	}
+
+	function startMobileAutoScroll() {
+		if (!browser || !isMobileLayout || !track || mobileAutoScrollId) return;
+		pauseMobileAutoScroll(1000);
+		mobileAutoScrollId = setInterval(() => {
+			if (!isMobileLayout || !track) return;
+			if (Date.now() < mobilePauseUntil) return;
+			const half = track.scrollWidth / 2;
+			if (half <= track.clientWidth + 8) return;
+			track.scrollLeft += 1;
+			if (track.scrollLeft >= half) {
+				track.scrollLeft -= half;
+			}
+		}, 16);
+	}
 
 	function handleSectionMouseMove(event: MouseEvent) {
 		if (!container || !track) return;
+		if (isMobileLayout) return;
 		if (!hasInteracted) {
 			hasInteracted = true;
 		}
@@ -191,6 +219,11 @@
 			} else if (!isMobileLayout && trailCtx && particleCtx && !animationFrameId) {
 				animationFrameId = requestAnimationFrame(animateCursor);
 			}
+			if (isMobileLayout) {
+				startMobileAutoScroll();
+			} else {
+				stopMobileAutoScroll();
+			}
 		};
 		mq.addEventListener('change', onMq);
 
@@ -209,11 +242,15 @@
 				animationFrameId = requestAnimationFrame(animateCursor);
 			}
 		}
+		if (isMobileLayout) {
+			startMobileAutoScroll();
+		}
 
 		return () => {
 			mq.removeEventListener('change', onMq);
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
+			stopMobileAutoScroll();
 		};
 	});
 
@@ -291,6 +328,10 @@
 		<div
 			class="cards-track"
 			bind:this={track}
+			on:touchstart={() => pauseMobileAutoScroll(2600)}
+			on:touchmove={() => pauseMobileAutoScroll(2600)}
+			on:touchend={() => pauseMobileAutoScroll(1300)}
+			on:touchcancel={() => pauseMobileAutoScroll(1300)}
 		>
 			{#each displayServices as service}
 				<div class="card">
