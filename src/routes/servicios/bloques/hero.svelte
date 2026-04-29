@@ -146,7 +146,9 @@
 
 	function syncMobileLayout() {
 		if (!browser || typeof window === 'undefined') return;
-		isMobileLayout = window.matchMedia('(max-width: 900px)').matches;
+		const narrow = window.matchMedia('(max-width: 900px)').matches;
+		const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+		isMobileLayout = narrow || coarsePointer;
 	}
 
 	function pauseMobileAutoScroll(ms = 1800) {
@@ -220,7 +222,7 @@
 				animationFrameId = requestAnimationFrame(animateCursor);
 			}
 			if (isMobileLayout) {
-				startMobileAutoScroll();
+				requestAnimationFrame(() => startMobileAutoScroll());
 			} else {
 				stopMobileAutoScroll();
 			}
@@ -243,7 +245,7 @@
 			}
 		}
 		if (isMobileLayout) {
-			startMobileAutoScroll();
+			requestAnimationFrame(() => startMobileAutoScroll());
 		}
 
 		return () => {
