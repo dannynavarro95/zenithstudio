@@ -35,8 +35,10 @@
 	/** Vista estrecha: sin canvas de cursor; carrusel manual y resplandor al tacto. */
 	let isMobileLayout = false;
 	let mobileAutoScrollId: ReturnType<typeof setInterval> | null = null;
+	let mobileHighlightId: ReturnType<typeof setInterval> | null = null;
 	let mobilePauseUntil = 0;
 	let isProgrammaticMobileScroll = false;
+	let mobileHighlightIndex = 0;
 
 	type Particle = {
 		x: number;
@@ -165,6 +167,13 @@
 		}
 	}
 
+	function stopMobileHighlightCycle() {
+		if (mobileHighlightId) {
+			clearInterval(mobileHighlightId);
+			mobileHighlightId = null;
+		}
+	}
+
 	function startMobileAutoScroll() {
 		if (!browser || !isMobileLayout || !mobileCarousel || mobileAutoScrollId) return;
 		pauseMobileAutoScroll(1000);
@@ -174,12 +183,19 @@
 			const half = mobileCarousel.scrollWidth / 2;
 			if (half <= mobileCarousel.clientWidth + 8) return;
 			isProgrammaticMobileScroll = true;
-			mobileCarousel.scrollLeft += 1;
+			mobileCarousel.scrollLeft += 1.25;
 			normalizeMobileInfiniteScroll();
 			requestAnimationFrame(() => {
 				isProgrammaticMobileScroll = false;
 			});
 		}, 16);
+	}
+
+	function startMobileHighlightCycle() {
+		if (!isMobileLayout || mobileHighlightId) return;
+		mobileHighlightId = setInterval(() => {
+			mobileHighlightIndex = (mobileHighlightIndex + 1) % displayServices.length;
+		}, 1300);
 	}
 
 	function normalizeMobileInfiniteScroll() {
@@ -240,8 +256,10 @@
 			}
 			if (isMobileLayout) {
 				requestAnimationFrame(() => startMobileAutoScroll());
+				startMobileHighlightCycle();
 			} else {
 				stopMobileAutoScroll();
+				stopMobileHighlightCycle();
 			}
 		};
 		mq.addEventListener('change', onMq);
@@ -263,6 +281,7 @@
 		}
 		if (isMobileLayout) {
 			requestAnimationFrame(() => startMobileAutoScroll());
+			startMobileHighlightCycle();
 		}
 
 		return () => {
@@ -270,6 +289,7 @@
 			window.removeEventListener('resize', resizeCanvas);
 			if (animationFrameId) cancelAnimationFrame(animationFrameId);
 			stopMobileAutoScroll();
+			stopMobileHighlightCycle();
 		};
 	});
 
@@ -387,8 +407,8 @@
 			on:touchend={() => pauseMobileAutoScroll(1100)}
 			on:touchcancel={() => pauseMobileAutoScroll(1100)}
 		>
-			{#each displayServices as service}
-				<article class="hero-mobile-card">
+			{#each displayServices as service, i}
+				<article class="hero-mobile-card" class:hero-mobile-card--turn={i === mobileHighlightIndex}>
 					<div class="hero-mobile-card-content">
 						<i class="{service.icon} hero-mobile-card-icon"></i>
 						<h3 class="hero-mobile-card-title">{service.title}</h3>
@@ -840,6 +860,16 @@
 			transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 		}
 
+		.hero-mobile-card--turn {
+			transform: scale(1.06) translateY(-3px);
+			border-color: rgba(73, 228, 176, 0.75);
+			box-shadow:
+				0 26px 46px rgba(0, 0, 0, 0.48),
+				0 0 0 2px rgba(73, 228, 176, 0.45) inset,
+				0 0 34px rgba(73, 228, 176, 0.32);
+			z-index: 4;
+		}
+
 
 		.hero-mobile-card-content {
 			height: 100%;
@@ -873,6 +903,11 @@
 			opacity: 0.55;
 			pointer-events: none;
 			animation: card-floor-shadow 4.8s ease-in-out infinite;
+		}
+
+		.hero-mobile-card--turn::after {
+			opacity: 0.88;
+			transform: scale(1.16);
 		}
 
 
