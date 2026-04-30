@@ -794,7 +794,8 @@
 		.hero-mobile-carousel {
 			position: relative;
 			overflow-x: auto;
-			overflow-y: hidden;
+			overflow-y: visible;
+			padding-top: 0.45rem;
 			-webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 			mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 			-webkit-overflow-scrolling: touch;
@@ -842,7 +843,7 @@
 			display: flex;
 			gap: 0.95rem;
 			width: max-content;
-			padding: 0.7rem 0.95rem 1rem;
+			padding: 0.95rem 0.95rem 1rem;
 			animation: none;
 			pointer-events: none;
 		}
@@ -868,7 +869,7 @@
 			filter: saturate(0.95);
 			animation: mobile-card-depth 4.8s ease-in-out infinite;
 			transform: perspective(900px) rotateY(var(--tilt-y)) rotateX(var(--tilt-x))
-				translateY(calc(var(--focus) * -6px)) scale(calc(0.98 + var(--focus) * 0.1));
+				translateY(calc(var(--focus) * -4px)) scale(calc(0.98 + var(--focus) * 0.1));
 		}
 
 		.hero-mobile-card:nth-child(2n) {
@@ -876,13 +877,25 @@
 		}
 
 		.hero-mobile-card:nth-child(3n + 1) {
-			animation-delay: 0s;
+			animation-name: mobile-card-depth, mobile-card-sway-left;
+			animation-duration: 4.8s, 3.4s;
+			animation-timing-function: ease-in-out, ease-in-out;
+			animation-iteration-count: infinite, infinite;
+			animation-delay: 0s, 0s;
 		}
 		.hero-mobile-card:nth-child(3n + 2) {
-			animation-delay: 0.8s;
+			animation-name: mobile-card-depth, mobile-card-sway-right;
+			animation-duration: 4.8s, 3.4s;
+			animation-timing-function: ease-in-out, ease-in-out;
+			animation-iteration-count: infinite, infinite;
+			animation-delay: 0.8s, 0.35s;
 		}
 		.hero-mobile-card:nth-child(3n) {
-			animation-delay: 1.6s;
+			animation-name: mobile-card-depth, mobile-card-sway-left;
+			animation-duration: 4.8s, 3.4s;
+			animation-timing-function: ease-in-out, ease-in-out;
+			animation-iteration-count: infinite, infinite;
+			animation-delay: 1.6s, 0.7s;
 		}
 
 
@@ -988,6 +1001,30 @@
 					0 20px 40px rgba(0, 0, 0, 0.42),
 					0 0 0 1px rgba(73, 228, 176, calc(0.16 + var(--focus) * 0.56)) inset,
 					0 0 calc(30px + var(--focus) * 20px) rgba(73, 228, 176, calc(0.12 + var(--focus) * 0.3));
+			}
+		}
+
+		@keyframes mobile-card-sway-left {
+			0%,
+			100% {
+				transform: perspective(900px) rotateY(calc(var(--tilt-y) - 1.2deg)) rotateX(var(--tilt-x))
+					translateY(calc(var(--focus) * -4px)) scale(calc(0.98 + var(--focus) * 0.1));
+			}
+			50% {
+				transform: perspective(900px) rotateY(calc(var(--tilt-y) + 1.2deg)) rotateX(var(--tilt-x))
+					translateY(calc(var(--focus) * -5px)) scale(calc(0.98 + var(--focus) * 0.1));
+			}
+		}
+
+		@keyframes mobile-card-sway-right {
+			0%,
+			100% {
+				transform: perspective(900px) rotateY(calc(var(--tilt-y) + 1.2deg)) rotateX(var(--tilt-x))
+					translateY(calc(var(--focus) * -4px)) scale(calc(0.98 + var(--focus) * 0.1));
+			}
+			50% {
+				transform: perspective(900px) rotateY(calc(var(--tilt-y) - 1.2deg)) rotateX(var(--tilt-x))
+					translateY(calc(var(--focus) * -5px)) scale(calc(0.98 + var(--focus) * 0.1));
 			}
 		}
 
