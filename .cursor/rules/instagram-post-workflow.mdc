@@ -1,0 +1,29 @@
+---
+description: Workflow obligatorio para nuevos posts de Instagram de Zenith Studio
+alwaysApply: true
+---
+
+# Instagram Post Workflow (Zenith Studio)
+
+Cuando el usuario pida crear un nuevo post de Instagram, seguir siempre este flujo completo:
+
+1. Crear/actualizar **dos archivos de texto** con el mismo numero de post:
+   - `static/Instagram/copy_diseno_posts/post_XXX.txt` (solo texto que va dentro de la imagen).
+   - `static/Instagram/descripciones_posts/post_XXX.txt` (solo caption para Instagram + CTA + hashtags).
+
+2. Generar o actualizar la **imagen final lista para publicar**:
+   - Ruta objetivo: `static/Instagram/imagenes/post_XXX a.png`.
+   - Mantener visible la plantilla y branding de Zenith Studio (logo y footer).
+   - Respetar formato visual para Instagram vertical.
+
+3. Calidad de contenido (obligatorio):
+   - No repetir literalmente hooks, bullets o cierres de posts anteriores.
+   - Proponer angulos nuevos orientados a captar clientes reales.
+   - Mantener tono premium, claro, comercial y directo.
+   - Incluir CTA accionable en la descripcion (ej. DM con palabra clave).
+   - Las descripciones de Instagram deben ser cortas y resumidas: 3-5 lineas utiles + hashtags, evitando bloques largos.
+
+4. Consistencia operativa:
+   - Mantener separacion estricta entre copy visual y caption.
+   - Revisar legibilidad final (sin solapes, iconos deformados ni cortes).
+   - Entregar siempre resultado final utilizable sin pasos extra del usuario.
